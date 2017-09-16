@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess.FidelizacionClientes\DataAccess.FidelizacionClientes.csproj" />
+    <ProjectReference Include="..\Model.FidelizacionClientes\Model.FidelizacionClientes.csproj" />
+  </ItemGroup>
+
+</Project>

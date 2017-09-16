@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace Web.FidelizacionClientes.Controllers
 {
-    public class HomeController : Controller
+    public class AfiliacionController : Controller
     {
+        // GET: Afiliacion
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }

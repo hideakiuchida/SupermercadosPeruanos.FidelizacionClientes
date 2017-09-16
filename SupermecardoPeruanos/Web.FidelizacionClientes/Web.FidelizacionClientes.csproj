@@ -141,6 +141,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AfiliacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,9 +182,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Afiliacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -203,6 +203,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business.FidelizacionClientes\Business.FidelizacionClientes.csproj">
+      <Project>{96db0d9a-fb5b-48a8-a0df-b0deaa635852}</Project>
+      <Name>Business.FidelizacionClientes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common.FidelizacionClientes\Common.FidelizacionClientes.csproj">
+      <Project>{52d2a7ff-4464-4514-aee6-b43634f0dea7}</Project>
+      <Name>Common.FidelizacionClientes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model.FidelizacionClientes\Model.FidelizacionClientes.csproj">
+      <Project>{e52908c1-31f5-48cb-9c88-09db46421a5b}</Project>
+      <Name>Model.FidelizacionClientes</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.FidelizacionClientes\Common.FidelizacionClientes.csproj" />
+    <ProjectReference Include="..\Model.FidelizacionClientes\Model.FidelizacionClientes.csproj" />
+  </ItemGroup>
+
+</Project>
