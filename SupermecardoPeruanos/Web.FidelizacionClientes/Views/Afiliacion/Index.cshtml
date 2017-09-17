@@ -2,22 +2,25 @@
     ViewBag.Title = "Afiliar Cliente a Tarjeta OH";
 }
 
+@Styles.Render("http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css")
+@Scripts.Render("http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
+
 <div id="afiliar-tarjeta-oh" class="container-fluid">
     <div class="row content">
         <div id="seccion-buscar-cliente" class="col-md-2 well">
-            <h5>Búsqueda de Cliente</h5>
+            <h5 class="subtitulos">Búsqueda de Cliente</h5>
             <div class="input-group">
                 <input id="txtBusquedaPorNumDoc" type="text" class="form-control" placeholder="# de Documento">
                 <div class="input-group-btn">
-                    <button id="btnBuscarCliente" class="btn btn-default" type="submit">
+                    <button id="btnBuscarCliente" class="btn btn-default">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </div>
             </div>
         </div>
         <div class="col-md-5 ">
-            <div id="seccion-datos-cliente" class="well">
-                <h5>Datos del Cliente</h5>
+            <div id="seccion-datos-cliente" class="well secciones-afiliar">
+                <h5 class="subtitulos">Datos del Cliente</h5>
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-md-4" for="codigo">Código:</label>
@@ -46,8 +49,8 @@
                 </div>
             </div>
 
-            <div id="seccion-ingresos" class="well">
-                <h5>Ingresos mensuales</h5>
+            <div id="seccion-ingresos" class="well secciones-afiliar-2">
+                <h5 class="subtitulos">Ingresos mensuales</h5>
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-md-8" for="codigo">Sueldo Mensual:</label>
@@ -73,17 +76,54 @@
         </div>
         <div class="col-md-5">
             
-            <div id="seccion-deudas" class="well">
-                <h5>Deudas en Otras Entidades</h5>
+            <div id="seccion-deudas" class="well secciones-afiliar">
+                <h5 class="subtitulos">Deudas en Otras Entidades</h5>
+                <table id="table_id" class="display">
+                    <thead>
+                        <tr>
+                            <th>Entidad Financiera</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Row 1 Data 1</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                        </tr>
+                        <tr>
+                            <td>Row 2 Data 1</td>
+                            <td>Row 2 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div id="seccion-evaluacion" class="well">
-                <h5>Evaluación</h5>
-                <button id="btnEvaluar" class="btn btn-default" type="submit">
-                    Evaluar
-                </button>
+            <div id="seccion-evaluacion" class="well secciones-afiliar-2">
+                <h5 class="subtitulos">Evaluación</h5>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-5" for="codigo">Número de Tarjeta:</label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" id="txtNumeroTarjeta">
+                        </div>
+                    </div>
+                </div>
+                <div >
+                    <button id="btnEvaluar" class="btn btn-default col-md-12" >
+                        Evaluar
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable();
+    });
+</script>
 

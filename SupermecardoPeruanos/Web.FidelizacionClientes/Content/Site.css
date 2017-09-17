@@ -26,3 +26,21 @@ textarea {
 #afiliar-tarjeta-oh {
     padding-top: 20px;
 }
+
+.subtitulos {
+    font-weight: bold;
+    background: linear-gradient(to bottom right, #241D47, white);
+    color: #0B2625;
+    height: 40px;
+    text-align: center;
+    padding-top: 12px;
+    border-radius: 10px;
+}
+
+.secciones-afiliar {
+    height: 300px
+}
+
+.secciones-afiliar-2 {
+    height: 250px
+}
