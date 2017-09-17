@@ -2,4 +2,88 @@
     ViewBag.Title = "Afiliar Cliente a Tarjeta OH";
 }
 
+<div id="afiliar-tarjeta-oh" class="container-fluid">
+    <div class="row content">
+        <div id="seccion-buscar-cliente" class="col-md-2 well">
+            <h5>Búsqueda de Cliente</h5>
+            <div class="input-group">
+                <input id="txtBusquedaPorNumDoc" type="text" class="form-control" placeholder="# de Documento">
+                <div class="input-group-btn">
+                    <button id="btnBuscarCliente" class="btn btn-default" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 ">
+            <div id="seccion-datos-cliente" class="well">
+                <h5>Datos del Cliente</h5>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="codigo">Código:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="txtCodigo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="codigo">Nombres:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="txtNombres">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="codigo">Apellidos:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="txtApellidos">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="codigo">Núm. de Doc.:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="txtNumeroDocumento">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="seccion-ingresos" class="well">
+                <h5>Ingresos mensuales</h5>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-8" for="codigo">Sueldo Mensual:</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="txtSueldoMensual">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-8" for="codigo">Otros Ingresos:</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="txtOtrosIngresos">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-8" for="codigo">Linea de Crédito Aprobada:</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="txtLineaCredito">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-5">
+            
+            <div id="seccion-deudas" class="well">
+                <h5>Deudas en Otras Entidades</h5>
+            </div>
+
+            <div id="seccion-evaluacion" class="well">
+                <h5>Evaluación</h5>
+                <button id="btnEvaluar" class="btn btn-default" type="submit">
+                    Evaluar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
