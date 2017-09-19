@@ -121,9 +121,18 @@
     </div>
 </div>
 
+@Scripts.Render("~/Scripts/Afiliacion/AfiliacionModule.js")
 <script>
     $(document).ready(function () {
-        $('#table_id').DataTable();
+
+        var afilacionModule = new AfiliacionModule(
+            {
+                urlBuscarAfiliacionCliente: '@Url.Action("BuscarAfiliacionCliente", "Afiliacion")'
+            }
+        );
+
+        afilacionModule.initialize();
     });
+
 </script>
 

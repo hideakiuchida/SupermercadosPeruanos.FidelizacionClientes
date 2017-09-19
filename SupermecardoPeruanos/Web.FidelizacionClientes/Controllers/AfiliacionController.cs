@@ -13,5 +13,11 @@ namespace Web.FidelizacionClientes.Controllers
         {
             return View();
         }
+
+        public JsonResult BuscarAfiliacionCliente(string numeroDocumento)
+        {
+            var data = new { NumeroDocumento = numeroDocumento };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }
