@@ -44,3 +44,13 @@ textarea {
 .secciones-afiliar-2 {
     height: 250px
 }
+
+@media screen and (max-width: 1000px)  {
+    .secciones-afiliar {
+        height: auto
+    }
+
+    .secciones-afiliar-2 {
+        height: auto
+    }
+}
