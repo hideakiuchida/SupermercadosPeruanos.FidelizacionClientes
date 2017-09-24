@@ -1,9 +1,9 @@
 ﻿using Model.FidelizacionClientes;
 using System.Collections.Generic;
 
-namespace Business.FidelizacionClientes.Interfaces
+namespace DataAccess.FidelizacionClientes.Interfaces
 {
-    public interface IAfiliacionBL
+    public interface IAfiliacionDA
     {
         AfiliacionTarjetaOH GetByCliente(string numeroDocumento);
         List<Infocorp> GetInfocorpByCliente(string numeroDocumento);

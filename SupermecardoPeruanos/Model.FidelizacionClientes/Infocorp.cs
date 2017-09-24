@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model.FidelizacionClientes
 {
-    public class Inforcorp
+    public class Infocorp
     {
         public string EntidadFinanciera { get; set; }
         public decimal MontoDeuda { get; set; }

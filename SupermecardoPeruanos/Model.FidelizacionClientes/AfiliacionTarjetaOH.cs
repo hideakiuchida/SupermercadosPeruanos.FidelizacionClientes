@@ -8,7 +8,7 @@ namespace Model.FidelizacionClientes
     {
         public int Codigo { get; set; }
         public string Tipo { get; set; }
-        public int NumeroTarjeta { get; set; }
+        public string NumeroTarjeta { get; set; }
         public string Bin { get; set; }
 
         public Cliente Cliente { get; set; }
