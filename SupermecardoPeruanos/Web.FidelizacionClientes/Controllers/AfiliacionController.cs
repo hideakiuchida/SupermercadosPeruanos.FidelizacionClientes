@@ -22,32 +22,36 @@ namespace Web.FidelizacionClientes.Controllers
             ICalificacionBL calificacionBL = new CalificacionBL();
             IAfiliacionBL afiliacionBL = new AfiliacionBL();
 
+            Calificacion calificacion = new Calificacion();
+            AfiliacionTarjetaOH afiliacion = new AfiliacionTarjetaOH();
+            List<Object> _infocorp = new List<object>();
+
             Cliente cliente = clienteBL.GetCliente(numeroDocumento);
-            if (cliente != null && cliente.Codigo != 0)
+            bool existeCliente = (cliente != null && cliente.Codigo != 0);
+            if (existeCliente)
             {
-                Calificacion calificacion = calificacionBL.GetByCliente(cliente.Codigo);
-                AfiliacionTarjetaOH afiliacion = afiliacionBL.GetByCliente(cliente.Codigo);
+                calificacion = calificacionBL.GetByCliente(cliente.Codigo);
+                afiliacion = afiliacionBL.GetByCliente(cliente.Codigo);
                 List<Infocorp> infocorp = afiliacionBL.GetInfocorpByCliente(cliente.Codigo);
-                List<Object> _infocorp = new List<Object>();
+                _infocorp = new List<Object>();
                 infocorp.ForEach(x => _infocorp.Add(new
                 {
                     EntidadFinanciera = x.EntidadFinanciera,
                     MontoDeuda = x.MontoDeuda,
                     CalificacionSBS = x.CalificacionSBS
-                })
-                );
-
-                var data = new
-                {
-                    Cliente = cliente,
-                    Calificacion = calificacion,
-                    Afiliacion = afiliacion,
-                    Infocorp = _infocorp
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
+                }));
+       
             }
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            var data = new
+            {
+                Cliente = cliente,
+                Calificacion = calificacion,
+                Afiliacion = afiliacion,
+                Infocorp = _infocorp,
+                success = existeCliente
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         /*

@@ -37,10 +37,17 @@
             url: _config.urlBuscarAfiliacionCliente,
             data: { numeroDocumento: _numeroDocumento},
             success: function (data) {
-                _setSeccionDatosCliente(data.Cliente);
-                _setSeccionDatosCalificacion(data.Calificacion);
-                _setSeccionEvaluacion(data.Afiliacion);
-                _setSeccionDeudas(data.Infocorp);
+                if (data.success) {
+                    _setSeccionDatosCliente(data.Cliente);
+                    _setSeccionDatosCalificacion(data.Calificacion);
+                    _setSeccionEvaluacion(data.Afiliacion);
+                    _setSeccionDeudas(data.Infocorp);
+                    
+                }
+                else {
+                    alert('No se encontro el Cliente');
+                }
+
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
