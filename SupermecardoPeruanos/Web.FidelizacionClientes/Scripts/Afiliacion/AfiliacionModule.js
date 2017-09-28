@@ -6,11 +6,11 @@
     };
 
     var _evaluar = function () {
-        var _numeroDocumento = $("#txtBusquedaPorNumDoc").val();
+        var _codigoCliente = $("#txtCodigo").val();
         $.ajax({
             type: "GET",
             url: _config.urlEvaluar,
-            data: { numeroDocumento: _numeroDocumento },
+            data: { codigoCliente: _codigoCliente },
             success: function (data) {
                 var mensaje = "";
                 if (data.EstadoAfiliacion)
@@ -100,7 +100,6 @@
     };
 
     return {
-        initialize: _initialize,
-        buscarAfiliacionCliente: _buscarAfiliacionCliente
+        initialize: _initialize
     };
 };

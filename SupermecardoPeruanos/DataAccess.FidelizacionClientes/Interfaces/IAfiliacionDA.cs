@@ -5,7 +5,7 @@ namespace DataAccess.FidelizacionClientes.Interfaces
 {
     public interface IAfiliacionDA
     {
-        AfiliacionTarjetaOH GetByCliente(string numeroDocumento);
-        List<Infocorp> GetInfocorpByCliente(string numeroDocumento);
+        AfiliacionTarjetaOH GetByCliente(int codigoCliente);
+        List<Infocorp> GetInfocorpByCliente(int codigoCliente);
     }
 }

@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.FidelizacionClientes", "Web.FidelizacionClientes\Web.FidelizacionClientes.csproj", "{A9507686-40F9-48C4-B0C0-ED01BAE8DA4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.FidelizacionClientes", "Common.FidelizacionClientes\Common.FidelizacionClientes.csproj", "{52D2A7FF-4464-4514-AEE6-B43634F0DEA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.FidelizacionClientes", "Common.FidelizacionClientes\Common.FidelizacionClientes.csproj", "{52D2A7FF-4464-4514-AEE6-B43634F0DEA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.FidelizacionClientes", "Model.FidelizacionClientes\Model.FidelizacionClientes.csproj", "{E52908C1-31F5-48CB-9C88-09DB46421A5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model.FidelizacionClientes", "Model.FidelizacionClientes\Model.FidelizacionClientes.csproj", "{E52908C1-31F5-48CB-9C88-09DB46421A5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.FidelizacionClientes", "Business.FidelizacionClientes\Business.FidelizacionClientes.csproj", "{96DB0D9A-FB5B-48A8-A0DF-B0DEAA635852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.FidelizacionClientes", "Business.FidelizacionClientes\Business.FidelizacionClientes.csproj", "{96DB0D9A-FB5B-48A8-A0DF-B0DEAA635852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.FidelizacionClientes", "DataAccess.FidelizacionClientes\DataAccess.FidelizacionClientes.csproj", "{67F2C04A-F63F-4B89-8CB7-21F77C22D5A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.FidelizacionClientes", "DataAccess.FidelizacionClientes\DataAccess.FidelizacionClientes.csproj", "{67F2C04A-F63F-4B89-8CB7-21F77C22D5A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

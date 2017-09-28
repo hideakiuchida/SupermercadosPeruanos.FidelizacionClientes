@@ -4,8 +4,6 @@ using Common.FidelizacionClientes;
 using Model.FidelizacionClientes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Web.FidelizacionClientes.Controllers
@@ -25,25 +23,31 @@ namespace Web.FidelizacionClientes.Controllers
             IAfiliacionBL afiliacionBL = new AfiliacionBL();
 
             Cliente cliente = clienteBL.GetCliente(numeroDocumento);
-            Calificacion calificacion = calificacionBL.GetByCliente(numeroDocumento);
-            AfiliacionTarjetaOH afiliacion = afiliacionBL.GetByCliente(numeroDocumento);
-            List<Infocorp> infocorp = afiliacionBL.GetInfocorpByCliente(numeroDocumento);
-            List<Object> _infocorp = new List<Object>();
-            infocorp.ForEach(x => _infocorp.Add(new
+            if (cliente != null && cliente.Codigo != 0)
             {
-                EntidadFinanciera = x.EntidadFinanciera,
-                MontoDeuda = x.MontoDeuda,
-                CalificacionSBS = x.CalificacionSBS
-            })
-            );
+                Calificacion calificacion = calificacionBL.GetByCliente(cliente.Codigo);
+                AfiliacionTarjetaOH afiliacion = afiliacionBL.GetByCliente(cliente.Codigo);
+                List<Infocorp> infocorp = afiliacionBL.GetInfocorpByCliente(cliente.Codigo);
+                List<Object> _infocorp = new List<Object>();
+                infocorp.ForEach(x => _infocorp.Add(new
+                {
+                    EntidadFinanciera = x.EntidadFinanciera,
+                    MontoDeuda = x.MontoDeuda,
+                    CalificacionSBS = x.CalificacionSBS
+                })
+                );
 
-            var data = new { Cliente = cliente,
-                             Calificacion = calificacion,
-                             Afiliacion = afiliacion,
-                             Infocorp = _infocorp
-            };
+                var data = new
+                {
+                    Cliente = cliente,
+                    Calificacion = calificacion,
+                    Afiliacion = afiliacion,
+                    Infocorp = _infocorp
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         /*
@@ -54,14 +58,14 @@ namespace Web.FidelizacionClientes.Controllers
             Debe contar con Calificacion SBS A o B
 
          */
-        public JsonResult Evaluar(string numeroDocumento)
+        public JsonResult Evaluar(int codigoCliente)
         {
             ICalificacionBL calificacionBL = new CalificacionBL();
             IAfiliacionBL afiliacionBL = new AfiliacionBL();
 
-            Calificacion calificacion = calificacionBL.GetByCliente(numeroDocumento);
-            AfiliacionTarjetaOH afiliacion = afiliacionBL.GetByCliente(numeroDocumento);
-            List<Infocorp> infocorp = afiliacionBL.GetInfocorpByCliente(numeroDocumento);
+            Calificacion calificacion = calificacionBL.GetByCliente(codigoCliente);
+            AfiliacionTarjetaOH afiliacion = afiliacionBL.GetByCliente(codigoCliente);
+            List<Infocorp> infocorp = afiliacionBL.GetInfocorpByCliente(codigoCliente);
 
             decimal ingresoTotal = calificacion.SueldoCliente + calificacion.OtrosIngresos;
             bool isCalifica = false;

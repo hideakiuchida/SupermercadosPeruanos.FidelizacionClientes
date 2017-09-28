@@ -1,66 +1,79 @@
 ﻿using System.Linq;
 using DataAccess.FidelizacionClientes.Interfaces;
+using Common.FidelizacionClientes;
 using Model.FidelizacionClientes;
 using System.Collections.Generic;
 using System;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
     public class AfiliacionDA : IAfiliacionDA
     {
-        Cliente cliente = new Cliente
-        {
-            Codigo = 1,
-            Nombre = "Alonso",
-            ApellidoPaterno = "Uchida",
-            ApellidoMaterno = "Nakasone",
-            NumeroDocumentoIdentidad = "43989637",
-            Direccion = "Av. Mariano Cornejo 874",
-            TipoDocumentoIdentidad = "DNI",
-            Sexo = "Masculino"
-        };
+        private SqlConnection connection;
 
-        public AfiliacionTarjetaOH GetByCliente(string numeroDocumento)
+        public AfiliacionDA()
         {
-            List<AfiliacionTarjetaOH> lista = new List<AfiliacionTarjetaOH>();
-            lista.Add(new AfiliacionTarjetaOH
+            connection = DataConnection.GetConnection();
+        }
+        public AfiliacionTarjetaOH GetByCliente(int codigoCliente)
+        {
+            AfiliacionTarjetaOH afiliacionTarjetaOH = new AfiliacionTarjetaOH();
+        
+            SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_Q01]", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@COD_CLIE", codigoCliente));
+
+            connection.Open();
+
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            if (dataReader.HasRows)
             {
-              Codigo = 1,
-              Tipo = "Credito",
-              NumeroTarjeta = "8767-2342-3423-4323",
-              Bin = "404",
-              Cliente = cliente
-            });
-            var afiliacion = lista.Where(x => x.Cliente.NumeroDocumentoIdentidad == numeroDocumento).FirstOrDefault();
-            return afiliacion;
+                while (dataReader.Read())
+                {
+                    afiliacionTarjetaOH.Codigo = Convert.ToInt32(dataReader["COD_TARJ"]);
+                    afiliacionTarjetaOH.Tipo = dataReader["TIP_TARJ"].ToString();
+                    afiliacionTarjetaOH.NumeroTarjeta = dataReader["NUM_TARJ"].ToString();
+                    afiliacionTarjetaOH.Bin = dataReader["BIN_TARJ"].ToString();
+                }
+            }
+
+            connection.Close();
+
+            return afiliacionTarjetaOH;
         }
 
-        public List<Infocorp> GetInfocorpByCliente(string numeroDocumento)
+        public List<Infocorp> GetInfocorpByCliente(int codigoCliente)
         {
             List<Infocorp> lista = new List<Infocorp>();
-            lista.Add(new Infocorp
+
+            SqlCommand command = new SqlCommand("[dbo].[INFOCORP_Q03]", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@COD_CLIE", codigoCliente));
+
+            connection.Open();
+
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            if (dataReader.HasRows)
             {
-                EntidadFinanciera = "BCP",
-                MontoDeuda = 5000,
-                CalificacionSBS = "A",
-                Cliente = cliente
-            });
-            lista.Add(new Infocorp
-            {
-                EntidadFinanciera = "Interbank",
-                MontoDeuda = 400,
-                CalificacionSBS = "A",
-                Cliente = cliente
-            });
-            lista.Add(new Infocorp
-            {
-                EntidadFinanciera = "Scotiabank",
-                MontoDeuda = 7000,
-                CalificacionSBS = "B",
-                Cliente = cliente
-            });
-            var infocorp = lista.Where(x => x.Cliente.NumeroDocumentoIdentidad == numeroDocumento).ToList();
-            return infocorp;
+                while (dataReader.Read())
+                {
+                    Infocorp infocorp = new Infocorp();
+                    infocorp.EntidadFinanciera = dataReader["ENT_FINA_INFO"].ToString();
+                    infocorp.MontoDeuda = Convert.ToDecimal(dataReader["IMP_MONT_INFO"].ToString());
+                    infocorp.CalificacionSBS = dataReader["CAL_SBSS_INFO"].ToString();
+                    lista.Add(infocorp);
+                }
+            }
+
+            connection.Close();
+
+            return lista;
         }
+
+
     }
 }

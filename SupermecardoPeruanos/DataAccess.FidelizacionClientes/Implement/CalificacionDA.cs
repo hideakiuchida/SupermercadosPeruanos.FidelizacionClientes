@@ -2,35 +2,49 @@
 using DataAccess.FidelizacionClientes.Interfaces;
 using Model.FidelizacionClientes;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using Common.FidelizacionClientes;
+using System;
+using System.Data;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
     public class CalificacionDA : ICalificacionDA
     {
-        public Calificacion GetByCliente(string numeroDocumento)
+        private SqlConnection connection;
+
+        public CalificacionDA()
         {
-            List<Calificacion> listaCalificacion = new List<Calificacion>();
-            listaCalificacion.Add(new Calificacion
+            connection = DataConnection.GetConnection();
+        }
+
+        public Calificacion GetByCliente(int codigoCliente)
+        {
+            Calificacion calificacion = new Calificacion();
+
+            SqlCommand command = new SqlCommand("[dbo].[CALIFICACIONCLIENTE_Q02]", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@COD_CLIE", codigoCliente));
+
+            connection.Open();
+
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            if (dataReader.HasRows)
             {
-                Codigo = 1,
-                CalificacionCrediticia = "Sin Deuda",
-                LineaCredito = 2000,
-                SueldoCliente = 4000,
-                OtrosIngresos = 2000,
-                Estado = "Aprobado",
-                Cliente = new Cliente
+                while (dataReader.Read())
                 {
-                    Codigo = 1,
-                    Nombre = "Alonso",
-                    ApellidoPaterno = "Uchida",
-                    ApellidoMaterno = "Nakasone",
-                    NumeroDocumentoIdentidad = "43989637",
-                    Direccion = "Av. Mariano Cornejo 874",
-                    TipoDocumentoIdentidad = "DNI",
-                    Sexo = "Masculino"
+                    calificacion.Codigo = Convert.ToInt32(dataReader["COD_CALI_CLIE"]);
+                    calificacion.CalificacionCrediticia = dataReader["CAL_CRED"].ToString();
+                    calificacion.LineaCredito = Convert.ToDecimal(dataReader["LIN_CRED"].ToString());
+                    calificacion.SueldoCliente = Convert.ToDecimal(dataReader["SUE_CLIE"].ToString());
+                    calificacion.OtrosIngresos = Convert.ToDecimal(dataReader["OTR_INGR_CLIE"].ToString());
+                    calificacion.Estado = dataReader["EST_CALI_CLIE"].ToString();
                 }
-            });
-            var calificacion = listaCalificacion.Where(x => x.Cliente.NumeroDocumentoIdentidad == numeroDocumento).FirstOrDefault();
+            }
+
+            connection.Close();
+
             return calificacion;
         }
     }

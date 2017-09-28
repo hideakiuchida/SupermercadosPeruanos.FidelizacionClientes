@@ -13,9 +13,9 @@ namespace Business.FidelizacionClientes.Implement
             calificacionDA = new CalificacionDA();
         }
 
-        public Calificacion GetByCliente(string numeroDocumento)
+        public Calificacion GetByCliente(int codigoCliente)
         {
-            return calificacionDA.GetByCliente(numeroDocumento);
+            return calificacionDA.GetByCliente(codigoCliente);
         }
     }
 }

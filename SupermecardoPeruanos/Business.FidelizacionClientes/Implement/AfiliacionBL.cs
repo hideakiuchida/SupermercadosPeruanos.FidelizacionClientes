@@ -16,14 +16,14 @@ namespace Business.FidelizacionClientes.Implement
             afiliacionDA = new AfiliacionDA();
         }
 
-        public AfiliacionTarjetaOH GetByCliente(string numeroDocumento)
+        public AfiliacionTarjetaOH GetByCliente(int codigoCliente)
         {
-            return afiliacionDA.GetByCliente(numeroDocumento);
+            return afiliacionDA.GetByCliente(codigoCliente);
         }
 
-        public List<Infocorp> GetInfocorpByCliente(string numeroDocumento)
+        public List<Infocorp> GetInfocorpByCliente(int codigoCliente)
         {
-            return afiliacionDA.GetInfocorpByCliente(numeroDocumento);
+            return afiliacionDA.GetInfocorpByCliente(codigoCliente);
         }
     }
 }
