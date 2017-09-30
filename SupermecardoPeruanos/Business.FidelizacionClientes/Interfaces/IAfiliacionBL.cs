@@ -5,6 +5,7 @@ namespace Business.FidelizacionClientes.Interfaces
 {
     public interface IAfiliacionBL
     {
+        //Test
         AfiliacionTarjetaOH GetByCliente(int codigoCliente);
         List<Infocorp> GetInfocorpByCliente(int codigoCliente);
     }
