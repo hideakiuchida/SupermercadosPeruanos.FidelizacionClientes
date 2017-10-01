@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.FidelizacionClientes", "Web.FidelizacionClientes\Web.FidelizacionClientes.csproj", "{A9507686-40F9-48C4-B0C0-ED01BAE8DA4B}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.FidelizacionClientes", "Business.FidelizacionClientes\Business.FidelizacionClientes.csproj", "{96DB0D9A-FB5B-48A8-A0DF-B0DEAA635852}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.FidelizacionClientes", "DataAccess.FidelizacionClientes\DataAccess.FidelizacionClientes.csproj", "{67F2C04A-F63F-4B89-8CB7-21F77C22D5A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.CanjePuntos", "Web.CanjePuntos\Web.CanjePuntos.csproj", "{9E5FD2E5-FEE2-4C9C-B5E5-96F376C58369}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.RestServices", "Web.RestServices\Web.RestServices.csproj", "{B3552E54-8D50-47E6-95D0-5EC830D5AE94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +43,19 @@ Global
 		{67F2C04A-F63F-4B89-8CB7-21F77C22D5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F2C04A-F63F-4B89-8CB7-21F77C22D5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F2C04A-F63F-4B89-8CB7-21F77C22D5A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E5FD2E5-FEE2-4C9C-B5E5-96F376C58369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E5FD2E5-FEE2-4C9C-B5E5-96F376C58369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E5FD2E5-FEE2-4C9C-B5E5-96F376C58369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E5FD2E5-FEE2-4C9C-B5E5-96F376C58369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3552E54-8D50-47E6-95D0-5EC830D5AE94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3552E54-8D50-47E6-95D0-5EC830D5AE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3552E54-8D50-47E6-95D0-5EC830D5AE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3552E54-8D50-47E6-95D0-5EC830D5AE94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30C9BBA4-F677-43EB-AB25-3E7C9FD03563}
 	EndGlobalSection
 EndGlobal

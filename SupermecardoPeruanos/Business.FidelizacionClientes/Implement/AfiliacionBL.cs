@@ -25,5 +25,12 @@ namespace Business.FidelizacionClientes.Implement
         {
             return afiliacionDA.GetInfocorpByCliente(codigoCliente);
         }
+        public void InsertCliente(int codigoCliente, string numero, string tipo)
+        {
+           afiliacionDA.InsertCliente(codigoCliente, numero, tipo);
+        }
+
+
+
     }
 }

@@ -7,5 +7,6 @@ namespace DataAccess.FidelizacionClientes.Interfaces
     {
         AfiliacionTarjetaOH GetByCliente(int codigoCliente);
         List<Infocorp> GetInfocorpByCliente(int codigoCliente);
+        void InsertCliente(int codigoCliente, string numero, string tipo);
     }
 }

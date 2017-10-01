@@ -73,6 +73,7 @@ namespace Web.FidelizacionClientes.Controllers
 
             decimal ingresoTotal = calificacion.SueldoCliente + calificacion.OtrosIngresos;
             bool isCalifica = false;
+            string tipo = String.Empty;
 
             if ((ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoA && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoA) ||
                 (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoB && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoB) ||
@@ -80,17 +81,46 @@ namespace Web.FidelizacionClientes.Controllers
             {
                 foreach (var item in infocorp)
                 {
-                    isCalifica = item.CalificacionSBS.Equals("A") || item.CalificacionSBS.Equals("B");
+                    isCalifica = item.CalificacionSBS.Equals("1") || item.CalificacionSBS.Equals("2");
+                    if (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoC)
+                    {
+                        tipo = "Black";
+                    }
+                    else if (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoB)
+                    {
+                        tipo = "Gold";
+                    }
+                    else if (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoA)
+                    {
+                        tipo = "Plata";
+                    }
                 }
             }
 
             var data = new
             {
                 EstadoAfiliacion = isCalifica,
-                NumeroTarjeta = afiliacion.NumeroTarjeta
+                NumeroTarjeta = afiliacion.NumeroTarjeta,
+                Tipo = tipo
             };
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult RegistrarAfiliacion(int codigoCliente, string numero, string tipo)
+        {
+            IAfiliacionBL afiliacionBL = new AfiliacionBL();
+
+            //afiliacionBL.InsertCliente(codigoCliente, numero, tipo);
+            var data = new
+            {
+                success = 1,
+                message = "Se registró existosamente."
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

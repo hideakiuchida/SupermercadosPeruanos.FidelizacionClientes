@@ -2,7 +2,34 @@
 
     var _config = {
         urlBuscarAfiliacionCliente: config.urlBuscarAfiliacionCliente,
-        urlEvaluar: config.urlEvaluar
+        urlEvaluar: config.urlEvaluar,
+        urlRegistrar: config.urlRegistrar
+    };
+
+    var _registrar = function () {
+        var _numeroDocumento = $("#txtNumeroDocumento").val();
+        var _numerotarjeta = $("#lblNumeroTarjeta").text();
+        var _tipo = $("#lblTipo").text();
+
+        $.ajax({
+            type: "POST",
+            url: _config.urlRegistrar,
+            data: {
+                codigoCliente: _numeroDocumento,
+                numero: _numerotarjeta,
+                tipo: _tipo
+            },
+            success: function (data) {
+                if (data.success)
+                    alert(data.message);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+
+        return false;
     };
 
     var _evaluar = function () {
@@ -13,13 +40,18 @@
             data: { codigoCliente: _codigoCliente },
             success: function (data) {
                 var mensaje = "";
-                if (data.EstadoAfiliacion)
-                    mensaje = "La tarjata OH ha sido aprobada."
-                else
-                    mensaje = "La tarjata OH ha sido rechazada."
+                if (data.EstadoAfiliacion) {
+                    mensaje = "La tarjeta OH ha sido aprobada."
+                    $("#lblNumeroTarjeta").text(data.NumeroTarjeta)
+                    $("#lblTipo").text(data.Tipo)
+                }
+                else {
+                    mensaje = "La tarjeta OH ha sido rechazada."
+                    $("#msjs").css("display", "none");
+                    document.getElementById('btnRegistrarAfiliacion').disabled = true;
+                }
 
-                $("#lblMensajeAfiliacion").text(mensaje);
-                $("#lblNumeroTarjeta").text(data.NumeroTarjeta);          
+                $("#lblMensajeAfiliacion").text(mensaje);         
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -42,7 +74,7 @@
                     _setSeccionDatosCalificacion(data.Calificacion);
                     _setSeccionEvaluacion(data.Afiliacion);
                     _setSeccionDeudas(data.Infocorp);
-                    
+                    document.getElementById('btnEvaluar').disabled = false;                     
                 }
                 else {
                     alert('No se encontro el Cliente');
@@ -98,6 +130,10 @@
             $(this).find(".modal-body").load(link.attr("href"));
             _evaluar();
             
+        });
+
+        $("#btnRegistrarAfiliacion").click(function () {
+            _registrar();
         });
     };
 

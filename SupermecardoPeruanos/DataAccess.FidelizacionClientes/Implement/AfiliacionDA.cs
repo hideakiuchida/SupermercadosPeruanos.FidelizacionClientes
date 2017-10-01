@@ -74,6 +74,23 @@ namespace DataAccess.FidelizacionClientes.Implement
             return lista;
         }
 
+        public void InsertCliente(int codigoCliente, string numero, string tipo)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_I01]", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
+            command.Parameters.AddWithValue("@COD_TARJ", 1234);
+            command.Parameters.AddWithValue("@COD_CLIE", codigoCliente);
+            command.Parameters.AddWithValue("@TIP_TARJ", tipo);
+            command.Parameters.AddWithValue("@NUM_TARJ", numero);
+            command.Parameters.AddWithValue("@BIN_TARJ", 0000);
+            command.ExecuteNonQuery();
+
+
+            connection.Close();
+
+
+        }
     }
 }
