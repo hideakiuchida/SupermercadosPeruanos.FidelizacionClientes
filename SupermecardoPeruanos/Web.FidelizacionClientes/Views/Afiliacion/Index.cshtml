@@ -10,7 +10,7 @@
         <div id="seccion-buscar-cliente" class="col-md-2 well">
             <h5 class="subtitulos">Búsqueda de Cliente</h5>
             <div class="input-group">
-                <input id="txtBusquedaPorNumDoc" type="text" class="form-control" placeholder="# de Documento" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
+                <input id="txtBusquedaPorNumDoc" maxlength="8" type="text" class="form-control" placeholder="# de Documento" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
                 <div class="input-group-btn">
                     <button id="btnBuscarCliente" class="btn btn-default">
                         <i class="glyphicon glyphicon-search"></i>

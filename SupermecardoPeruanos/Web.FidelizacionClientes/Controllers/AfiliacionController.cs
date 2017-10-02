@@ -21,10 +21,12 @@ namespace Web.FidelizacionClientes.Controllers
             IClienteBL clienteBL = new ClienteBL();
             ICalificacionBL calificacionBL = new CalificacionBL();
             IAfiliacionBL afiliacionBL = new AfiliacionBL();
+            
 
             Calificacion calificacion = new Calificacion();
             AfiliacionTarjetaOH afiliacion = new AfiliacionTarjetaOH();
             List<Object> _infocorp = new List<object>();
+            String estado = String.Empty;
 
             Cliente cliente = clienteBL.GetCliente(numeroDocumento);
             bool existeCliente = (cliente != null && cliente.Codigo != 0);
@@ -40,7 +42,10 @@ namespace Web.FidelizacionClientes.Controllers
                     MontoDeuda = x.MontoDeuda,
                     CalificacionSBS = x.CalificacionSBS
                 }));
-       
+
+                estado = afiliacionBL.ConsultarEstadoSol(numeroDocumento);
+
+
             }
 
             var data = new
@@ -49,6 +54,7 @@ namespace Web.FidelizacionClientes.Controllers
                 Calificacion = calificacion,
                 Afiliacion = afiliacion,
                 Infocorp = _infocorp,
+                Estado = estado,
                 success = existeCliente
             };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -62,7 +68,7 @@ namespace Web.FidelizacionClientes.Controllers
             Debe contar con Calificacion SBS A o B
 
          */
-        public JsonResult Evaluar(int codigoCliente)
+        public JsonResult Evaluar(int codigoCliente, int numeroDocumento)
         {
             ICalificacionBL calificacionBL = new CalificacionBL();
             IAfiliacionBL afiliacionBL = new AfiliacionBL();
@@ -97,6 +103,11 @@ namespace Web.FidelizacionClientes.Controllers
                 }
             }
 
+            if (isCalifica == false){
+
+                afiliacionBL.UpdateSolicitudDes(numeroDocumento);
+            }
+
             var data = new
             {
                 EstadoAfiliacion = isCalifica,
@@ -112,7 +123,8 @@ namespace Web.FidelizacionClientes.Controllers
         {
             IAfiliacionBL afiliacionBL = new AfiliacionBL();
 
-            //afiliacionBL.InsertCliente(codigoCliente, numero, tipo);
+            afiliacionBL.InsertCliente(codigoCliente, numero, tipo);
+
             var data = new
             {
                 success = 1,

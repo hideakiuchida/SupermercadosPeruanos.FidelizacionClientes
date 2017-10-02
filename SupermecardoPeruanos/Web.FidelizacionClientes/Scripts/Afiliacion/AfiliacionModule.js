@@ -20,8 +20,12 @@
                 tipo: _tipo
             },
             success: function (data) {
-                if (data.success)
+                if (data.success) {
                     alert(data.message);
+                    document.getElementById('btnRegistrarAfiliacion').disabled = true;
+                    _limpiar();
+
+                }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -34,21 +38,25 @@
 
     var _evaluar = function () {
         var _codigoCliente = $("#txtCodigo").val();
+        var _numeroDocumento = $("#txtBusquedaPorNumDoc").val();
         $.ajax({
             type: "GET",
             url: _config.urlEvaluar,
-            data: { codigoCliente: _codigoCliente },
+            data: { codigoCliente: _codigoCliente, numeroDocumento: _numeroDocumento },
             success: function (data) {
                 var mensaje = "";
                 if (data.EstadoAfiliacion) {
                     mensaje = "La tarjeta OH ha sido aprobada."
+                    $("#msjs").css("display", "normal");
                     $("#lblNumeroTarjeta").text(data.NumeroTarjeta)
                     $("#lblTipo").text(data.Tipo)
+                    document.getElementById('btnRegistrarAfiliacion').disabled = false;
                 }
                 else {
                     mensaje = "La tarjeta OH ha sido rechazada."
                     $("#msjs").css("display", "none");
                     document.getElementById('btnRegistrarAfiliacion').disabled = true;
+                    _limpiar();
                 }
 
                 $("#lblMensajeAfiliacion").text(mensaje);         
@@ -74,7 +82,19 @@
                     _setSeccionDatosCalificacion(data.Calificacion);
                     _setSeccionEvaluacion(data.Afiliacion);
                     _setSeccionDeudas(data.Infocorp);
-                    document.getElementById('btnEvaluar').disabled = false;                     
+                    
+
+                    if (data.Estado === "D") {
+                        alert("La Solicitud ya ha sido Desaprobada");
+                      document.getElementById('btnEvaluar').disabled = true;                     
+                    } else if (data.Estado === "A") {
+                        alert("La Solicitud ya ha sido Aprobada");
+                        document.getElementById('btnEvaluar').disabled = true;                     
+                    } else {
+                        document.getElementById('btnEvaluar').disabled = false;                     
+                    }
+                    
+                    
                 }
                 else {
                     alert('No se encontro el Cliente');
@@ -103,9 +123,32 @@
         $("#txtLineaCredito").val(calificacion.LineaCredito);
     };
 
+    var _limpiar = function () {
+        $("#txtSueldoMensual").val("");
+        $("#txtOtrosIngresos").val("");
+        $("#txtLineaCredito").val("");
+        $("#txtCodigo").val("");
+        $("#txtNombres").val("");
+        $("#txtApellidos").val("");
+        $("#txtNumeroDocumento").val("");
+        $("#txtNumeroTarjeta").val("");
+        $("#txtBusquedaPorNumDoc").val("");
+        _removerTabla();
+        document.getElementById('btnEvaluar').disabled = true; 
+    };
+
     var _setSeccionEvaluacion = function (afiliacion) {
         $("#txtNumeroTarjeta").val(afiliacion.NumeroTarjeta);
     };
+
+    var _removerTabla = function () {
+        var table = $('#table_deudas').DataTable();
+
+        var rows = table
+            .rows()
+            .remove()
+            .draw();
+    }
 
     var _setSeccionDeudas = function (deudas) {
         $('#table_deudas').DataTable({
