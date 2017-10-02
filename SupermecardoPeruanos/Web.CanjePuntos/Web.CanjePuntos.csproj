@@ -192,6 +192,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Catalogo\OfertasPersonalizadas.cshtml" />
+    <Content Include="Views\Catalogo\CatalogoProductos.cshtml" />
+    <Content Include="Views\Catalogo\FiltroTemplate.cshtml" />
+    <Content Include="Views\Catalogo\HeaderTamplate.cshtml" />
+    <Content Include="Views\Catalogo\ProductosTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,3 +22,44 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#seccion-general {
+    padding-top: 20px;
+}
+
+.subtitulos {
+    font-weight: bold;
+    height: 42px;
+    text-align: center;
+    padding-top: 12px;
+    border-radius: 2px;
+    background-color:cornflowerblue;
+}
+
+.subtitulos .left {
+    text-align: left !important;
+}
+
+.selectable .ui-selecting {
+    background: #FECA40;
+}
+
+.selectable .ui-selected {
+    background: #F39814;
+    color: white;
+}
+
+.selectable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+    .selectable li {
+        font-weight: bold;
+        margin: 3px;
+        padding: 2px;
+        font-size: 10px;
+        height: 18px;
+    }
