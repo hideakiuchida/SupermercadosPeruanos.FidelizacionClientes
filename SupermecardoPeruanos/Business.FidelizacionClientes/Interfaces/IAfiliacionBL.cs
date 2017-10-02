@@ -9,5 +9,9 @@ namespace Business.FidelizacionClientes.Interfaces
         AfiliacionTarjetaOH GetByCliente(int codigoCliente);
         List<Infocorp> GetInfocorpByCliente(int codigoCliente);
         void InsertCliente(int codigoCliente, string numero, string tipo);
+        void UpdateSolicitudDes(int numeroDocumento);
+        string ConsultarEstadoSol(string numeroDocumento);
+
+
     }
 }

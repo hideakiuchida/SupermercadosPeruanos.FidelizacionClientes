@@ -77,14 +77,14 @@ namespace DataAccess.FidelizacionClientes.Implement
         public void InsertCliente(int codigoCliente, string numero, string tipo)
         {
             connection.Open();
-            SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_I01]", connection);
+            SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_SOLICITUD_I02]", connection);
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("@COD_TARJ", 1234);
+            
             command.Parameters.AddWithValue("@COD_CLIE", codigoCliente);
             command.Parameters.AddWithValue("@TIP_TARJ", tipo);
             command.Parameters.AddWithValue("@NUM_TARJ", numero);
-            command.Parameters.AddWithValue("@BIN_TARJ", 0000);
+            
             command.ExecuteNonQuery();
 
 
@@ -92,5 +92,47 @@ namespace DataAccess.FidelizacionClientes.Implement
 
 
         }
+
+        public void UpdateSolicitudDes(int numeroDocumento)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("[dbo].[SOLICITUD_DESAPROBADAI03]", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+
+            command.Parameters.AddWithValue("@COD_CLIE", numeroDocumento);
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
+
+        }
+
+        public string consultarEstadoSol(string numeroDocumento)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("[dbo].[ESTADO_SOLICITUD]", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            string Estado = String.Empty;
+
+
+            command.Parameters.AddWithValue("@NUM_DOCU_IDEN", numeroDocumento);
+            command.ExecuteNonQuery();
+
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            if (dataReader.HasRows)
+            {
+                while (dataReader.Read())
+                {
+                    Estado = dataReader["EST_SOLI_AFIL"].ToString();   
+                }
+            }
+
+            return Estado;
+
+
+        }
+
     }
 }
