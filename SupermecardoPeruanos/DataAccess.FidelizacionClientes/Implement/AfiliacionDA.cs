@@ -83,7 +83,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             
             command.Parameters.AddWithValue("@COD_CLIE", codigoCliente);
             command.Parameters.AddWithValue("@TIP_TARJ", tipo);
-            command.Parameters.AddWithValue("@NUM_TARJ", numero);
+            command.Parameters.AddWithValue("@NUM_TARJ", Convert.ToInt64(numero));
             
             command.ExecuteNonQuery();
 

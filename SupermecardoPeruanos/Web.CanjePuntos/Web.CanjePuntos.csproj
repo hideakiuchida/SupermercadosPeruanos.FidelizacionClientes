@@ -195,11 +195,12 @@
     <Content Include="Views\Catalogo\OfertasPersonalizadas.cshtml" />
     <Content Include="Views\Catalogo\CatalogoProductos.cshtml" />
     <Content Include="Views\Catalogo\FiltroTemplate.cshtml" />
-    <Content Include="Views\Catalogo\HeaderTamplate.cshtml" />
+    <Content Include="Views\Catalogo\HeaderTemplate.cshtml" />
     <Content Include="Views\Catalogo\ProductosTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,7 @@ textarea {
     height: 42px;
     text-align: center;
     padding-top: 12px;
-    border-radius: 2px;
+    border-radius: 4px;
     background-color:cornflowerblue;
 }
 
@@ -53,13 +53,14 @@ textarea {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 60%;
+    width: 100%;
 }
 
     .selectable li {
-        font-weight: bold;
-        margin: 3px;
-        padding: 2px;
+        border-style: groove;
+        text-align: center;
         font-size: 10px;
-        height: 18px;
+        padding-top:5px;
+        width: 100%;
+        height: 30px;
     }

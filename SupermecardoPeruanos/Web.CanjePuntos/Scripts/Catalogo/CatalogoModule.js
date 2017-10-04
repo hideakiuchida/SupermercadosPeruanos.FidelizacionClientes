@@ -5,15 +5,63 @@
     };
 
     var _filtros = {Categoria: 0, Puntos: 0};
+    var _orden = { value: 0 };
 
     var _consultarCatalogo = function () {
-        $.ajax({
+
+        var data = {
+            productos: [
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 1,
+                    puntos: 1000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 2,
+                    puntos: 2000
+                },
+                {
+                    id: 1,
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 2,
+                    puntos: 3000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 3,
+                    puntos: 4000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 4,
+                    puntos: 5000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 4,
+                    puntos: 6000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 4,
+                    puntos: 7000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 1,
+                    puntos: 8000
+                }
+            ]
+        };
+        _drawProductos(data.productos);
+      /*  $.ajax({
             type: "GET",
             url: _config.urlBuscarAfiliacionCliente,
             data: _filtros,
             success: function (data) {
                 if (data.success) {
-
+                    _drawProductos(data.produtos)
                 }
                 else {
                     alert('No se encontro el Cliente');
@@ -26,8 +74,67 @@
             }
         });
 
-        return false;
+        return false;*/
     };
+
+    var _drawProductos = function (productos) {
+        if (productos == null || productos.length == 0)
+            return;
+
+        if (_filtros.Categoria != 0)
+            productos = productos.filter(p => p.categoria == _filtros.Categoria);
+        if (_filtros.Puntos != 0) {
+            switch (_filtros.Puntos) {
+                case 1:
+                    productos = productos.filter(p => p.puntos >= 0 && p.puntos <= 500);
+                    break;
+                case 2:
+                    productos = productos.filter(p => p.puntos >= 501 && p.puntos <= 1000);
+                    break;
+                case 3:
+                    productos = productos.filter(p => p.puntos >= 1001 && p.puntos <= 1500);
+                    break;
+                case 4:
+                    productos = productos.filter(p => p.puntos >= 1501 && p.puntos <= 2000);
+                    break;
+                case 5:
+                    productos = productos.filter(p => p.puntos >= 2001 && p.puntos <= 2500);
+                    break;
+                case 6:
+                    productos = productos.filter(p => p.puntos >= 2501);
+                    break;
+                default:
+            }
+
+        }
+
+        if (_orden.value == 1)
+            productos.sort(function (a, b) { return a.puntos - b.puntos });
+        if (_orden.value == 2)
+            productos.reverse(function (a, b) { return b.puntos - a.puntos });
+
+        $("#gridview-productos").empty();
+
+        productos.forEach(function (item, index) {
+            if (index == 0) 
+                $("#gridview-productos").append("<div id='first-row' class='row'></div>");
+            if ((index + 1) % 4 == 0)
+                $("#gridview-productos").append("<div id='second-row' class='row'></div>");
+
+            if (index < 4) 
+                $("#first-row").append("<div id='" + index +"-producto' class='col-md-3'></div>");
+            else 
+                $("#second-row").append("<div id='" + index + "-producto' class='col-md-3'></div>");
+
+
+            $("#" + index + "-producto").append("<img src='" + item.imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
+            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Puntos: <span> " + item.puntos + "</span></label></div>");
+            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Categoria: <span> " + item.categoria + "</span></label></div>");
+            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-info'>Ver Detalle</button></div>");
+            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
+            
+        });
+    }
 
     var _loadCategories = function () {
         /*$.ajax({
@@ -84,7 +191,7 @@
             puntos: [{ Id: 1, Descripcion: "0-500" },
                 { Id: 2, Descripcion: "501-1000"}, { Id: 3, Descripcion: "1001-1500" },
                 { Id: 4, Descripcion: "1501-2000" }, { Id: 5, Descripcion: "2001-2500" },
-                { Id: 6, Descripcion: "<=2501" }]
+                { Id: 6, Descripcion: ">=2501" }]
         };
         _drawFilters(data.puntos, 'ol#lista-puntos');
     };
@@ -97,30 +204,47 @@
     } 
 
     var _bindEvents = function () {
+        $('#select-orden').on('change', function () {
+            var selected = $(this).find("option:selected").val();
+            _orden.value = selected;
+            _consultarCatalogo();
+        });
     };
 
     var _initControls = function () {
         $(function () {
             $("#tabs").tabs();
             $("#lista-categoria").selectable({
-                selected: function () {
-                    $(".ui-selected", this).each(function () {
-                        _filtros.Categoria = $(this).val();
-                        console.log(".ui-selected - ID: " + _filtros.Categoria);
-                    });
-                     // _consultarCatalogo();
+                selected: function (event, ui) {
+                    if ($(ui.selected).hasClass('selectedfilter')) {
+                        $(ui.selected).removeClass('selectedfilter');
+                        $(ui.selected).removeClass('ui-selected');
+                        _filtros.Categoria = 0;
+                    } else {
+                        $(ui.selected).addClass('selectedfilter');
+                        $(".ui-selected", this).each(function () {
+                            _filtros.Categoria = $(this).val();
+                        });
+                    }               
+                     _consultarCatalogo();
                 }
             });
             $("#lista-puntos").selectable({
-                selected: function () {
-                    $(".ui-selected", this).each(function () {
-                        _filtros.Puntos = $(this).val();
-                        console.log(".ui-selected - ID: " + _filtros.Puntos);
-                    });
-                    // _consultarCatalogo();
+                selected: function (event, ui) {
+                    if ($(ui.selected).hasClass('selectedfilter')) {
+                        $(ui.selected).removeClass('selectedfilter');
+                        $(ui.selected).removeClass('ui-selected');
+                        _filtros.Categoria = 0;
+                    } else {
+                        $(ui.selected).addClass('selectedfilter');
+                        $(".ui-selected", this).each(function () {
+                            _filtros.Puntos = $(this).val();
+                        });
+                    }
+                    _consultarCatalogo();
                 }
             });
-            //_consultarCatalogo();
+            _consultarCatalogo();
         });
     };
 
