@@ -197,6 +197,7 @@
     <Content Include="Views\Catalogo\FiltroTemplate.cshtml" />
     <Content Include="Views\Catalogo\HeaderTemplate.cshtml" />
     <Content Include="Views\Catalogo\ProductosTemplate.cshtml" />
+    <Content Include="Views\Catalogo\ProductoModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
