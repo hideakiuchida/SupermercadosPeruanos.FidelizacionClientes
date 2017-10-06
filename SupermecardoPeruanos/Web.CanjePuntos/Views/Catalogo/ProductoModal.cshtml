@@ -1,30 +1,54 @@
 ﻿<!-- Modal -->
 <div class="modal fade" id="modal-producto" role="dialog">
-    <div class="modal-dialog">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Afiliación de Tarjeta OH</h4>
-            </div>
-            <div class="modal-body">
-                <b> <p id="lblMensajeAfiliacion"></p></b>
-                <div id="msjs">
-                    <b>
-                        Número de Tarjeta:
-                    </b><p id="lblNumeroTarjeta"></p>
-                    <b> Tipo Tarjeta: </b><p id="lblTipo"></p>
-                    <button id="btnRegistrarAfiliacion" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-afiliar" data-remote="false">
-                        Registrar Afiliación
-                    </button>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Producto</h4>
                 </div>
+                <div class="modal-body">
+                   
+                    <div class="col-md-6">
+                        <img id="imgImagenProducto" height="200" width="200"></img>
+                        <p>Descripción: </p>
+                        <p id="lblDescripcionProducto">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
+                    </div>
 
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="txtPuntos">Puntos:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="txtPuntos" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-6" for="txtStock">Stock:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="txtStock" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button id="btnAgregar" class="btn btn-info col-md-12" onclick="_agregarProducto()">
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <p>Condiciones: </p>
+                                <p id="lblCondiciones">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
+            
         </div>
-
     </div>
 </div>

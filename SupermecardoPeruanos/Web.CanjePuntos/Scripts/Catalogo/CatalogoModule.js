@@ -129,6 +129,47 @@
         return false;*/
     };
 
+    var _consultarProductoDetalle = function () {
+        /*$.ajax({
+            type: "GET",
+            url: _config.urlBuscarAfiliacionCliente,
+            data: { numeroDocumento: _numeroDocumento },
+            success: function (data) {
+                if (data.success) {
+
+                }
+                else {
+                    alert('No se encontro el Cliente');
+                }
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+
+        return false;*/
+        var producto = {
+            imagen: "Content/Images/pic_mountain.jpg",
+            stock: 1,
+            puntos: 1000,
+            condiciones: "Condiciones condiciones condiciones condiciones condiciones condiciones condiciones condiciones condiciones v condiciones condiciones condiciones condiciones"
+        };
+
+        _setProductoDetalle(producto);
+    };
+
+    var _setProductoDetalle = function (producto) {
+        $("#imgImagenProducto").attr('src', producto.imagen);
+        $("#txtPuntos").val(producto.puntos);
+        $("#txtStock").val(producto.stock);
+        $("#lblCondiciones").val(producto.condiciones);
+    };
+
+    var _agregarProducto = function () {
+    };
+
     var _filterOrderProducts = function (productos) {
         if (productos == null || productos.length == 0)
             return;
@@ -188,19 +229,24 @@
                 else
                     $("#second-row").append("<div id='" + index + "-producto' class='col-md-3'></div>");
 
+                var btnDetalle = "btnDetalle-" + index;
+                var btnAgregar = "btnAgregar-" + index;
 
                 $("#" + index + "-producto").append("<img src='" + item.imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
                 $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Puntos: <span> " + item.puntos + "</span></label></div>");
                 $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Categoria: <span> " + item.categoria + "</span></label></div>");
-                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-producto' data-remote='false'>Ver Detalle</button></div>");
-                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
-            }     
+                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button id='" + btnDetalle + "' style='width: 100%' type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-producto' data-remote='false'>Ver Detalle</button></div>");
+                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button id='" + btnAgregar + "' style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
+
+                $(btnDetalle).click(function () { _consultarProductoDetalle()});
+                $(btnAgregar).click(function () { _agregarProducto()});
+            }
             countItems++;
-            
+
         });
 
-        
-    }
+
+    };
 
     var _drawPagination = function (total, pagina) {
         $("#pagination").empty();
