@@ -51,10 +51,59 @@
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 1,
                     puntos: 8000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 1,
+                    puntos: 1000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 2,
+                    puntos: 2000
+                },
+                {
+                    id: 1,
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 2,
+                    puntos: 3000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 3,
+                    puntos: 4000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 4,
+                    puntos: 5000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 4,
+                    puntos: 6000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 4,
+                    puntos: 7000
+                },
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 1,
+                    puntos: 8000
+                },
+
+                {
+                    imagen: "Content/Images/pic_mountain.jpg",
+                    categoria: 1,
+                    puntos: 8000
                 }
-            ]
+            ],
+            total: 17,
+            pagina: 2
         };
-        _drawProductos(data.productos);
+        _drawProductos(data.productos, data.total, data.pagina);
       /*  $.ajax({
             type: "GET",
             url: _config.urlBuscarAfiliacionCliente,
@@ -77,7 +126,7 @@
         return false;*/
     };
 
-    var _drawProductos = function (productos) {
+    var _drawProductos = function (productos, total, pagina) {
         if (productos == null || productos.length == 0)
             return;
 
@@ -115,25 +164,45 @@
 
         $("#gridview-productos").empty();
 
+        var countItems = 0;
+
         productos.forEach(function (item, index) {
-            if (index == 0) 
+            if (countItems == 0)
                 $("#gridview-productos").append("<div id='first-row' class='row'></div>");
-            if ((index + 1) % 4 == 0)
+            if ((countItems + 1) % 4 == 0)
                 $("#gridview-productos").append("<div id='second-row' class='row'></div>");
 
-            if (index < 4) 
-                $("#first-row").append("<div id='" + index +"-producto' class='col-md-3'></div>");
-            else 
-                $("#second-row").append("<div id='" + index + "-producto' class='col-md-3'></div>");
+            if (countItems < 8) {
+                if (countItems < 4)
+                    $("#first-row").append("<div id='" + index + "-producto' class='col-md-3'></div>");
+                else
+                    $("#second-row").append("<div id='" + index + "-producto' class='col-md-3'></div>");
 
 
-            $("#" + index + "-producto").append("<img src='" + item.imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
-            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Puntos: <span> " + item.puntos + "</span></label></div>");
-            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Categoria: <span> " + item.categoria + "</span></label></div>");
-            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-info'>Ver Detalle</button></div>");
-            $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
+                $("#" + index + "-producto").append("<img src='" + item.imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
+                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Puntos: <span> " + item.puntos + "</span></label></div>");
+                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Categoria: <span> " + item.categoria + "</span></label></div>");
+                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-info'>Ver Detalle</button></div>");
+                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
+            }     
+            countItems++;
             
         });
+
+        //Pagination
+        var itemForPage = 8;
+        var cantidadPorPagina = total/ itemForPage;
+        var paginas = Math.trunc(cantidadPorPagina);
+        if (cantidadPorPagina > paginas)
+            paginas = paginas + 1;
+
+        if (paginas > 0) {
+            $("#pagination").append("<a href='#'>&laquo;</a>");
+            for (var i = 0; i < paginas; i++) {
+                $("#pagination").append("<a href='#'>" + (i+1) + "</a>");
+            } 
+            $("#pagination").append("<a href='#'>&laquo;</a>");
+        }
     }
 
     var _loadCategories = function () {

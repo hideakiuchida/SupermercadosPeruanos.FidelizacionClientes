@@ -56,11 +56,22 @@ textarea {
     width: 100%;
 }
 
-    .selectable li {
-        border-style: groove;
-        text-align: center;
-        font-size: 10px;
-        padding-top:5px;
-        width: 100%;
-        height: 30px;
-    }
+.selectable li {
+    border-style: groove;
+    text-align: center;
+    font-size: 10px;
+    padding-top:5px;
+    width: 100%;
+    height: 30px;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
