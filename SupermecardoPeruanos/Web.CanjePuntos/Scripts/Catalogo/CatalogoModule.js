@@ -13,89 +13,103 @@
         var data = {
             productos: [
                 {
+                    id: 1,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 1,
                     puntos: 1000
                 },
                 {
+                    id: 2,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 2,
                     puntos: 2000
                 },
                 {
-                    id: 1,
+                    id: 3,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 2,
                     puntos: 3000
                 },
                 {
+                    id: 4,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 3,
                     puntos: 4000
                 },
                 {
+                    id: 5,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 4,
                     puntos: 5000
                 },
                 {
+                    id: 6,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 4,
                     puntos: 6000
                 },
                 {
+                    id: 7,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 4,
                     puntos: 7000
                 },
                 {
+                    id: 8,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 1,
                     puntos: 8000
                 },
                 {
+                    id: 9,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 1,
                     puntos: 1000
                 },
                 {
+                    id: 10,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 2,
                     puntos: 2000
                 },
                 {
-                    id: 1,
+                    id: 11,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 2,
                     puntos: 3000
                 },
                 {
+                    id: 12,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 3,
                     puntos: 4000
                 },
                 {
+                    id: 13,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 4,
                     puntos: 5000
                 },
                 {
+                    id: 14,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 4,
                     puntos: 6000
                 },
                 {
+                    id: 15,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 4,
                     puntos: 7000
                 },
                 {
+                    id: 16,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 1,
                     puntos: 8000
                 },
-
                 {
+                    id: 17,
                     imagen: "Content/Images/pic_mountain.jpg",
                     categoria: 1,
                     puntos: 8000
@@ -151,6 +165,7 @@
 
         return false;*/
         var producto = {
+            id: 1,
             imagen: "Content/Images/pic_mountain.jpg",
             stock: 1,
             puntos: 1000,
@@ -225,21 +240,22 @@
 
             if (countItems < 8) {
                 if (countItems < 4)
-                    $("#first-row").append("<div id='" + index + "-producto' class='col-md-3'></div>");
+                    $("#first-row").append("<div id='" + item.id + "-producto' class='col-md-3'></div>");
                 else
-                    $("#second-row").append("<div id='" + index + "-producto' class='col-md-3'></div>");
+                    $("#second-row").append("<div id='" + item.id + "-producto' class='col-md-3'></div>");
 
-                var btnDetalle = "btnDetalle-" + index;
-                var btnAgregar = "btnAgregar-" + index;
+                var divProducto = "#" + item.id + "-producto";
+                var btnDetalle = "btnDetalle-" + item.id;
+                var btnAgregar = "btnAgregar-" + item.id;
 
-                $("#" + index + "-producto").append("<img src='" + item.imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
-                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Puntos: <span> " + item.puntos + "</span></label></div>");
-                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><label>Categoria: <span> " + item.categoria + "</span></label></div>");
-                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button id='" + btnDetalle + "' style='width: 100%' type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-producto' data-remote='false'>Ver Detalle</button></div>");
-                $("#" + index + "-producto").append("<div style='padding:2px;text-align:center'><button id='" + btnAgregar + "' style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
+                $(divProducto).append("<img src='" + item.imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
+                $(divProducto).append("<div style='padding:2px;text-align:center'><label>Puntos: " + item.puntos + "</label></div>");
+                $(divProducto).append("<div style='padding:2px;text-align:center'><label>Categoria: " + item.categoria + "</label></div>");
+                $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnDetalle + "' style='width: 100%' type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-producto' data-remote='false'>Ver Detalle</button></div>");
+                $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnAgregar + "' style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
 
-                $(btnDetalle).click(function () { _consultarProductoDetalle()});
-                $(btnAgregar).click(function () { _agregarProducto()});
+                $("#" +btnDetalle).click(function () { _consultarProductoDetalle();});
+                $("#" +btnAgregar).click(function () { _agregarProducto();});
             }
             countItems++;
 
@@ -250,6 +266,7 @@
 
     var _drawPagination = function (total, pagina) {
         $("#pagination").empty();
+        $("#total-pagination").empty();
 
         var itemForPage = 8;
         var cantidadPorPagina = total / itemForPage;
@@ -272,7 +289,8 @@
                 else 
                     $('#pagina-' + numeroPagina).removeClass('active');
             }
-            $("#pagination").append("<a href='#'>&laquo;</a>");
+            $("#pagination").append("<a href='#'>&raquo;</a>");
+            $("#total-pagination").append("<p style='padding-top:30px; float: right; padding-right: 15px;'> Total de " + total + "</p>");
           
         }
     };
@@ -354,7 +372,11 @@
 
     var _initControls = function () {
         $(function () {
-            $("#tabs").tabs();
+            $("#tabs").tabs({
+                activate: function (event, ui) {
+                   // _initialize();
+                }
+            });
             $("#lista-categoria").selectable({
                 selected: function (event, ui) {
                     if ($(ui.selected).hasClass('selectedfilter')) {
