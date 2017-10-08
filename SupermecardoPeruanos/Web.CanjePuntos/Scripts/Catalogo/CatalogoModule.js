@@ -1,7 +1,9 @@
 ﻿var CatalogoModule = function (config) {
 
     var _config = {
-       // urlBuscarAfiliacionCliente: config.urlBuscarAfiliacionCliente
+        urlCatalogoBase: config.urlCatalogoBase,
+        urlProductoBase: config.urlProductoBase,
+        urlCarritoCanjeBase: config.urlCarritoCanjeBase
     };
 
     var _filtros = {Categoria: 0, Puntos: 0};
@@ -10,126 +12,21 @@
 
     var _consultarCatalogo = function (pagina) {
 
-        var data = {
-            productos: [
-                {
-                    id: 1,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 1,
-                    puntos: 1000
-                },
-                {
-                    id: 2,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 2,
-                    puntos: 2000
-                },
-                {
-                    id: 3,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 2,
-                    puntos: 3000
-                },
-                {
-                    id: 4,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 3,
-                    puntos: 4000
-                },
-                {
-                    id: 5,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 4,
-                    puntos: 5000
-                },
-                {
-                    id: 6,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 4,
-                    puntos: 6000
-                },
-                {
-                    id: 7,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 4,
-                    puntos: 7000
-                },
-                {
-                    id: 8,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 1,
-                    puntos: 8000
-                },
-                {
-                    id: 9,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 1,
-                    puntos: 1000
-                },
-                {
-                    id: 10,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 2,
-                    puntos: 2000
-                },
-                {
-                    id: 11,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 2,
-                    puntos: 3000
-                },
-                {
-                    id: 12,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 3,
-                    puntos: 4000
-                },
-                {
-                    id: 13,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 4,
-                    puntos: 5000
-                },
-                {
-                    id: 14,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 4,
-                    puntos: 6000
-                },
-                {
-                    id: 15,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 4,
-                    puntos: 7000
-                },
-                {
-                    id: 16,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 1,
-                    puntos: 8000
-                },
-                {
-                    id: 17,
-                    imagen: "Content/Images/pic_mountain.jpg",
-                    categoria: 1,
-                    puntos: 8000
-                }
-            ],
-            total: 17
-        };
-
-        var filteredProducts = _filterOrderProducts(data.productos);
-        _drawProductos(filteredProducts);
-        _drawPagination(filteredProducts.length, pagina);
-      /*  $.ajax({
+        var data = {};
+        var params = { id: 1, tipo: 1 };
+        
+        $.ajax({
             type: "GET",
-            url: _config.urlBuscarAfiliacionCliente,
-            data: _filtros,
-            success: function (data) {
-                if (data.success) {
-                    _drawProductos(data.produtos)
+            url: _config.urlCatalogoBase,
+            data: params,
+            contentType: "application/json",
+            success: function (data, textStatus, xhr) {
+                if (xhr.status==200) {
+                    var filteredProducts = _filterOrderProducts(data.Productos);
+                    _drawProductos(filteredProducts);
+                    _drawPagination(filteredProducts.length, pagina);
                 }
-                else {
+                if (xhr.status == 404) {
                     alert('No se encontro el Cliente');
                 }
 
@@ -140,20 +37,21 @@
             }
         });
 
-        return false;*/
+        return false;
     };
 
-    var _consultarProductoDetalle = function () {
-        /*$.ajax({
+    var _consultarProductoDetalle = function (id) {
+        $.ajax({
             type: "GET",
-            url: _config.urlBuscarAfiliacionCliente,
-            data: { numeroDocumento: _numeroDocumento },
-            success: function (data) {
-                if (data.success) {
-
+            url: _config.urlProductoBase,
+            data: { id: id },
+            contentType: "application/json",
+            success: function (data, textStatus, xhr) {
+                if (xhr.status == 200) {
+                    _setProductoDetalle(data);
                 }
                 else {
-                    alert('No se encontro el Cliente');
+                    alert('No se encontro el Producto');
                 }
 
             },
@@ -163,26 +61,40 @@
             }
         });
 
-        return false;*/
-        var producto = {
-            id: 1,
-            imagen: "Content/Images/pic_mountain.jpg",
-            stock: 1,
-            puntos: 1000,
-            condiciones: "Condiciones condiciones condiciones condiciones condiciones condiciones condiciones condiciones condiciones v condiciones condiciones condiciones condiciones"
-        };
-
-        _setProductoDetalle(producto);
+        return false;
+  
     };
 
     var _setProductoDetalle = function (producto) {
-        $("#imgImagenProducto").attr('src', producto.imagen);
-        $("#txtPuntos").val(producto.puntos);
-        $("#txtStock").val(producto.stock);
-        $("#lblCondiciones").val(producto.condiciones);
+        $("#imgImagenProducto").attr('src', producto.Imagen);
+        $("#txtPuntos").val(producto.Puntos);
+        $("#txtStock").val(producto.Stock);
+        $("#lblDescripcionProducto").text(producto.Descripcion);
+        $("#lblCondiciones").text("Condiciones condiciones condiciones condiciones condiciones");
+        $("#btnAgregarProductoModal").click(function(){_agregarProducto(producto.Id); });    
     };
 
-    var _agregarProducto = function () {
+    var _agregarProducto = function (id) {
+        $.ajax({
+            type: "POST",
+            url: _config.urlCarritoCanjeBase,
+            data: { "": id },
+            success: function (data, textStatus, xhr) {
+                if (xhr.status == 201) {
+                    alert('Se agrego correctamente al carrito de compra');
+                }
+                else {
+                    alert('No se encontro el Producto');
+                }
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+
+        return false;
     };
 
     var _filterOrderProducts = function (productos) {
@@ -190,26 +102,26 @@
             return;
 
         if (_filtros.Categoria != 0)
-            productos = productos.filter(p => p.categoria == _filtros.Categoria);
+            productos = productos.filter(p => p.Categoria.Id == _filtros.Categoria);
         if (_filtros.Puntos != 0) {
             switch (_filtros.Puntos) {
                 case 1:
-                    productos = productos.filter(p => p.puntos >= 0 && p.puntos <= 500);
+                    productos = productos.filter(p => p.Puntos >= 0 && p.Puntos <= 500);
                     break;
                 case 2:
-                    productos = productos.filter(p => p.puntos >= 501 && p.puntos <= 1000);
+                    productos = productos.filter(p => p.Puntos >= 501 && p.Puntos <= 1000);
                     break;
                 case 3:
-                    productos = productos.filter(p => p.puntos >= 1001 && p.puntos <= 1500);
+                    productos = productos.filter(p => p.Puntos >= 1001 && p.Puntos <= 1500);
                     break;
                 case 4:
-                    productos = productos.filter(p => p.puntos >= 1501 && p.puntos <= 2000);
+                    productos = productos.filter(p => p.Puntos >= 1501 && p.Puntos <= 2000);
                     break;
                 case 5:
-                    productos = productos.filter(p => p.puntos >= 2001 && p.puntos <= 2500);
+                    productos = productos.filter(p => p.Puntos >= 2001 && p.Puntos <= 2500);
                     break;
                 case 6:
-                    productos = productos.filter(p => p.puntos >= 2501);
+                    productos = productos.filter(p => p.Puntos >= 2501);
                     break;
                 default:
             }
@@ -217,9 +129,9 @@
         }
 
         if (_orden.value == 1)
-            productos = productos.sort(function (a, b) { return a.puntos - b.puntos });
+            productos = productos.sort(function (a, b) { return a.Puntos - b.Puntos });
         if (_orden.value == 2)
-            productos = productos.reverse(function (a, b) { return b.puntos - a.puntos });
+            productos = productos.reverse(function (a, b) { return b.Puntos - a.Puntos });
 
         return productos;
     };
@@ -240,22 +152,22 @@
 
             if (countItems < 8) {
                 if (countItems < 4)
-                    $("#first-row").append("<div id='" + item.id + "-producto' class='col-md-3'></div>");
+                    $("#first-row").append("<div id='" + item.Id + "-producto' class='col-md-3'></div>");
                 else
-                    $("#second-row").append("<div id='" + item.id + "-producto' class='col-md-3'></div>");
+                    $("#second-row").append("<div id='" + item.Id + "-producto' class='col-md-3'></div>");
 
-                var divProducto = "#" + item.id + "-producto";
-                var btnDetalle = "btnDetalle-" + item.id;
-                var btnAgregar = "btnAgregar-" + item.id;
+                var divProducto = "#" + item.Id + "-producto";
+                var btnDetalle = "btnDetalle-" + item.Id;
+                var btnAgregar = "btnAgregar-" + item.Id;
 
-                $(divProducto).append("<img src='" + item.imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
-                $(divProducto).append("<div style='padding:2px;text-align:center'><label>Puntos: " + item.puntos + "</label></div>");
-                $(divProducto).append("<div style='padding:2px;text-align:center'><label>Categoria: " + item.categoria + "</label></div>");
+                $(divProducto).append("<img src='" + item.Imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
+                $(divProducto).append("<div style='padding:2px;text-align:center'><label>Puntos: " + item.Puntos + "</label></div>");
+                $(divProducto).append("<div style='padding:2px;text-align:center'><label>Categoria: " + item.Categoria.Descripcion + "</label></div>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnDetalle + "' style='width: 100%' type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-producto' data-remote='false'>Ver Detalle</button></div>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnAgregar + "' style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
 
-                $("#" +btnDetalle).click(function () { _consultarProductoDetalle();});
-                $("#" +btnAgregar).click(function () { _agregarProducto();});
+                $("#" + btnDetalle).click(function () { _consultarProductoDetalle(item.Id);});
+                $("#" + btnAgregar).click(function () { _agregarProducto(item.Id);});
             }
             countItems++;
 
