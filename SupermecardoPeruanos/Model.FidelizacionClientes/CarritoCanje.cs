@@ -7,5 +7,6 @@ namespace Model.FidelizacionClientes
     public class CarritoCanje
     {
         public List<Producto> Productos { get; set; }
+        public Cliente Cliente { get; set; }
     }
 }

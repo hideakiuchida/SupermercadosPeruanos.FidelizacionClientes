@@ -3,17 +3,20 @@
     var _config = {
         urlCatalogoBase: config.urlCatalogoBase,
         urlProductoBase: config.urlProductoBase,
-        urlCarritoCanjeBase: config.urlCarritoCanjeBase
+        urlCarritoCanjeBase: config.urlCarritoCanjeBase,
+        urlCategoriaBase: config.urlCategoriaBase,
+        idCliente: 1
     };
 
     var _filtros = {Categoria: 0, Puntos: 0};
     var _orden = { value: 0 };
     var _paginaActual = 1;
+    var _carritoCanje = { productos: [], idCliente: 0 };
 
     var _consultarCatalogo = function (pagina) {
 
         var data = {};
-        var params = { id: 1, tipo: 1 };
+        var params = { id: _config.idCliente, tipo: 1, cantidad: 8, pagina: pagina };
         
         $.ajax({
             type: "GET",
@@ -27,7 +30,7 @@
                     _drawPagination(filteredProducts.length, pagina);
                 }
                 if (xhr.status == 404) {
-                    alert('No se encontro el Cliente');
+                    $.notify('No existe catalogo');
                 }
 
             },
@@ -51,7 +54,7 @@
                     _setProductoDetalle(data);
                 }
                 else {
-                    alert('No se encontro el Producto');
+                    $.notify('No se encontro el Producto');
                 }
 
             },
@@ -75,26 +78,21 @@
     };
 
     var _agregarProducto = function (id) {
-        $.ajax({
-            type: "POST",
-            url: _config.urlCarritoCanjeBase,
-            data: { "": id },
-            success: function (data, textStatus, xhr) {
-                if (xhr.status == 201) {
-                    alert('Se agrego correctamente al carrito de compra');
-                }
-                else {
-                    alert('No se encontro el Producto');
-                }
 
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
+        _carritoCanje.productos.push(id);
+        _carritoCanje.idCliente = _config.idCliente;
+        $.notify("Se agrego correctamente al carrito.", "success");
+        _consultarCarritoCanje(_config.idCliente);
+    };
 
-        return false;
+    var _consultarCarritoCanje = function (id) {
+        if (_carritoCanje.productos.length > 0) {
+            if (!$('#btnCarritoCanje').hasClass('badge1')) 
+                $("#btnCarritoCanje").toggleClass("badge1");
+            $("#btnCarritoCanje").attr("data-badge", _carritoCanje.productos.length);
+        }
+        else
+            $("#btnCarritoCanje").removeClass("badge1");
     };
 
     var _filterOrderProducts = function (productos) {
@@ -208,16 +206,15 @@
     };
 
     var _loadCategories = function () {
-        /*$.ajax({
+        $.ajax({
             type: "GET",
-            url: _config.urlBuscarAfiliacionCliente,
-            data: { numeroDocumento: _numeroDocumento },
-            success: function (data) {
-                if (data.success) {
-
+            url: _config.urlCategoriaBase,
+            success: function (data, textStatus, xhr) {
+                if (xhr.status==200) {
+                    _drawFilters(data, 'ol#lista-categoria');
                 }
                 else {
-                    alert('No se encontro el Cliente');
+                    $.notify('No hay categorias');
                 }
 
             },
@@ -227,37 +224,10 @@
             }
         });
 
-        return false;*/
-        var data = {
-            categories: [{ Id: 1, Descripcion: "Tecnología"},
-                { Id: 2, Descripcion: "Entretenimiento" },
-                { Id: 3, Descripcion: "Cocina" },
-                { Id: 4, Descripcion: "Servicio de Taxi" }]
-        };
-        _drawFilters(data.categories, 'ol#lista-categoria');
+        return false;
     };
 
     var _loadPuntos = function () {
-        /*$.ajax({
-            type: "GET",
-            url: _config.urlBuscarAfiliacionCliente,
-            data: { numeroDocumento: _numeroDocumento },
-            success: function (data) {
-                if (data.success) {
-
-                }
-                else {
-                    alert('No se encontro el Cliente');
-                }
-
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
-
-        return false;*/
         var data = {
             puntos: [{ Id: 1, Descripcion: "0-500" },
                 { Id: 2, Descripcion: "501-1000"}, { Id: 3, Descripcion: "1001-1500" },
@@ -320,6 +290,7 @@
                 }
             });
             _consultarCatalogo(_paginaActual);
+            _consultarCarritoCanje(_config.idCliente);
         });
     };
 

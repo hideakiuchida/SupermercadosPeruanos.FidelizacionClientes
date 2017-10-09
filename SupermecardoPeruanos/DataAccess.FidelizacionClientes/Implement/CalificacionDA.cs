@@ -9,15 +9,8 @@ using System.Data;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
-    public class CalificacionDA : ICalificacionDA
+    public class CalificacionDA : DataConnection, ICalificacionDA
     {
-        private SqlConnection connection;
-
-        public CalificacionDA()
-        {
-            connection = DataConnection.GetConnection();
-        }
-
         public Calificacion GetByCliente(int codigoCliente)
         {
             Calificacion calificacion = new Calificacion();

@@ -2,10 +2,16 @@
 
 namespace Common.FidelizacionClientes
 {
-    public class DataConnection
+    public abstract class DataConnection
     {
+        protected SqlConnection connection;
 
-        public static SqlConnection GetConnection()
+        public DataConnection()
+        {
+            connection = GetConnection();
+        }
+
+        private static SqlConnection GetConnection()
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = "Server=localhost\\sqlexpress; " +

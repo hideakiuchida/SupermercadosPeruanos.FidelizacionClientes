@@ -9,15 +9,8 @@ using System.Linq;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
-    public class ClienteDA : IClienteDA
+    public class ClienteDA : DataConnection, IClienteDA
     {
-        private SqlConnection connection;
-
-        public ClienteDA()
-        {
-            connection = DataConnection.GetConnection();
-        }
-
         public Cliente GetCliente(string numeroDocumento)
         {
             Cliente cliente = new Cliente();

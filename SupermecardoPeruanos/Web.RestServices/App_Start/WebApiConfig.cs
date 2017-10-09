@@ -15,8 +15,12 @@ namespace Web.RestServices
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}/{tipo}",
-                defaults: new { id = RouteParameter.Optional, tipo = RouteParameter.Optional}
+                routeTemplate: "api/{controller}/{id}/{tipo}/{cantidad}/{pagina}",
+                defaults: new { id = RouteParameter.Optional,
+                                tipo = RouteParameter.Optional,
+                                cantidad = RouteParameter.Optional,
+                                pagina = RouteParameter.Optional
+                }
             );
 
             config.Routes.MapHttpRoute("API Default", "api/{controller}/{action}/{id}",

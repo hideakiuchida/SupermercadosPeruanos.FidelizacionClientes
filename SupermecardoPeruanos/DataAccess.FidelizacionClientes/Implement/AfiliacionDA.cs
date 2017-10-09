@@ -9,14 +9,8 @@ using System.Data;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
-    public class AfiliacionDA : IAfiliacionDA
+    public class AfiliacionDA : DataConnection, IAfiliacionDA
     {
-        private SqlConnection connection;
-
-        public AfiliacionDA()
-        {
-            connection = DataConnection.GetConnection();
-        }
         public AfiliacionTarjetaOH GetByCliente(int codigoCliente)
         {
             AfiliacionTarjetaOH afiliacionTarjetaOH = new AfiliacionTarjetaOH();

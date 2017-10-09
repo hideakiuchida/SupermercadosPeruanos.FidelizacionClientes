@@ -12,26 +12,37 @@ namespace Web.RestServices.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CarritoCanjeController : ApiController
     {
-        // GET: api/CarritoCanje
-        public IEnumerable<string> Get()
+        private List<CarritoCanje> carritos;
+        private CarritoCanje carritoCanje;
+        private List<Producto> productos;
+
+        public CarritoCanjeController()
         {
-            return new string[] { "value1", "value2" };
+            carritos = new List<CarritoCanje>();
+            carritoCanje = new CarritoCanje();
+            productos = new List<Producto>();
+        }
+
+        // GET: api/CarritoCanje
+        public IEnumerable<CarritoCanje> Get()
+        {
+            return carritos;
         }
 
         // GET: api/CarritoCanje/5
-        public string Get(int id)
+        public CarritoCanje Get(int id)
         {
-            return "value";
+            return carritos.Where(x => x.Cliente.Codigo == id).FirstOrDefault();
         }
 
         // POST: api/CarritoCanje
         public IHttpActionResult Post([FromBody] int id)
         {
-            Producto producto = new Producto { Id = id, Descripcion = "Whaever" };
-            CarritoCanje carritoCanje = new CarritoCanje();
-            List<Producto> productos = new List<Producto>();
+            Producto producto = new Producto { Id = id, Descripcion = "Whaever" };                      
             productos.Add(producto);
             carritoCanje.Productos = productos;
+            carritoCanje.Cliente = new Cliente { Codigo = id };
+            carritos.Add(carritoCanje);
             return StatusCode(HttpStatusCode.Created);
         }
 
