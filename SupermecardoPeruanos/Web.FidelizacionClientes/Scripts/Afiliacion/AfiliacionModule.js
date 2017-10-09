@@ -24,7 +24,7 @@
                     alert(data.message);
                     document.getElementById('btnRegistrarAfiliacion').disabled = true;
                     _limpiar();
-
+                    window.location.reload();
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -45,16 +45,19 @@
             data: { codigoCliente: _codigoCliente, numeroDocumento: _numeroDocumento },
             success: function (data) {
                 var mensaje = "";
+                var mydiv = document.getElementById('msjs');
                 if (data.EstadoAfiliacion) {
                     mensaje = "La tarjeta OH ha sido aprobada."
-                    $("#msjs").css("display", "normal");
+                    //$("#msjs").css("display", "normal");
+                    mydiv.style.display = "block";
                     $("#lblNumeroTarjeta").text(data.NumeroTarjeta)
                     $("#lblTipo").text(data.Tipo)
                     document.getElementById('btnRegistrarAfiliacion').disabled = false;
                 }
                 else {
                     mensaje = "La tarjeta OH ha sido rechazada."
-                    $("#msjs").css("display", "none");
+                    //$("#msjs").css("display", "none");
+                    mydiv.style.display = "none";
                     document.getElementById('btnRegistrarAfiliacion').disabled = true;
                     _limpiar();
                 }
@@ -72,41 +75,47 @@
 
     var _buscarAfiliacionCliente = function () {
         var _numeroDocumento = $("#txtBusquedaPorNumDoc").val();
-        $.ajax({
-            type: "GET",
-            url: _config.urlBuscarAfiliacionCliente,
-            data: { numeroDocumento: _numeroDocumento},
-            success: function (data) {
-                if (data.success) {
-                    _setSeccionDatosCliente(data.Cliente);
-                    _setSeccionDatosCalificacion(data.Calificacion);
-                    _setSeccionEvaluacion(data.Afiliacion);
-                    _setSeccionDeudas(data.Infocorp);
-                    
+        if (_numeroDocumento.length === 8) {
 
-                    if (data.Estado === "D") {
-                        alert("La Solicitud ya ha sido Desaprobada");
-                      document.getElementById('btnEvaluar').disabled = true;                     
-                    } else if (data.Estado === "A") {
-                        alert("La Solicitud ya ha sido Aprobada");
-                        document.getElementById('btnEvaluar').disabled = true;                     
-                    } else {
-                        document.getElementById('btnEvaluar').disabled = false;                     
+            $.ajax({
+                type: "GET",
+                url: _config.urlBuscarAfiliacionCliente,
+                data: { numeroDocumento: _numeroDocumento },
+                success: function (data) {
+                    if (data.success) {
+                        _setSeccionDatosCliente(data.Cliente);
+                        _setSeccionDatosCalificacion(data.Calificacion);
+                        _setSeccionEvaluacion(data.Afiliacion);
+                        _setSeccionDeudas(data.Infocorp);
+
+
+                        if (data.Estado === "D") {
+                            alert("La Solicitud ya ha sido Desaprobada");
+                            document.getElementById('btnEvaluar').disabled = true;
+                        } else if (data.Estado === "A") {
+                            alert("La Solicitud ya ha sido Aprobada");
+                            document.getElementById('btnEvaluar').disabled = true;
+                        } else {
+                            document.getElementById('btnEvaluar').disabled = false;
+                        }
+
+
                     }
-                    
-                    
-                }
-                else {
-                    alert('No se encontro el Cliente');
-                }
+                    else {
+                        alert('Cliente no tiene una Solicitud Registrada');
+                    }
 
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
 
+        }
+        else { 
+            alert('Ingrese DNI Válido');
+        }
         return false;
     };
 
@@ -174,6 +183,7 @@
             _evaluar();
             
         });
+
 
         $("#btnRegistrarAfiliacion").click(function () {
             _registrar();
