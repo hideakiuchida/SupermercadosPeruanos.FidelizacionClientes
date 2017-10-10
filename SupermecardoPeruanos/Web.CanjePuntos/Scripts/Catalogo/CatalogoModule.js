@@ -5,7 +5,7 @@
         urlProductoBase: config.urlProductoBase,
         urlCarritoCanjeBase: config.urlCarritoCanjeBase,
         urlCategoriaBase: config.urlCategoriaBase,
-        idCliente: 1
+        idCliente: 9
     };
 
     var _filtros = {Categoria: 0, Puntos: 0};
@@ -73,7 +73,7 @@
         $("#txtPuntos").val(producto.Puntos);
         $("#txtStock").val(producto.Stock);
         $("#lblDescripcionProducto").text(producto.Descripcion);
-        $("#lblCondiciones").text("Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit");
+        $("#lblCondiciones").text(producto.Condiciones);
         $("#btnAgregarProductoModal").click(function(){_agregarProducto(producto.Id); });    
     };
 
@@ -268,6 +268,7 @@
                         $(ui.selected).addClass('selectedfilter');
                         $(".ui-selected", this).each(function () {
                             _filtros.Categoria = $(this).val();
+                            //alert($(this).val());
                         });
                     }               
                     _consultarCatalogo(_paginaActual);

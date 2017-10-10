@@ -13,5 +13,6 @@ namespace Model.FidelizacionClientes
         public string Descripcion { get; set; }
         public Categoria Categoria { get; set; }
         public string Nombre { get; set; }
+        public string Condiciones { get; set; }
     }
 }
