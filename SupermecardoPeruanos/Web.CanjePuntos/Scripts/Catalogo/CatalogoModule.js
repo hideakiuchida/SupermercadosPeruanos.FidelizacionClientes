@@ -268,7 +268,6 @@
                         $(ui.selected).addClass('selectedfilter');
                         $(".ui-selected", this).each(function () {
                             _filtros.Categoria = $(this).val();
-                            //alert($(this).val());
                         });
                     }               
                     _consultarCatalogo(_paginaActual);
@@ -279,7 +278,7 @@
                     if ($(ui.selected).hasClass('selectedfilter')) {
                         $(ui.selected).removeClass('selectedfilter');
                         $(ui.selected).removeClass('ui-selected');
-                        _filtros.Categoria = 0;
+                        _filtros.Puntos = 0;
                     } else {
                         $(ui.selected).addClass('selectedfilter');
                         $(".ui-selected", this).each(function () {
