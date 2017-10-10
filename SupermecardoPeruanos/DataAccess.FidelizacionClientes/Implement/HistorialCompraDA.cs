@@ -27,12 +27,16 @@ namespace DataAccess.FidelizacionClientes.Implement
                 while (dataReader.Read())
                 {
                     HistorialCompra historialCompra = new HistorialCompra();
-                    historialCompra.Codigo = Convert.ToInt32(dataReader["COD_CLIE_HIST"].ToString());
                     Producto producto = new Producto();
-                    producto.Id = Convert.ToInt32(dataReader["COD_PROD_HIST"].ToString());
-                    historialCompra.Producto = producto;
                     Categoria categoria = new Categoria();
+                    historialCompra.Codigo = Convert.ToInt32(dataReader["COD_CLIE_HIST"].ToString());
+                    
+                    producto.Id = Convert.ToInt32(dataReader["COD_PROD_HIST"].ToString()); 
                     categoria.Id = Convert.ToInt32(dataReader["COD_CATE_HIST"].ToString());
+
+                    historialCompra.Producto = producto;
+                    historialCompra.Categoria = categoria;
+
                     historialCompra.ImporteCompra = Convert.ToDecimal(dataReader["IMP_COMP_HIST"].ToString());
                     lista.Add(historialCompra);
                 }

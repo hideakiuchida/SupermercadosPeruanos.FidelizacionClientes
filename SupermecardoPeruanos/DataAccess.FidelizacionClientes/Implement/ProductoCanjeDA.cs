@@ -10,6 +10,38 @@ namespace DataAccess.FidelizacionClientes.Implement
 {
     public class ProductoCanjeDA : DataConnection, IProductoCanjeDA
     {
+        public Producto Get(int id)
+        {
+            Producto producto = new Producto();
+
+            SqlCommand command = new SqlCommand("[dbo].[PRODUCTO_Q01]", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@COD_PROD", id));
+
+            connection.Open();
+
+            SqlDataReader dataReader = command.ExecuteReader();
+
+            if (dataReader.HasRows)
+            {
+                while (dataReader.Read())
+                {
+                    producto.Id = Convert.ToInt32(dataReader["COD_PROD_CANJ"]);
+                    producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
+                    producto.Nombre = dataReader["DES_PROD_CANJ"].ToString();
+                    producto.Imagen = dataReader["IMAGEN"].ToString();
+                    decimal valorCanje = Convert.ToDecimal(dataReader["VAL_CANJ"].ToString());
+                    producto.Puntos = Convert.ToInt32(valorCanje);
+                    decimal stock = Convert.ToDecimal(dataReader["CAN_STOC_CANJ"].ToString());
+                    producto.Stock = Convert.ToInt32(stock); 
+                }
+            }
+
+            connection.Close();
+
+            return producto;
+        }
+
         public CatalogoProducto GetOfertasPersonalizadas(int[] categorias, int cantidad, int pagina)
         {
             CatalogoProducto catalogoProducto = new CatalogoProducto();
@@ -47,11 +79,13 @@ namespace DataAccess.FidelizacionClientes.Implement
                     producto.Id = Convert.ToInt32(dataReader["COD_PROD_CANJ"].ToString());
                     producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
                     producto.Nombre = dataReader["DES_PROD_CANJ"].ToString();
+                    producto.Imagen = dataReader["IMAGEN"].ToString();
                     Categoria categoria = new Categoria();
                     categoria.Id = Convert.ToInt32(dataReader["COD_CATE_PROD"].ToString());
                     producto.Categoria = categoria;
                     total = Convert.ToInt32(dataReader["TOTAL"].ToString());
-                    producto.Puntos = Convert.ToInt32(dataReader["VAL_CANJ"].ToString());
+                    decimal valorCanje = Convert.ToDecimal(dataReader["VAL_CANJ"].ToString());
+                    producto.Puntos = Convert.ToInt32(valorCanje);
                     lista.Add(producto);
                 }
             }

@@ -73,7 +73,7 @@
         $("#txtPuntos").val(producto.Puntos);
         $("#txtStock").val(producto.Stock);
         $("#lblDescripcionProducto").text(producto.Descripcion);
-        $("#lblCondiciones").text("Condiciones condiciones condiciones condiciones condiciones");
+        $("#lblCondiciones").text("Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit");
         $("#btnAgregarProductoModal").click(function(){_agregarProducto(producto.Id); });    
     };
 
@@ -160,7 +160,6 @@
 
                 $(divProducto).append("<img src='" + item.Imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><label>Puntos: " + item.Puntos + "</label></div>");
-                $(divProducto).append("<div style='padding:2px;text-align:center'><label>Categoria: " + item.Categoria.Descripcion + "</label></div>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnDetalle + "' style='width: 100%' type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-producto' data-remote='false'>Ver Detalle</button></div>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnAgregar + "' style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
 

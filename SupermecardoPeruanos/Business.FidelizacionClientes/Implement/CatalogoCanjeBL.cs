@@ -22,9 +22,11 @@ namespace Business.FidelizacionClientes.Implement
         {
             List<HistorialCompra> listaHistorialCompra = historialCompraDA.GetByCliente(idCliente);
             var lista =  listaHistorialCompra.GroupBy(x => x.Categoria.Id)
-                .Select(x => new { IdCategoria = x.Key, Cantidad = x.Sum(item => item.Codigo)});
+                .Select(x => new { IdCategoria = x.Key, Cantidad = x.Sum(item => item.Codigo)})
+                .OrderByDescending(x => x.Cantidad)
+                .Take(3);
 
-            int[] categorias = new int[0];
+            int[] categorias = lista!=null ? lista.Select(x => x.IdCategoria).ToArray() : new int[0];
 
             return productoCanjeDA.GetOfertasPersonalizadas(categorias, cantidad, pagina);
         }

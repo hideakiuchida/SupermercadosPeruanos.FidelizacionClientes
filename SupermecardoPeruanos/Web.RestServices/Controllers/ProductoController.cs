@@ -1,4 +1,6 @@
-﻿using Model.FidelizacionClientes;
+﻿using Business.FidelizacionClientes.Implement;
+using Business.FidelizacionClientes.Interfaces;
+using Model.FidelizacionClientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,12 @@ namespace Web.RestServices.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductoController : ApiController
     {
+        private IProductoCanjeBL productoCanjeBL;
+
+        public ProductoController()
+        {
+            productoCanjeBL = new ProductoCanjeBL();
+        }
         // GET: api/Producto
         public IEnumerable<string> Get()
         {
@@ -21,7 +29,7 @@ namespace Web.RestServices.Controllers
         // GET: api/Producto/5
         public Producto Get(int id)
         {
-            return new Producto { Id=1, Imagen= "Content/Images/pic_mountain.jpg" , Stock=12, Puntos=1000, Descripcion="Descripcion descripcion descripcion descripcion."};
+            return productoCanjeBL.Get(id);
         }
 
         // POST: api/Producto
