@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>SafetyAuth</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="~/Content/main.css">
+        
+        <!-- load angular via CDN -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.8/angular-resource.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.8/angular-route.min.js"></script>
+        <script src="~/Scripts/app.js"></script>
+    </head>
+    <body>
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="http://safetyauth.com">SafetyAuth</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#/account"><i class="fa fa-home"></i>Home</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+        <div class="container" ng-app="safetyAuthApp">
+        <div ng-controller="accountController">        
+                  <div class="form">
+              <ul class="tab-group">
+                <li class="tab active"><a href="#signup">Sign Up</a></li>
+                <li class="tab"><a href="#login">Log In</a></li>
+              </ul>
+                
+              <div class="tab-content">
+                      <div id="signup">
+                            <h1>Sign Up for Free</h1>
+                            <form method="post">
+
+                            <div class="top-row">
+                            <div class="field-wrap">
+                            <label>
+                                First Name<span class="req">*</span>
+                              </label>
+                            <input type="text" required autocomplete="off" ng-model='accountData.firstName'/>
+                          </div>
+
+                            <div class="field-wrap">
+                            <label>
+                                Last Name<span class="req">*</span>
+                              </label>
+                            <input type="text" required autocomplete="off" ng-model='accountData.lastName'/>
+                          </div>
+                        </div>
+                            <div class="field-wrap">
+                              <label>
+                                  Email Address<span class="req">*</span>
+                                </label>
+                              <input type="email" required autocomplete="off" ng-model='accountData.email'/>
+                            </div>
+
+                            <div class="field-wrap">
+                              <label>
+                                  Password<span class="req">*</span>
+                                </label>
+                              <input type="password" required autocomplete="off" ng-model='accountData.password'/>
+                            </div>
+
+                            <div class="field-wrap">
+                              <label>
+                                  Company Name<span class="req">*</span>
+                                </label>
+                              <input type="text" required autocomplete="off" ng-model='accountData.companyName'/>
+                            </div>
+                            
+
+                                                            
+                            <button type="submit" class="button button-block" ng-click='postAccount()'>Sign Up</button>
+                            <div class="field-wrap">
+                                    <input type="checkbox" class="checkbox"  id="accept_conditions">
+					                   <label for="accept_conditions">I agree to the Terms and Conditions</label>
+                            </div>
+                            </form>
+                    </div>
+                      <div id="login">
+                          <h1>Welcome Back!</h1>
+
+                          <form method="post">
+
+                            <div class="field-wrap">
+                              <label>
+                                  Email Address<span class="req">*</span>
+                                </label>
+                              <input type="email" required autocomplete="off" ng-model='accountData.loginEmail'/>
+                            </div>
+
+                            <div class="field-wrap">
+                              <label>
+                                  Password<span class="req">*</span>
+                                </label>
+                              <input type="password" required autocomplete="off" ng-model='accountData.loginPasssword'/>
+                            </div>
+
+                            <p class="forgot"><a href="#">Forgot Password?</a></p>
+
+                            <button type="submit" class="button button-block" ng-click='loginAccount()' >Log In</button>
+
+                          </form>
+
+                        </div>                  
+            </div>
+            </div>
+        </div>
+        </div>            
+    </body>
+    <div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Scripts/Login/main.js"></script>
+    </div>
+</html>

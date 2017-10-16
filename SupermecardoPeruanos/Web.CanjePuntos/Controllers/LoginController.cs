@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace Web.CanjePuntos.Controllers
 {
-    [Authorize]
-    public class CatalogoController : Controller
+    public class LoginController : Controller
     {
-        // GET: Catalogo
+        // GET: Login
         public ActionResult Index()
         {
             return View();
