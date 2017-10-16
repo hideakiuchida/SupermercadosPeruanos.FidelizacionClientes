@@ -74,6 +74,7 @@
         $("#txtStock").val(producto.Stock);
         $("#lblDescripcionProducto").text(producto.Descripcion);
         $("#lblCondiciones").text(producto.Condiciones);
+        $("#btnAgregarProductoModal").unbind("click");
         $("#btnAgregarProductoModal").click(function(){_agregarProducto(producto.Id); });    
     };
 

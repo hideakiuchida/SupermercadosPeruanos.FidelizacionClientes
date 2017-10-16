@@ -33,7 +33,7 @@ namespace DataAccess.FidelizacionClientes.Implement
                     decimal valorCanje = Convert.ToDecimal(dataReader["VAL_CANJ"].ToString());
                     producto.Puntos = Convert.ToInt32(valorCanje);
                     decimal stock = Convert.ToDecimal(dataReader["CAN_STOC_CANJ"].ToString());
-                    producto.Condiciones = dataReader["CON_PROD_CANJ"].ToString();
+                    producto.Condiciones = "COndiciones condiciones"; // dataReader["CON_PROD_CANJ"].ToString();
                     producto.Stock = Convert.ToInt32(stock); 
                 }
             }
