@@ -20,11 +20,12 @@
                 tipo: _tipo
             },
             success: function (data) {
-                if (data.success) {
-                    alert(data.message);
-                    document.getElementById('btnRegistrarAfiliacion').disabled = true;
-                    _limpiar();
-                    window.location.reload();
+                if (data.success) {    
+                    alertify.alert("Registro de Solicitud", data.message, function () {
+                        document.getElementById('btnRegistrarAfiliacion').disabled = true;
+                        _limpiar();
+                        window.location.reload();
+                    });    
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -89,11 +90,14 @@
                         _setSeccionDeudas(data.Infocorp);
 
 
-                        if (data.Estado === "D") {
-                            alert("La Solicitud ya ha sido Desaprobada");
-                            document.getElementById('btnEvaluar').disabled = true;
-                        } else if (data.Estado === "A") {
-                            alert("La Solicitud ya ha sido Aprobada");
+                        if (data.Estado === "DESAPROBADO") {
+                            alertify.alert("Estado de Solicitud","La solicitud ya ha sido Desaprobada");
+                            document.getElementById('btnEvEstado de Solicitudaluar').disabled = true;
+                        } else if (data.Estado === "APROBADO") {
+                            alertify.alert("Estado de Solicitud", "La solicitud ya ha sido Aprobada");
+                            $("#lblNombres").text(data.Cliente.Nombre);
+                            $("#lblApellidos").text(data.Cliente.ApellidoPaterno + ' ' + data.Cliente.ApellidoMaterno);
+                            $("#mensajeAprobado").show();    
                             document.getElementById('btnEvaluar').disabled = true;
                         } else {
                             document.getElementById('btnEvaluar').disabled = false;
@@ -142,6 +146,7 @@
         $("#txtNumeroDocumento").val("");
         $("#txtNumeroTarjeta").val("");
         $("#txtBusquedaPorNumDoc").val("");
+        $("#mensajeAprobado").hide();
         _removerTabla();
         document.getElementById('btnEvaluar').disabled = true; 
     };
@@ -167,7 +172,10 @@
                 { data: 'MontoDeuda' },
                 { data: 'CalificacionSBS' }
             ],
-            data: deudas
+            data: deudas,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
 
         });
     }
@@ -191,7 +199,11 @@
     };
 
     var _initialize = function () {
-        $('#table_deudas').DataTable();
+        $('#table_deudas').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
         _bindEvents();
     };
 

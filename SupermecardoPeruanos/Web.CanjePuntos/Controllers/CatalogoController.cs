@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Web.CanjePuntos.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CatalogoController : Controller
     {
         // GET: Catalogo

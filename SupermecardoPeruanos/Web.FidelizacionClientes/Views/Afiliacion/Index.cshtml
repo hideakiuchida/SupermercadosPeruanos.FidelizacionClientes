@@ -6,6 +6,11 @@
 @Scripts.Render("http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
 
 <div id="afiliar-tarjeta-oh" class="container-fluid">
+    <div id="mensajeAprobado" class="row content mensaje-aprobado" style="display: none;"> La Solicitud del Cliente  
+                <label id="lblNombres"></label> 
+                <label id="lblApellidos"></label>
+                ya se encuentra Aprobada.
+    </div>
     <div class="row content">
         <div id="seccion-buscar-cliente" class="col-md-2 well">
             <h5 class="subtitulos">Búsqueda de Cliente</h5>
@@ -72,10 +77,10 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="col-md-5">
-            
+
             <div id="seccion-deudas" class="well secciones-afiliar">
                 <h5 class="subtitulos">Deudas en Otras Entidades</h5>
                 <table id="table_deudas" class="display">
@@ -86,13 +91,12 @@
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
 
             <div id="seccion-evaluacion" class="well secciones-afiliar-2">
-                <h5 class="subtitulos">Evaluación</h5>
+                <h5 class="subtitulos">Nro. de Tarjeta OH</h5>
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-md-5" for="txtNumeroTarjeta">Número de Tarjeta:</label>
@@ -101,13 +105,13 @@
                         </div>
                     </div>
                 </div>
-                <div >
-                    <button id="btnEvaluar" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-afiliar" data-remote="false" disabled>
-                        Evaluar
-                    </button>
-                </div>
             </div>
         </div>
+    </div>
+    <div class="row content"> 
+        <button id="btnEvaluar" class="btn btn-primary col-md-12" data-toggle="modal" data-target="#modal-afiliar" data-remote="false" disabled>
+            Evaluar
+        </button> 
     </div>
 </div>
 
