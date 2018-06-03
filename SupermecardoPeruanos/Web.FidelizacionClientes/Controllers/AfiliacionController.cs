@@ -81,10 +81,9 @@ namespace Web.FidelizacionClientes.Controllers
             bool isCalifica = false;
             string tipo = String.Empty;
 
-            if (((ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoA && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoA) ||
-                (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoB && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoB) ||
-                (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoC && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoC)) &&
-                calificacion.LineaCredito >= CalificacionEnum.LineaCreditoMinimo)
+            if (((ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoA && calificacion.LineaCredito >= CalificacionEnum.LineaCreditoMinimo && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoA) ||
+                (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoB && calificacion.LineaCredito > CalificacionEnum.LineaCreditoMaximoA && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoB) ||
+                (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoC && calificacion.LineaCredito > CalificacionEnum.LineaCreditoMaximoB && calificacion.LineaCredito <= CalificacionEnum.LineaCreditoMaximoC)))
             {
                 foreach (var item in infocorp)
                 {
