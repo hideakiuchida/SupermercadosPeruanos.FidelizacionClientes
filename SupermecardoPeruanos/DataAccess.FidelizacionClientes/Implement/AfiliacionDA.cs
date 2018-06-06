@@ -17,7 +17,7 @@ namespace DataAccess.FidelizacionClientes.Implement
         
             SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_Q01]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@COD_CLIE", codigoCliente));
+            command.Parameters.Add(new SqlParameter("@CLIE", codigoCliente));
 
             connection.Open();
 
@@ -27,10 +27,10 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    afiliacionTarjetaOH.Codigo = Convert.ToInt32(dataReader["COD_TARJ"]);
-                    afiliacionTarjetaOH.Tipo = dataReader["TIP_TARJ"].ToString();
-                    afiliacionTarjetaOH.NumeroTarjeta = dataReader["NUM_TARJ"].ToString();
-                    afiliacionTarjetaOH.Bin = dataReader["BIN_TARJ"].ToString();
+                    afiliacionTarjetaOH.Codigo = Convert.ToInt32(dataReader["ID_TARJETA_CLIENTE"]);
+                    afiliacionTarjetaOH.Tipo = dataReader["TIPO_TARJETA"].ToString();
+                    afiliacionTarjetaOH.NumeroTarjeta = dataReader["NUMERO_TARJETA"].ToString();
+                    afiliacionTarjetaOH.Bin = dataReader["BIN_TARJETA"].ToString();
                 }
             }
 
@@ -45,7 +45,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             SqlCommand command = new SqlCommand("[dbo].[INFOCORP_Q03]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@COD_CLIE", codigoCliente));
+            command.Parameters.Add(new SqlParameter("@CLIE", codigoCliente));
 
             connection.Open();
 
@@ -56,9 +56,9 @@ namespace DataAccess.FidelizacionClientes.Implement
                 while (dataReader.Read())
                 {
                     Infocorp infocorp = new Infocorp();
-                    infocorp.EntidadFinanciera = dataReader["ENT_FINA_INFO"].ToString();
-                    infocorp.MontoDeuda = Convert.ToDecimal(dataReader["IMP_MONT_INFO"].ToString());
-                    infocorp.CalificacionSBS = dataReader["CAL_SBSS_INFO"].ToString();
+                    infocorp.EntidadFinanciera = dataReader["ENTIDAD_FINANCIERA"].ToString();
+                    infocorp.MontoDeuda = Convert.ToDecimal(dataReader["IMPORTE_DEUDA"].ToString());
+                    infocorp.CalificacionSBS = dataReader["CALIFICACION_SBSS"].ToString();
                     lista.Add(infocorp);
                 }
             }
@@ -119,7 +119,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    Estado = dataReader["EST_SOLI_AFIL"].ToString();   
+                    Estado = dataReader["ESTADO_SOLICITUD"].ToString();   
                 }
             }
 
