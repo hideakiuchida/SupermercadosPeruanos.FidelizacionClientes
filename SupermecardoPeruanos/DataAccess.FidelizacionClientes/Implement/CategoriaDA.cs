@@ -26,8 +26,8 @@ namespace DataAccess.FidelizacionClientes.Implement
                 while (dataReader.Read())
                 {
                     Categoria categoria = new Categoria();
-                    categoria.Id = Convert.ToInt32(dataReader["COD_CATE_PROD"].ToString());
-                    categoria.Descripcion = dataReader["NOM_CATE_PROD"].ToString();
+                    categoria.Id = Convert.ToInt32(dataReader["ID_CATEGORIA"].ToString());
+                    categoria.Descripcion = dataReader["NOMBRE_CATEGORIA"].ToString();
                     lista.Add(categoria);
                 }
             }

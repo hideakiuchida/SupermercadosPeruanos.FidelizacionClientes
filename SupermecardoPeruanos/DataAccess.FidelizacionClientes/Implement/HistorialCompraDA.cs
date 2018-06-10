@@ -16,7 +16,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             SqlCommand command = new SqlCommand("[dbo].[HISTORIAL_COMPRA_Q01]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@COD_CLIE", id));
+            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", id));
 
             connection.Open();
 
@@ -29,15 +29,15 @@ namespace DataAccess.FidelizacionClientes.Implement
                     HistorialCompra historialCompra = new HistorialCompra();
                     Producto producto = new Producto();
                     Categoria categoria = new Categoria();
-                    historialCompra.Codigo = Convert.ToInt32(dataReader["COD_CLIE_HIST"].ToString());
+                    historialCompra.Codigo = Convert.ToInt32(dataReader["ID_CLIENTE_HISTORIAL"].ToString());
                     
-                    producto.Id = Convert.ToInt32(dataReader["COD_PROD_HIST"].ToString()); 
-                    categoria.Id = Convert.ToInt32(dataReader["COD_CATE_HIST"].ToString());
+                    producto.Id = Convert.ToInt32(dataReader["ID_PRODUCTO_HISTORIAL"].ToString()); 
+                    categoria.Id = Convert.ToInt32(dataReader["ID_CATEGORIA_HISTORIAL"].ToString());
 
                     historialCompra.Producto = producto;
                     historialCompra.Categoria = categoria;
 
-                    historialCompra.ImporteCompra = Convert.ToDecimal(dataReader["IMP_COMP_HIST"].ToString());
+                    historialCompra.ImporteCompra = Convert.ToDecimal(dataReader["IMPORTE_COMPRA"].ToString());
                     lista.Add(historialCompra);
                 }
             }

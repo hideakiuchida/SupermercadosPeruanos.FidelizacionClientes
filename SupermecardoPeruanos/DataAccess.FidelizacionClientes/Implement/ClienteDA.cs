@@ -17,7 +17,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             SqlCommand command = new SqlCommand("[dbo].[CLIENTE_Q01]", connection);
             command.CommandType = CommandType.StoredProcedure;  
-            command.Parameters.Add(new SqlParameter("@NUM_DOCU_IDEN", numeroDocumento));
+            command.Parameters.Add(new SqlParameter("@P_DOCU_IDEN", numeroDocumento));
 
             connection.Open();
 
@@ -27,22 +27,22 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    cliente.Codigo = Convert.ToInt32(dataReader["COD_CLIE"]);
-                    cliente.Nombre = dataReader["NOM_CLIE"].ToString();
-                    cliente.ApellidoPaterno = dataReader["APE_PATE_CLIE"].ToString();
-                    cliente.ApellidoMaterno = dataReader["APE_MATE_CLIE"].ToString();
-                    cliente.TipoDocumentoIdentidad = dataReader["TIP_DOCU_IDEN"].ToString();
-                    cliente.NumeroDocumentoIdentidad = dataReader["NUM_DOCU_IDEN"].ToString();
-                    cliente.FechaNaciemiento = Convert.ToDateTime(dataReader["FEC_NACI"].ToString());
-                    cliente.Sexo = dataReader["SEX_CLIE"].ToString();
-                    cliente.Email = dataReader["EMA_CLIE"].ToString();
-                    cliente.Direccion = dataReader["DIR_CLIE"].ToString();
-                    cliente.TelefonoFijo = dataReader["TEL_FIJO_CLIE"].ToString();
-                    cliente.TelefonoMovil = dataReader["TEL_MOVI_CLIE"].ToString();
-                    cliente.SituacionLaboral = dataReader["SIT_LABO_CLIE"].ToString();
-                    cliente.Estado = dataReader["EST_CLIE"].ToString();
-                    cliente.IndicadorTarjeta = dataReader["IND_TARJ"].ToString();
-                    cliente.IndicadorVeaClub = dataReader["IND_TARJ_VCLU"].ToString();
+                    cliente.Codigo = Convert.ToInt32(dataReader["ID_CLIENTE"]);
+                    cliente.Nombre = dataReader["NOMBRE_COMPLETO"].ToString();
+                    cliente.ApellidoPaterno = dataReader["APELLIDO_PATERNO"].ToString();
+                    cliente.ApellidoMaterno = dataReader["APELLIDO_MATERNO"].ToString();
+                    cliente.TipoDocumentoIdentidad = dataReader["TIPO_DOCUMENTO"].ToString();
+                    cliente.NumeroDocumentoIdentidad = dataReader["NUMERO_DOCUMENTO"].ToString();
+                    cliente.FechaNaciemiento = Convert.ToDateTime(dataReader["FECHA_NACIMIENTO"].ToString());
+                    cliente.Sexo = dataReader["SEXO"].ToString();
+                    cliente.Email = dataReader["EMAIL"].ToString();
+                    cliente.Direccion = dataReader["DIRECCION"].ToString();
+                    cliente.TelefonoFijo = dataReader["TELEFONO_FIJO"].ToString();
+                    cliente.TelefonoMovil = dataReader["TELEFONO_MOVI"].ToString();
+                    cliente.SituacionLaboral = dataReader["SITUACION_LABORAL"].ToString();
+                    cliente.Estado = dataReader["ESTADO_CLIE"].ToString();
+                    cliente.IndicadorTarjeta = dataReader["INDICADOR_TARJETA"].ToString();
+                    cliente.IndicadorVeaClub = dataReader["TARJETA_VCLUB"].ToString();
                 }
             }
 

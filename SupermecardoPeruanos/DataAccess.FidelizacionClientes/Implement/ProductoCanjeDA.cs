@@ -16,7 +16,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             SqlCommand command = new SqlCommand("[dbo].[PRODUCTO_Q01]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@COD_PROD", id));
+            command.Parameters.Add(new SqlParameter("@P_ID_PRODUCTO", id));
 
             connection.Open();
 
@@ -26,15 +26,15 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    producto.Id = Convert.ToInt32(dataReader["COD_PROD_CANJ"]);
+                    producto.Id = Convert.ToInt32(dataReader["ID_PRODUCTO"]);
                     producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
-                    producto.Nombre = dataReader["DES_PROD_CANJ"].ToString();
+                    producto.Nombre = dataReader["DESCRIPCION_PRODUCTO"].ToString();
                     producto.Imagen = dataReader["IMAGEN"].ToString();
-                    decimal valorCanje = Convert.ToDecimal(dataReader["VAL_CANJ"].ToString());
+                    decimal valorCanje = Convert.ToDecimal(dataReader["VALOR"].ToString());
                     producto.Puntos = Convert.ToInt32(valorCanje);
-                    decimal stock = Convert.ToDecimal(dataReader["CAN_STOC_CANJ"].ToString());
-                    producto.Condiciones = "COndiciones condiciones"; // dataReader["CON_PROD_CANJ"].ToString();
-                    producto.Stock = Convert.ToInt32(stock); 
+                    decimal stock = Convert.ToDecimal(dataReader["STOCK"].ToString());
+                    producto.Stock = Convert.ToInt32(stock);
+                    producto.Condiciones = "Condiciones condiciones"; // dataReader["CON_PROD_CANJ"].ToString();
                 }
             }
 

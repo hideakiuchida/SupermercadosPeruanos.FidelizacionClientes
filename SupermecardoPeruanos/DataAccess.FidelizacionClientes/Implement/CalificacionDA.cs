@@ -17,7 +17,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             SqlCommand command = new SqlCommand("[dbo].[CALIFICACIONCLIENTE_Q02]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@COD_CLIE", codigoCliente));
+            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", codigoCliente));
 
             connection.Open();
 
@@ -27,7 +27,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    calificacion.Codigo = Convert.ToInt32(dataReader["COD_CALI_CLIE"]);
+                    calificacion.Codigo = Convert.ToInt32(dataReader["ID_CALIFI_CLIE"]);
                     calificacion.CalificacionCrediticia = dataReader["CAL_CRED"].ToString();
                     calificacion.LineaCredito = Convert.ToDecimal(dataReader["LIN_CRED"].ToString());
                     calificacion.SueldoCliente = Convert.ToDecimal(dataReader["SUE_CLIE"].ToString());

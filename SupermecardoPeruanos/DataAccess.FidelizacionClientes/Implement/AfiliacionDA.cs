@@ -17,7 +17,7 @@ namespace DataAccess.FidelizacionClientes.Implement
         
             SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_Q01]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@CLIE", codigoCliente));
+            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", codigoCliente));
 
             connection.Open();
 
@@ -45,7 +45,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             SqlCommand command = new SqlCommand("[dbo].[INFOCORP_Q03]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@CLIE", codigoCliente));
+            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", codigoCliente));
 
             connection.Open();
 
@@ -75,15 +75,13 @@ namespace DataAccess.FidelizacionClientes.Implement
             command.CommandType = CommandType.StoredProcedure;
 
             
-            command.Parameters.AddWithValue("@COD_CLIE", codigoCliente);
-            command.Parameters.AddWithValue("@TIP_TARJ", tipo);
-            command.Parameters.AddWithValue("@NUM_TARJ", Convert.ToInt64(numero));
+            command.Parameters.AddWithValue("@P_ID_CLIENTE", codigoCliente);
+            command.Parameters.AddWithValue("@P_TIP_TARJ", tipo);
+            command.Parameters.AddWithValue("@P_NUM_TARJ", Convert.ToInt64(numero));
             
             command.ExecuteNonQuery();
 
-
             connection.Close();
-
 
         }
 
@@ -93,13 +91,10 @@ namespace DataAccess.FidelizacionClientes.Implement
             SqlCommand command = new SqlCommand("[dbo].[SOLICITUD_DESAPROBADAI03]", connection);
             command.CommandType = CommandType.StoredProcedure;
 
-
-            command.Parameters.AddWithValue("@COD_CLIE", numeroDocumento);
+            command.Parameters.AddWithValue("@P_ID_CLIENTE", numeroDocumento);
             command.ExecuteNonQuery();
 
             connection.Close();
-
-
         }
 
         public string consultarEstadoSol(string numeroDocumento)
@@ -109,8 +104,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             command.CommandType = CommandType.StoredProcedure;
             string Estado = String.Empty;
 
-
-            command.Parameters.AddWithValue("@NUM_DOCU_IDEN", numeroDocumento);
+            command.Parameters.AddWithValue("@P_NUM_DOCU_IDEN", numeroDocumento);
             command.ExecuteNonQuery();
 
             SqlDataReader dataReader = command.ExecuteReader();
@@ -124,8 +118,6 @@ namespace DataAccess.FidelizacionClientes.Implement
             }
 
             return Estado;
-
-
         }
 
     }
