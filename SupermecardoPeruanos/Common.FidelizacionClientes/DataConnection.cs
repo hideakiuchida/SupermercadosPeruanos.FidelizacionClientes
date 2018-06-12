@@ -18,7 +18,7 @@ namespace Common.FidelizacionClientes
             conn.ConnectionString = "Server = localhost; " +
                 "User id = root; " +
                 "Database = sigesu; " +
-                "Persistsecurityinfo = True; ";
+                "Password = mysql;";
             return conn;
         }
     }

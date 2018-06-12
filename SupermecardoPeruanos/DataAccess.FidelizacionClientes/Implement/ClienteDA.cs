@@ -77,7 +77,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             command.Parameters.AddWithValue("@FECHA_NACIMIENTO", Convert.ToDateTime(cliente.FechaNaciemiento));
             command.Parameters.AddWithValue("@SEXO", cliente.Sexo);
             command.Parameters.AddWithValue("@EMAIL", cliente.Email);
-            command.Parameters.AddWithValue("@DIRECCION", cliente.Direccion));
+            command.Parameters.AddWithValue("@DIRECCION", cliente.Direccion);
             command.Parameters.AddWithValue("@TELEFONO_FIJO", cliente.TelefonoFijo);
             command.Parameters.AddWithValue("@TELEFONO_MOVI", cliente.TelefonoMovil);
             command.Parameters.AddWithValue("@SITUACION_LABORAL", cliente.SituacionLaboral);
@@ -141,7 +141,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             command.Parameters.AddWithValue("@FECHA_NACIMIENTO", Convert.ToDateTime(cliente.FechaNaciemiento));
             command.Parameters.AddWithValue("@SEXO", cliente.Sexo);
             command.Parameters.AddWithValue("@EMAIL", cliente.Email);
-            command.Parameters.AddWithValue("@DIRECCION", cliente.Direccion));
+            command.Parameters.AddWithValue("@DIRECCION", cliente.Direccion);
             command.Parameters.AddWithValue("@TELEFONO_FIJO", cliente.TelefonoFijo);
             command.Parameters.AddWithValue("@TELEFONO_MOVI", cliente.TelefonoMovil);
             command.Parameters.AddWithValue("@SITUACION_LABORAL", cliente.SituacionLaboral);
