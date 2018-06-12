@@ -1,22 +1,24 @@
-﻿using System.Data.SqlClient;
+﻿//using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Common.FidelizacionClientes
 {
     public abstract class DataConnection
     {
-        protected SqlConnection connection;
+        protected MySqlConnection connection;
 
         public DataConnection()
         {
             connection = GetConnection();
         }
 
-        private static SqlConnection GetConnection()
+        private static MySqlConnection GetConnection()
         {
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Server=localhost\\sqlexpress; " +
-                "Database = BDFIDELIZACION; " +
-                "Integrated Security = True; ";
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = "Server = localhost; " +
+                "User id = root; " +
+                "Database = sigesu; " +
+                "Persistsecurityinfo = True; ";
             return conn;
         }
     }

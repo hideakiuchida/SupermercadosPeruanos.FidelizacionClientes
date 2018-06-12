@@ -4,7 +4,8 @@ using Model.FidelizacionClientes;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
@@ -14,13 +15,13 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             List<HistorialCompra> lista = new List<HistorialCompra>();
 
-            SqlCommand command = new SqlCommand("[dbo].[HISTORIAL_COMPRA_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("HISTORIAL_COMPRA_Q01", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", id));
+            command.Parameters.Add(new MySqlParameter("@P_ID_CLIENTE", id));
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {

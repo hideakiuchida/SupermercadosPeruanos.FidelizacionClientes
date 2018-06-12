@@ -4,7 +4,8 @@ using Model.FidelizacionClientes;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
@@ -14,13 +15,13 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             Producto producto = new Producto();
 
-            SqlCommand command = new SqlCommand("[dbo].[PRODUCTO_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("[dbo].[PRODUCTO_Q01]", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@P_ID_PRODUCTO", id));
+            command.Parameters.Add(new MySqlParameter("@P_ID_PRODUCTO", id));
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {
@@ -51,7 +52,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             int total = 0;
 
-            SqlCommand command = new SqlCommand("[dbo].[CATALOGO_PERSONALIZADO_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("[dbo].[CATALOGO_PERSONALIZADO_Q01]", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             DataTable dtCategorias = new DataTable();
@@ -59,18 +60,18 @@ namespace DataAccess.FidelizacionClientes.Implement
             dtCategorias.Columns.Add(dcCategorias);
             new List<int>(categorias).ForEach(dr => { DataRow d = dtCategorias.NewRow(); d[dcCategorias] = dr; dtCategorias.Rows.Add(d); });
 
-            SqlParameter parameter = new SqlParameter();
+            MySqlParameter parameter = new MySqlParameter();
             parameter.ParameterName = "@CATEGORIAS";
-            parameter.SqlDbType = SqlDbType.Structured;
+            parameter.MySqlDbType = MySqlDbType.Decimal;
             parameter.Value = dtCategorias;
 
             command.Parameters.Add(parameter);
-            command.Parameters.Add(new SqlParameter("@CANTIDAD", cantidad));
-            command.Parameters.Add(new SqlParameter("@PAGINA", pagina));
+            command.Parameters.Add(new MySqlParameter("@CANTIDAD", cantidad));
+            command.Parameters.Add(new MySqlParameter("@PAGINA", pagina));
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {

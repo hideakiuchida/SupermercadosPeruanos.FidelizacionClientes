@@ -76,6 +76,7 @@
 
     var _buscarAfiliacionCliente = function () {
         var _numeroDocumento = $("#txtBusquedaPorNumDoc").val();
+        alert('Msje: ' || _numeroDocumento.length);
         if (_numeroDocumento.length === 8) {
 
             $.ajax({
@@ -118,7 +119,8 @@
 
         }
         else { 
-            alert('Ingrese DNI Válido');
+            // alert('Ingrese DNI Válido');
+            alert('Msje: ' || _numeroDocumento.length);
         }
         return false;
     };

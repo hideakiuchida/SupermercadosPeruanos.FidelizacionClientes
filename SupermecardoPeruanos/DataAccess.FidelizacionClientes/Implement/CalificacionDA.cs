@@ -2,7 +2,8 @@
 using DataAccess.FidelizacionClientes.Interfaces;
 using Model.FidelizacionClientes;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Common.FidelizacionClientes;
 using System;
 using System.Data;
@@ -15,13 +16,13 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             Calificacion calificacion = new Calificacion();
 
-            SqlCommand command = new SqlCommand("[dbo].[CALIFICACIONCLIENTE_Q02]", connection);
+            MySqlCommand command = new MySqlCommand("CALIFICACIONCLIENTE_Q02", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", codigoCliente));
+            command.Parameters.Add(new MySqlParameter("@P_ID_CLIENTE", codigoCliente));
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {

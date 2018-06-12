@@ -4,8 +4,9 @@ using Model.FidelizacionClientes;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
 using System.Linq;
+using MySql.Data.MySqlClient;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
@@ -15,13 +16,13 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             Cliente cliente = new Cliente();
 
-            SqlCommand command = new SqlCommand("[dbo].[CLIENTE_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("CLIENTE_Q01",  connection);
             command.CommandType = CommandType.StoredProcedure;  
-            command.Parameters.Add(new SqlParameter("@P_DOCU_IDEN", numeroDocumento));
+            command.Parameters.Add(new MySqlParameter("@P_DOCU_IDEN", numeroDocumento));
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {

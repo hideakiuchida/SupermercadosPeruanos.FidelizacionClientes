@@ -4,8 +4,9 @@ using Common.FidelizacionClientes;
 using Model.FidelizacionClientes;
 using System.Collections.Generic;
 using System;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace DataAccess.FidelizacionClientes.Implement
 {
@@ -15,13 +16,13 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             AfiliacionTarjetaOH afiliacionTarjetaOH = new AfiliacionTarjetaOH();
         
-            SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("TARJETAOH_Q01", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", codigoCliente));
+            command.Parameters.Add(new MySqlParameter("@P_ID_CLIENTE", codigoCliente));
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {
@@ -43,13 +44,13 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             List<Infocorp> lista = new List<Infocorp>();
 
-            SqlCommand command = new SqlCommand("[dbo].[INFOCORP_Q03]", connection);
+            MySqlCommand command = new MySqlCommand("INFOCORP_Q03", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@P_ID_CLIENTE", codigoCliente));
+            command.Parameters.Add(new MySqlParameter("@P_ID_CLIENTE", codigoCliente));
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {
@@ -71,10 +72,9 @@ namespace DataAccess.FidelizacionClientes.Implement
         public void InsertCliente(int codigoCliente, string numero, string tipo)
         {
             connection.Open();
-            SqlCommand command = new SqlCommand("[dbo].[TARJETAOH_SOLICITUD_I02]", connection);
+            MySqlCommand command = new MySqlCommand("TARJETAOH_SOLICITUD_I02", connection);
             command.CommandType = CommandType.StoredProcedure;
 
-            
             command.Parameters.AddWithValue("@P_ID_CLIENTE", codigoCliente);
             command.Parameters.AddWithValue("@P_TIP_TARJ", tipo);
             command.Parameters.AddWithValue("@P_NUM_TARJ", Convert.ToInt64(numero));
@@ -88,7 +88,7 @@ namespace DataAccess.FidelizacionClientes.Implement
         public void UpdateSolicitudDes(int numeroDocumento)
         {
             connection.Open();
-            SqlCommand command = new SqlCommand("[dbo].[SOLICITUD_DESAPROBADAI03]", connection);
+            MySqlCommand command = new MySqlCommand("SOLICITUD_DESAPROBADAI03", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@P_ID_CLIENTE", numeroDocumento);
@@ -100,14 +100,14 @@ namespace DataAccess.FidelizacionClientes.Implement
         public string consultarEstadoSol(string numeroDocumento)
         {
             connection.Open();
-            SqlCommand command = new SqlCommand("[dbo].[ESTADO_SOLICITUD]", connection);
+            MySqlCommand command = new MySqlCommand("ESTADO_SOLICITUD", connection);
             command.CommandType = CommandType.StoredProcedure;
             string Estado = String.Empty;
 
             command.Parameters.AddWithValue("@P_NUM_DOCU_IDEN", numeroDocumento);
             command.ExecuteNonQuery();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {

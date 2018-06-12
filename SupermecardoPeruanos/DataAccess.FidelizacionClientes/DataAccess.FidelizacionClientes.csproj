@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+    <ProjectReference Include="..\Common.FidelizacionClientes\Common.FidelizacionClientes.csproj" />
+    <ProjectReference Include="..\Model.FidelizacionClientes\Model.FidelizacionClientes.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common.FidelizacionClientes\Common.FidelizacionClientes.csproj" />
-    <ProjectReference Include="..\Model.FidelizacionClientes\Model.FidelizacionClientes.csproj" />
+    <Reference Include="MySql.Data">
+      <HintPath>C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

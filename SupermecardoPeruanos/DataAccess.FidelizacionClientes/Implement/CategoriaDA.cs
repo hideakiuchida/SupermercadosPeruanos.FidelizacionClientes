@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using Model.FidelizacionClientes;
-using System.Data.SqlClient;
+//using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Common.FidelizacionClientes;
 using System.Data;
 
@@ -14,12 +15,12 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             List<Categoria> lista = new List<Categoria>();
 
-            SqlCommand command = new SqlCommand("[dbo].[CATEGORIA_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("CATEGORIA_Q01", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             connection.Open();
 
-            SqlDataReader dataReader = command.ExecuteReader();
+            MySqlDataReader dataReader = command.ExecuteReader();
 
             if (dataReader.HasRows)
             {
