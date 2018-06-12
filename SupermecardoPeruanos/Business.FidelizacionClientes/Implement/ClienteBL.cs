@@ -19,5 +19,21 @@ namespace Business.FidelizacionClientes.Implement
         {
             return clienteDA.GetCliente(numeroDocumento);
         }
+        public void InsertCliente(Cliente cliente)
+        {
+            clienteDA.InsertCliente(cliente);
+        }
+        public void UpdateCliente(Cliente cliente)
+        {
+            clienteDA.UpdateCliente(cliente);
+        }
+        public void DeleteCliente(int codigo)
+        {
+            clienteDA.DeleteCliente(codigo);
+        }
+        public Cliente ListCliente()
+        {
+            return clienteDA.ListCliente();
+        }
     }
 }
