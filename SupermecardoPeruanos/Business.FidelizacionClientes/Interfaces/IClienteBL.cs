@@ -1,4 +1,5 @@
 ﻿using Model.FidelizacionClientes;
+using System.Collections.Generic;
 
 namespace Business.FidelizacionClientes.Interfaces
 {
@@ -8,6 +9,6 @@ namespace Business.FidelizacionClientes.Interfaces
         void InsertCliente(Cliente cliente);
         void UpdateCliente(Cliente cliente);
         void DeleteCliente(int codigo);
-        Cliente ListCliente();
+        List<Cliente> GetClientes(int? dapartamentoId, bool? tieneVeaClub, bool? tieneTarjetaOH);
     }
 }

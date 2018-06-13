@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Clientes";
+}
+
+@Styles.Render("http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css")
+@Scripts.Render("http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
+
+<div id="clientes" class="container-fluid">
+    <section id="seccion-filtros">
+        <h5 class="subtitulos">Clientes</h5>
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label class="control-label col-md-4" for="select-departamento">Departamento:</label>
+                <select id="select-departamento" class="form-control col-md-8">
+                    <option value="0">- Select -</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label col-md-4" for="select-veaclub">Vea Club:</label>
+                <select id="select-veaclub" class="form-control col-md-8">
+                    <option value="0">- Select -</option>
+                </select>
+            </div>
+            <div class="col-md-4">            
+                <label class="control-label col-md-4" for="select-tarjetaoh">Tarjeta OH:</label>
+                <select id="select-tarjetaoh" class="form-control col-md-8">
+                    <option value="0">- Select -</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    <section id="seccion-grilla">
+        <table id="table_clientes" class="display">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Num. Doc.</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fec. de Nac.</th>
+                    <th>Dirección</th>
+                    <th>Vea Club</th>
+                    <th>Tarjeta Oh</th>
+                    <th>-</th>
+                    <th>x</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <section>
+        <div class="row content">
+            <button id="btn-agregar-cliente" class="btn btn-primary col-md-12" data-toggle="modal" data-target="#modal-afiliar" data-remote="false" disabled>
+                Agregar Cliente
+            </button>
+        </div>
+    </section>
+</div>
+
+@Scripts.Render("~/Scripts/Cliente/ClienteModule.js")
+<script>
+    $(document).ready(function () {
+
+        var clienteModule = new ClienteModule(
+            {
+                urlObtenerClientes: '@Url.Action("ObtenerClientes", "Cliente")'@* ,
+                urlEvaluar: '@Url.Action("Evaluar", "Afiliacion")',
+                urlRegistrar: '@Url.Action("RegistrarAfiliacion", "Afiliacion")'*@
+            }
+        );
+
+        clienteModule.initialize();
+    });
+
+</script>
+

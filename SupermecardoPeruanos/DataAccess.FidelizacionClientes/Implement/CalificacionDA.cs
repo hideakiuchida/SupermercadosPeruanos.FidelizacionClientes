@@ -28,12 +28,12 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    calificacion.Codigo = Convert.ToInt32(dataReader["ID_CALIFI_CLIE"]);
-                    calificacion.CalificacionCrediticia = dataReader["CAL_CRED"].ToString();
-                    calificacion.LineaCredito = Convert.ToDecimal(dataReader["LIN_CRED"].ToString());
-                    calificacion.SueldoCliente = Convert.ToDecimal(dataReader["SUE_CLIE"].ToString());
-                    calificacion.OtrosIngresos = Convert.ToDecimal(dataReader["OTR_INGR_CLIE"].ToString());
-                    calificacion.Estado = dataReader["EST_CALI_CLIE"].ToString();
+                    calificacion.Codigo = Convert.ToInt32(dataReader["ID"]);
+                    calificacion.CalificacionCrediticia = dataReader["CALIFICACION_CREDITICIA"].ToString();
+                    calificacion.LineaCredito = Convert.ToDecimal(dataReader["LINEA_CREDITO"].ToString());
+                    calificacion.SueldoCliente = Convert.ToDecimal(dataReader["sueldo_cliente"].ToString());
+                    calificacion.OtrosIngresos = Convert.ToDecimal(dataReader["otros_ingresos_cliente"].ToString());
+                    calificacion.Estado = dataReader["estado_calificacion_cliente"].ToString();
                 }
             }
 

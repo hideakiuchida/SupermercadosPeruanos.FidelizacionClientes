@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Business.FidelizacionClientes.Interfaces;
 using DataAccess.FidelizacionClientes.Implement;
 using DataAccess.FidelizacionClientes.Interfaces;
@@ -31,9 +32,10 @@ namespace Business.FidelizacionClientes.Implement
         {
             clienteDA.DeleteCliente(codigo);
         }
-        public Cliente ListCliente()
+
+        public List<Cliente> GetClientes(int? dapartamentoId, bool? tieneVeaClub, bool? tieneTarjetaOH)
         {
-            return clienteDA.ListCliente();
+            return clienteDA.GetClientes(dapartamentoId, tieneVeaClub, tieneTarjetaOH);
         }
     }
 }

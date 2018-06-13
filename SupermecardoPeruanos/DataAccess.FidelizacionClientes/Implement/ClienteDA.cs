@@ -40,20 +40,20 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    cliente.Codigo = Convert.ToInt32(dataReader["ID_CLIENTE"]);
+                    cliente.Codigo = Convert.ToInt32(dataReader["ID"]);
                     cliente.Nombre = dataReader["NOMBRE_COMPLETO"].ToString();
                     cliente.ApellidoPaterno = dataReader["APELLIDO_PATERNO"].ToString();
                     cliente.ApellidoMaterno = dataReader["APELLIDO_MATERNO"].ToString();
                     cliente.TipoDocumentoIdentidad = dataReader["TIPO_DOCUMENTO"].ToString();
                     cliente.NumeroDocumentoIdentidad = dataReader["NUMERO_DOCUMENTO"].ToString();
-                    cliente.FechaNaciemiento = Convert.ToDateTime(dataReader["FECHA_NACIMIENTO"].ToString());
+                    cliente.FechaNacimiento = Convert.ToDateTime(dataReader["FECHA_NACIMIENTO"].ToString());
                     cliente.Sexo = dataReader["SEXO"].ToString();
                     cliente.Email = dataReader["EMAIL"].ToString();
                     cliente.Direccion = dataReader["DIRECCION"].ToString();
                     cliente.TelefonoFijo = dataReader["TELEFONO_FIJO"].ToString();
-                    cliente.TelefonoMovil = dataReader["TELEFONO_MOVI"].ToString();
+                    cliente.TelefonoMovil = dataReader["TELEFONO_MOVIL"].ToString();
                     cliente.SituacionLaboral = dataReader["SITUACION_LABORAL"].ToString();
-                    cliente.Estado = dataReader["ESTADO_CLIE"].ToString();
+                    cliente.Estado = dataReader["ESTADO_CLIENTE"].ToString();
                     cliente.IndicadorTarjeta = dataReader["INDICADOR_TARJETA"].ToString();
                     cliente.IndicadorVeaClub = dataReader["TARJETA_VCLUB"].ToString();
                 }
@@ -74,14 +74,14 @@ namespace DataAccess.FidelizacionClientes.Implement
             command.Parameters.AddWithValue("@APELLIDO_MATERNO", cliente.ApellidoMaterno);
             command.Parameters.AddWithValue("@TIPO_DOCUMENTO", cliente.TipoDocumentoIdentidad);
             command.Parameters.AddWithValue("@NUMERO_DOCUMENTO", cliente.NumeroDocumentoIdentidad);
-            command.Parameters.AddWithValue("@FECHA_NACIMIENTO", Convert.ToDateTime(cliente.FechaNaciemiento));
+            command.Parameters.AddWithValue("@FECHA_NACIMIENTO", Convert.ToDateTime(cliente.FechaNacimiento));
             command.Parameters.AddWithValue("@SEXO", cliente.Sexo);
             command.Parameters.AddWithValue("@EMAIL", cliente.Email);
             command.Parameters.AddWithValue("@DIRECCION", cliente.Direccion);
             command.Parameters.AddWithValue("@TELEFONO_FIJO", cliente.TelefonoFijo);
-            command.Parameters.AddWithValue("@TELEFONO_MOVI", cliente.TelefonoMovil);
+            command.Parameters.AddWithValue("@TELEFONO_MOVIL", cliente.TelefonoMovil);
             command.Parameters.AddWithValue("@SITUACION_LABORAL", cliente.SituacionLaboral);
-            command.Parameters.AddWithValue("@ESTADO_CLIE",cliente.Estado );
+            command.Parameters.AddWithValue("@ESTADO_CLIENTE", cliente.Estado );
             command.Parameters.AddWithValue("@INDICADOR_TARJETA", cliente.IndicadorTarjeta);
             command.Parameters.AddWithValue("@TARJETA_VCLUB",cliente.IndicadorVeaClub );
             command.ExecuteNonQuery();
@@ -89,11 +89,11 @@ namespace DataAccess.FidelizacionClientes.Implement
             connection.Close();
         }
 
-        public Cliente ListCliente()
+        public List<Cliente> GetClientes(int? dapartamentoId, bool? tieneVeaClub, bool? tieneTarjetaOH)
         {
-            Cliente cliente = new Cliente();
+            List<Cliente> clientes = new List<Cliente>();
 
-            MySqlCommand command = new MySqlCommand("LISTAR_CLIENTE", connection);
+            MySqlCommand command = new MySqlCommand("LISTAR_CLIENTES", connection);
             command.CommandType = CommandType.StoredProcedure;
             connection.Open();
 
@@ -103,28 +103,30 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    cliente.Codigo = Convert.ToInt32(dataReader["ID_CLIENTE"]);
+                    Cliente cliente = new Cliente();
+                    cliente.Codigo = Convert.ToInt32(dataReader["ID"]);
                     cliente.Nombre = dataReader["NOMBRE_COMPLETO"].ToString();
                     cliente.ApellidoPaterno = dataReader["APELLIDO_PATERNO"].ToString();
                     cliente.ApellidoMaterno = dataReader["APELLIDO_MATERNO"].ToString();
                     cliente.TipoDocumentoIdentidad = dataReader["TIPO_DOCUMENTO"].ToString();
                     cliente.NumeroDocumentoIdentidad = dataReader["NUMERO_DOCUMENTO"].ToString();
-                    cliente.FechaNaciemiento = Convert.ToDateTime(dataReader["FECHA_NACIMIENTO"].ToString());
+                    cliente.FechaNacimiento = Convert.ToDateTime(dataReader["FECHA_NACIMIENTO"].ToString());
                     cliente.Sexo = dataReader["SEXO"].ToString();
                     cliente.Email = dataReader["EMAIL"].ToString();
                     cliente.Direccion = dataReader["DIRECCION"].ToString();
                     cliente.TelefonoFijo = dataReader["TELEFONO_FIJO"].ToString();
-                    cliente.TelefonoMovil = dataReader["TELEFONO_MOVI"].ToString();
+                    cliente.TelefonoMovil = dataReader["TELEFONO_MOVIL"].ToString();
                     cliente.SituacionLaboral = dataReader["SITUACION_LABORAL"].ToString();
-                    cliente.Estado = dataReader["ESTADO_CLIE"].ToString();
+                    cliente.Estado = dataReader["ESTADO_CLIENTE"].ToString();
                     cliente.IndicadorTarjeta = dataReader["INDICADOR_TARJETA"].ToString();
                     cliente.IndicadorVeaClub = dataReader["TARJETA_VCLUB"].ToString();
+                    clientes.Add(cliente);
                 }
             }
 
             connection.Close();
 
-            return cliente;
+            return clientes;
         }
 
         public void UpdateCliente(Cliente cliente)
@@ -138,14 +140,14 @@ namespace DataAccess.FidelizacionClientes.Implement
             command.Parameters.AddWithValue("@APELLIDO_MATERNO", cliente.ApellidoMaterno);
             command.Parameters.AddWithValue("@TIPO_DOCUMENTO", cliente.TipoDocumentoIdentidad);
             command.Parameters.AddWithValue("@NUMERO_DOCUMENTO", cliente.NumeroDocumentoIdentidad);
-            command.Parameters.AddWithValue("@FECHA_NACIMIENTO", Convert.ToDateTime(cliente.FechaNaciemiento));
+            command.Parameters.AddWithValue("@FECHA_NACIMIENTO", Convert.ToDateTime(cliente.FechaNacimiento));
             command.Parameters.AddWithValue("@SEXO", cliente.Sexo);
             command.Parameters.AddWithValue("@EMAIL", cliente.Email);
             command.Parameters.AddWithValue("@DIRECCION", cliente.Direccion);
             command.Parameters.AddWithValue("@TELEFONO_FIJO", cliente.TelefonoFijo);
-            command.Parameters.AddWithValue("@TELEFONO_MOVI", cliente.TelefonoMovil);
+            command.Parameters.AddWithValue("@TELEFONO_MOVIL", cliente.TelefonoMovil);
             command.Parameters.AddWithValue("@SITUACION_LABORAL", cliente.SituacionLaboral);
-            command.Parameters.AddWithValue("@ESTADO_CLIE", cliente.Estado);
+            command.Parameters.AddWithValue("@ESTADO_CLIENTE", cliente.Estado);
             command.Parameters.AddWithValue("@INDICADOR_TARJETA", cliente.IndicadorTarjeta);
             command.Parameters.AddWithValue("@TARJETA_VCLUB", cliente.IndicadorVeaClub);
             command.ExecuteNonQuery();

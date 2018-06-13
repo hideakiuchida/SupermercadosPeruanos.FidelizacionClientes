@@ -48,15 +48,15 @@
                 var mensaje = "";
                 var mydiv = document.getElementById('msjs');
                 if (data.EstadoAfiliacion) {
-                    mensaje = "La tarjeta OH ha sido aprobada."
+                    mensaje = "La tarjeta OH ha sido aprobada.";
                     //$("#msjs").css("display", "normal");
                     mydiv.style.display = "block";
-                    $("#lblNumeroTarjeta").text(data.NumeroTarjeta)
-                    $("#lblTipo").text(data.Tipo)
+                    $("#lblNumeroTarjeta").text(data.NumeroTarjeta);
+                    $("#lblTipo").text(data.Tipo);
                     document.getElementById('btnRegistrarAfiliacion').disabled = false;
                 }
                 else {
-                    mensaje = "La tarjeta OH ha sido rechazada."
+                    mensaje = "La tarjeta OH ha sido rechazada.";
                     //$("#msjs").css("display", "none");
                     mydiv.style.display = "none";
                     document.getElementById('btnRegistrarAfiliacion').disabled = true;
@@ -76,7 +76,6 @@
 
     var _buscarAfiliacionCliente = function () {
         var _numeroDocumento = $("#txtBusquedaPorNumDoc").val();
-        alert('Msje: ' || _numeroDocumento.length);
         if (_numeroDocumento.length === 8) {
 
             $.ajax({
@@ -107,20 +106,18 @@
 
                     }
                     else {
-                        alert('Cliente no tiene una Solicitud Registrada');
+                        alertify.alert("Mensaje", "Cliente no tiene una Solicitud Registrada");
                     }
 
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
+                    alertify.alert("Mensaje", thrownError);
                 }
             });
 
         }
         else { 
-            // alert('Ingrese DNI Válido');
-            alert('Msje: ' || _numeroDocumento.length);
+            alertify.alert("Mensaje", "Ingrese DNI Válido");
         }
         return false;
     };
@@ -164,7 +161,7 @@
             .rows()
             .remove()
             .draw();
-    }
+    };
 
     var _setSeccionDeudas = function (deudas) {
         $('#table_deudas').DataTable({
@@ -180,7 +177,7 @@
             }
 
         });
-    }
+    };
 
     var _bindEvents = function () {
         $("#btnBuscarCliente").click(function () {

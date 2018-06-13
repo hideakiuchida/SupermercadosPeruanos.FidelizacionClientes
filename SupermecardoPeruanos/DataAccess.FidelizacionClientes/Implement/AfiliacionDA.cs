@@ -59,7 +59,7 @@ namespace DataAccess.FidelizacionClientes.Implement
                     Infocorp infocorp = new Infocorp();
                     infocorp.EntidadFinanciera = dataReader["ENTIDAD_FINANCIERA"].ToString();
                     infocorp.MontoDeuda = Convert.ToDecimal(dataReader["IMPORTE_DEUDA"].ToString());
-                    infocorp.CalificacionSBS = dataReader["CALIFICACION_SBSS"].ToString();
+                    infocorp.CalificacionSBS = dataReader["CALIFICACION_SBS"].ToString();
                     lista.Add(infocorp);
                 }
             }

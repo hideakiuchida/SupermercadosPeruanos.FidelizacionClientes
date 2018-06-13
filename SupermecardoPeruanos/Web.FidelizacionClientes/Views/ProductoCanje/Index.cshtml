@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Producto Canje";
+}
+
+@Styles.Render("http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css")
+@Scripts.Render("http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
+
+<div id="producto-canje" class="container-fluid">
+    <h1>Producto Canje</h1>
+</div>
+
+
+@Scripts.Render("~/Scripts/ProductoCanje/ProductoCanjeModule.js")
+<script>
+    @*$(document).ready(function () {
+
+        var afilacionModule = new AfiliacionModule(
+            {
+                urlBuscarAfiliacionCliente: '@Url.Action("BuscarAfiliacionCliente", "Afiliacion")',
+                urlEvaluar: '@Url.Action("Evaluar", "Afiliacion")',
+                urlRegistrar: '@Url.Action("RegistrarAfiliacion", "Afiliacion")'
+            }
+        );
+
+        afilacionModule.initialize();
+    });*@
+
+</script>
