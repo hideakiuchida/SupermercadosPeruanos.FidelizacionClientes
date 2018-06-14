@@ -1,3 +1,4 @@
+create database sigesu;
 use sigesu;
 
 drop table if exists historial_compra;

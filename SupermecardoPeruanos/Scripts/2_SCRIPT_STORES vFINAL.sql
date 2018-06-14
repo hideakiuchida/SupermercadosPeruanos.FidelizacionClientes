@@ -313,3 +313,38 @@ Begin
 	Where numero_identidad = p_Num_Docu_Iden;
 End&&
 delimiter ;
+
+
+/*CUS Actualizar Clientes*/
+DROP PROCEDURE IF EXISTS LISTAR_CLIENTES;
+CREATE DEFINER=`root`@`localhost` PROCEDURE LISTAR_CLIENTES()
+	Select id, nombre_completo, apellido_paterno, apellido_materno,
+	tipo_documento, numero_documento, fecha_nacimiento, sexo,
+	email, direccion, telefono_fijo, telefono_movil,
+	situacion_laboral, estado_cliente, indicador_tarjeta, tarjeta_vclub
+	From cliente_afiliado;
+
+DROP PROCEDURE IF EXISTS INSERT_CLIENTE;
+CREATE PROCEDURE INSERT_CLIENTE                
+(in nombre_completo  varchar(50),
+  in apellido_paterno varchar(50),
+  in apellido_materno varchar(50),
+  in tipo_documento varchar(3),
+  in numero_documento varchar(10),
+  in fecha_nacimiento datetime,
+  in sexo varchar(1),
+  in email varchar(50),
+  in direccion varchar(100),
+  in telefono_fijo varchar(20),
+  in telefono_movil varchar(20),
+  in situacion_laboral varchar(20),
+  in estado_cliente varchar(20),
+  in indicador_tarjeta varchar(1),
+  in tarjeta_vclub varchar(1)
+)                    
+	INSERT INTO cliente_afiliado (nombre_completo, apellido_paterno, apellido_materno, tipo_documento, 
+		numero_documento, fecha_nacimiento, sexo, email, direccion, telefono_fijo, telefono_movil, situacion_laboral, 
+        estado_cliente, indicador_tarjeta, tarjeta_vclub, fecha_grabacion, usuario_grabacion, ventana_grabacion)
+    VALUES (nombre_completo, apellido_paterno, apellido_materno, tipo_documento, 
+		numero_documento, fecha_nacimiento, sexo, email, direccion, telefono_fijo, telefono_movil, situacion_laboral, 
+        estado_cliente, indicador_tarjeta, tarjeta_vclub, NOW(), 'ADMINISTRADOR', 'CLIENTE');  

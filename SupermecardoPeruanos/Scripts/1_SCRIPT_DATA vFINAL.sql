@@ -1,5 +1,7 @@
 USE SIGESU;
 
+SET SQL_SAFE_UPDATES = 0;
+
 DELETE FROM historial_compra;
 DELETE FROM infocorp;
 DELETE FROM solicitud_afiliacion;
