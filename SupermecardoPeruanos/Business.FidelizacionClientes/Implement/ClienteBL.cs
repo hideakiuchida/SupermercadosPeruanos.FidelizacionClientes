@@ -29,10 +29,6 @@ namespace Business.FidelizacionClientes.Implement
         {
             clienteDA.UpdateCliente(cliente);
         }
-        public void DeleteCliente(int codigo)
-        {
-            clienteDA.DeleteCliente(codigo);
-        }
 
         public List<Cliente> GetClientes(int? dapartamentoId, bool? tieneVeaClub, bool? tieneTarjetaOH)
         {
@@ -48,7 +44,7 @@ namespace Business.FidelizacionClientes.Implement
                 clientes = clientes.Where(x => x.IndicadorTarjeta == charTiene).ToList();
             }
 
-            return clientes;
+            return clientes.Where(x => x.Estado.ToLower() == ("ACTIVO").ToLower()).ToList();
         }
     }
 }

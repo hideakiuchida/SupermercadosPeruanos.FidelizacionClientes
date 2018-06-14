@@ -39,8 +39,7 @@
                     <th>Dirección</th>
                     <th>Vea Club</th>
                     <th>Tarjeta Oh</th>
-                    <th>-</th>
-                    <th>x</th>
+                    <th>Editar / Eliminar</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -57,6 +56,7 @@
 
 @Html.Partial("~/Views/Cliente/EditarModal.cshtml")
 @Html.Partial("~/Views/Cliente/RegistrarModal.cshtml")
+@Html.Partial("~/Views/Cliente/EliminarModal.cshtml")
 
 @Scripts.Render("~/Scripts/Cliente/ClienteModule.js")
 <script>
@@ -65,7 +65,10 @@
         var clienteModule = new ClienteModule(
             {
                 urlObtenerClientes: '@Url.Action("ObtenerClientes", "Cliente")',
-                urlRegistrar: '@Url.Action("Registrar", "Cliente")'
+                urlObtenerCliente: '@Url.Action("ObtenerCliente", "Cliente")',
+                urlRegistrar: '@Url.Action("Registrar", "Cliente")',
+                urlEditar: '@Url.Action("Editar", "Cliente")',
+                urlEliminar: '@Url.Action("Eliminar", "Cliente")'
             }
         );
 

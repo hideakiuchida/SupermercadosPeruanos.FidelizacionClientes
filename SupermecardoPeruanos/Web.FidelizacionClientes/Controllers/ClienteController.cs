@@ -11,7 +11,6 @@ namespace Web.FidelizacionClientes.Controllers
 {
     public class ClienteController : Controller
     {
-        // GET: Clientes
         public ActionResult Index()
         {
             return View();
@@ -34,13 +33,23 @@ namespace Web.FidelizacionClientes.Controllers
 
         }
 
-        // GET: Clientes/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public JsonResult ObtenerCliente(string numeroDocumento)
         {
-            return View();
+            IClienteBL clienteBL = new ClienteBL();
+
+            var cliente = clienteBL.GetCliente(numeroDocumento);
+
+            var data = new
+            {
+                success = cliente != null,
+                cliente = cliente
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
 
-        // GET: Clientes/Create
         [HttpPost]
         public JsonResult Registrar(Cliente cliente)
         {
@@ -77,16 +86,59 @@ namespace Web.FidelizacionClientes.Controllers
             }        
         }
 
+        [HttpPost]
+        public JsonResult Editar(Cliente cliente)
+        {
+            try
+            {
+                IClienteBL clienteBL = new ClienteBL();
+                clienteBL.UpdateCliente(cliente);
+
+                var data = new
+                {
+                    success = true,
+                    mensaje = "Se actualizó satisfactoriamente"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Eliminar(string numeroDocumento)
+        {
+            try
+            {
+                IClienteBL clienteBL = new ClienteBL();
+                Cliente cliente = new Cliente();
+                cliente.NumeroDocumentoIdentidad = numeroDocumento;
+                cliente.Estado = "INACTIVO";
+                clienteBL.UpdateCliente(cliente);
+
+                var data = new
+                {
+                    success = true,
+                    mensaje = "Se eliminó satisfactoriamente"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         private bool isMayorEdad(DateTime fechaNacimiento)
         {
             var edad = (DateTime.Now - fechaNacimiento).TotalDays/365;
             return edad >= 18;
         }
 
-        // GET: Clientes/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
     }
 }

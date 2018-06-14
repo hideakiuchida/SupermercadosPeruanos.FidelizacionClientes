@@ -12,18 +12,6 @@ namespace DataAccess.FidelizacionClientes.Implement
 {
     public class ClienteDA : DataConnection, IClienteDA
     {
-        public void DeleteCliente(int codigo)
-        {
-            connection.Open();
-            MySqlCommand command = new MySqlCommand("CLIENTE_ELIMINADO", connection);
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.AddWithValue("@ID_CLIENTE", codigo);
-            command.ExecuteNonQuery();
-
-            connection.Close();
-        }
-
         public Cliente GetCliente(string numeroDocumento)
         {
             Cliente cliente = new Cliente();
@@ -132,16 +120,9 @@ namespace DataAccess.FidelizacionClientes.Implement
         public void UpdateCliente(Cliente cliente)
         {
             connection.Open();
-            MySqlCommand command = new MySqlCommand("CLIENTE_ACTUALIZADO", connection);
+            MySqlCommand command = new MySqlCommand("ACTUALIZAR_CLIENTE", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@ID_CLIENTE", cliente.Codigo);
-            command.Parameters.AddWithValue("@NOMBRE_COMPLETO", cliente.Nombre);
-            command.Parameters.AddWithValue("@APELLIDO_PATERNO", cliente.ApellidoPaterno);
-            command.Parameters.AddWithValue("@APELLIDO_MATERNO", cliente.ApellidoMaterno);
-            command.Parameters.AddWithValue("@TIPO_DOCUMENTO", cliente.TipoDocumentoIdentidad);
             command.Parameters.AddWithValue("@NUMERO_DOCUMENTO", cliente.NumeroDocumentoIdentidad);
-            command.Parameters.AddWithValue("@FECHA_NACIMIENTO", Convert.ToDateTime(cliente.FechaNacimiento));
-            command.Parameters.AddWithValue("@SEXO", cliente.Sexo);
             command.Parameters.AddWithValue("@EMAIL", cliente.Email);
             command.Parameters.AddWithValue("@DIRECCION", cliente.Direccion);
             command.Parameters.AddWithValue("@TELEFONO_FIJO", cliente.TelefonoFijo);

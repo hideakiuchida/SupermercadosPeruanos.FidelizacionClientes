@@ -8,7 +8,6 @@ namespace DataAccess.FidelizacionClientes.Interfaces
         Cliente GetCliente(string numeroDocumento);
         void InsertCliente(Cliente cliente);
         void UpdateCliente(Cliente cliente);
-        void DeleteCliente(int codigo);
         List<Cliente> GetClientes();
     }
 }

@@ -1,24 +1,128 @@
 ﻿<!-- Modal -->
 <div class="modal fade" id="modal-editar" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog-clientes">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Actualizar de Cliente</h4>
+                <h4 class="modal-title">Editar Cliente</h4>
             </div>
             <div class="modal-body">
-                <b> <p id="lblMensajeAfiliacion"></p></b>
-                <div id="msjs">
-                    <b>
-                        Número de Tarjeta:
-                    </b><p id="lblNumeroTarjeta"></p>
-                    <b> Tipo Tarjeta: </b><p id="lblTipo"></p>
-                    <button id="btn-editar" class="btn btn-default col-md-12" data-toggle="modal" data-target="#modal-editar" data-remote="false">
-                        Actualizar
+                <form id="seccion-datos-cliente-editar" class="well">
+                    <h5 class="subtitulos">Datos del Cliente</h5>
+                    <div class="form-horizontal col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-codigo">Código:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-codigo-editar" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-tipo-documento-editar">Tipo de Documento:</label>
+                            <div class="col-md-8">
+                                <select id="select-tipo-documento-editar" class="form-control col-md-8" name="TipoDocumentoIdentidad" readonly>
+                                    <option value="">- Seleccionar -</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="CDE">Carnet de Extranjería</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-num-doc-editar">Núm. de Documento:</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" id="txt-num-doc-editar" name="NumeroDocumentoIdentidad" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-nombres-editar">Nombres:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-nombres-editar" name="Nombre" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-apellido-paterno-editar">Apellido Paterno:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-apellido-paterno-editar" name="ApellidoPaterno" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-apellido-materno-editar">Apellido Materno:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-apellido-materno-editar" name="ApellidoMaterno" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-telefono-editar">Teléfono:</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" id="txt-telefono-editar" name="TelefonoFijo" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-celular-editar">Celular:</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" id="txt-celular-editar" name="TelefonoMovil" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-correo-editar">Correo:</label>
+                            <div class="col-md-8">
+                                <input type="email" class="form-control" id="txt-correo-editar" name="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-sexo-editar">Sexo:</label>
+                            <div class="col-md-8">
+                                <select id="select-sexo-editar" class="form-control col-md-8" name="Sexo" readonly>
+                                    <option value="">- Seleccionar -</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-fec-nac-editar">Fecha de Nacimiento:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-fec-nac-editar" name="FechaNacimiento" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-direccion-editar">Dirección:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-direccion-editar" name="Direccion" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-situacion-editar">Situación Laboral:</label>
+                            <select id="select-situacion-editar" class="form-control col-md-8" required>
+                                <option value="">- Seleccionar -</option>
+                                <option value="EMPLEADO">Empleado</option>
+                                <option value="INDEPENDIENTE">Independiente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-vea-club-editar">Vea Club:</label>
+                            <select id="select-vea-club-editar" class="form-control col-md-8" name="IndicadorVeaClub" required>
+                                <option value="">- Seleccionar -</option>
+                                <option value="S">Tiene</option>
+                                <option value="N">No Tiene</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-tarjeta-oh-editar">Tarjeta OH:</label>
+                            <select id="select-tarjeta-oh-editar" class="form-control col-md-8" name="IndicadorTarjeta">
+                                <option value="">- Seleccionar -</option>
+                                <option value="S">Tiene</option>
+                                <option value="N">No Tiene</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="btn-editar" type="submit" class="btn btn-default col-md-12" form="seccion-datos-cliente-editar">
+                        Editar Cliente
                     </button>
-                </div>
+                </form>
 
             </div>
             <div class="modal-footer">
