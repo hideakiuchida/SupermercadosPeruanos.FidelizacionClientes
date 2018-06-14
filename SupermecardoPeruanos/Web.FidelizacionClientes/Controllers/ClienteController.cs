@@ -1,5 +1,6 @@
 ﻿using Business.FidelizacionClientes.Implement;
 using Business.FidelizacionClientes.Interfaces;
+using Model.FidelizacionClientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,9 +41,46 @@ namespace Web.FidelizacionClientes.Controllers
         }
 
         // GET: Clientes/Create
-        public ActionResult Create()
+        [HttpPost]
+        public JsonResult Registrar(Cliente cliente)
         {
-            return View();
+            try
+            {
+                IClienteBL clienteBL = new ClienteBL();
+                bool success;
+                string mensaje;
+                cliente.Estado = "ACTIVO";
+                
+                if (!isMayorEdad(cliente.FechaNacimiento))
+                {
+                    success = false;
+                    mensaje = "No es mayor de edad.";
+                }
+                else
+                {
+                    clienteBL.InsertCliente(cliente);
+                    success = true;
+                    mensaje = "Se registro satisfactoriamente";
+                }
+                   
+                var data = new
+                {
+                    success = success,
+                    mensaje = mensaje
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }        
+        }
+
+        private bool isMayorEdad(DateTime fechaNacimiento)
+        {
+            var edad = (DateTime.Now - fechaNacimiento).TotalDays/365;
+            return edad >= 18;
         }
 
         // GET: Clientes/Edit/5

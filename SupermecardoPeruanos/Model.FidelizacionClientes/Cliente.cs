@@ -8,10 +8,11 @@ namespace Model.FidelizacionClientes
         public string Nombre { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
-        public string Apellidos { get { return string.Format("{0} {1}", ApellidoPaterno, ApellidoMaterno); } }
+        public string ApellidosDisplay { get { return string.Format("{0} {1}", ApellidoPaterno, ApellidoMaterno); } }
         public string TipoDocumentoIdentidad { get; set; }
         public string NumeroDocumentoIdentidad { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public string FechaNacimientoDisplay { get { return FechaNacimiento.ToShortDateString(); } }
         public string Sexo { get; set; }
         public string Email { get; set; }
         public string Direccion { get; set; }

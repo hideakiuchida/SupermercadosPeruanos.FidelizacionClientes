@@ -192,6 +192,8 @@
     <Content Include="Views\Afiliacion\AfiliacionModal.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\ProductoCanje\Index.cshtml" />
+    <Content Include="Views\Cliente\RegistrarModal.cshtml" />
+    <Content Include="Views\Cliente\EditarModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

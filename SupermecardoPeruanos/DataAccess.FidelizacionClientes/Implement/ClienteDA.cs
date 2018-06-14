@@ -89,7 +89,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             connection.Close();
         }
 
-        public List<Cliente> GetClientes(int? dapartamentoId, bool? tieneVeaClub, bool? tieneTarjetaOH)
+        public List<Cliente> GetClientes()
         {
             List<Cliente> clientes = new List<Cliente>();
 

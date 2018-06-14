@@ -1,0 +1,132 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="modal-registrar" role="dialog">
+    <div class="modal-dialog-clientes">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Registro de Cliente</h4>
+            </div>
+            <div class="modal-body">
+                <form id="seccion-datos-cliente" class="well">
+                    <h5 class="subtitulos">Datos del Cliente</h5>
+                    <div class="form-horizontal col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-codigo">Código:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-codigo" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-tipo-documento">Tipo de Documento:</label>
+                            <div class="col-md-8">
+                                <select id="select-tipo-documento" class="form-control col-md-8" name="TipoDocumentoIdentidad" required>
+                                    <option value="">- Seleccionar -</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="CDE">Carnet de Extranjería</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-num-doc">Núm. de Documento:</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" id="txt-num-doc" name="NumeroDocumentoIdentidad" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-nombres">Nombres:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-nombres" name="Nombre" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-apellido-paterno">Apellido Paterno:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-apellido-paterno" name="ApellidoPaterno" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-apellido-materno">Apellido Materno:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-apellido-materno" name="ApellidoMaterno" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-telefono">Teléfono:</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" id="txt-telefono" name="TelefonoFijo" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-celular">Celular:</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" id="txt-celular" name="TelefonoMovil" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-correo">Correo:</label>
+                            <div class="col-md-8">
+                                <input type="email" class="form-control" id="txt-correo" name="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-sexo">Sexo:</label>
+                            <div class="col-md-8">
+                                <select id="select-sexo" class="form-control col-md-8" name="Sexo" required>
+                                    <option value="">- Seleccionar -</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-fec-nac">Fecha de Nacimiento:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-fec-nac" name="FechaNacimiento" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="txt-direccion">Dirección:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="txt-direccion" name="Direccion" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-situacion">Situación Laboral:</label>
+                            <select id="select-situacion" class="form-control col-md-8" required>
+                                <option value="">- Seleccionar -</option>
+                                <option value="EMPLEADO">Empleado</option>
+                                <option value="INDEPENDIENTE">Independiente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-vea-club">Vea Club:</label>
+                            <select id="select-vea-club" class="form-control col-md-8" name="IndicadorVeaClub" required>
+                                <option value="">- Seleccionar -</option>
+                                <option value="S">Tiene</option>
+                                <option value="N">No Tiene</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="select-tarjeta-oh">Tarjeta OH:</label>
+                            <select id="select-tarjeta-oh" class="form-control col-md-8" name="IndicadorTarjeta">
+                                <option value="N">No Tiene</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="btn-registrar" type="submit" class="btn btn-default col-md-12" form="seccion-datos-cliente">
+                        Registrar Cliente
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

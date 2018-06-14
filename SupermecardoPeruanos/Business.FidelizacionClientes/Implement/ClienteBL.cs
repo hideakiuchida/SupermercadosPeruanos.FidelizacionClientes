@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Business.FidelizacionClientes.Interfaces;
 using DataAccess.FidelizacionClientes.Implement;
 using DataAccess.FidelizacionClientes.Interfaces;
@@ -35,7 +36,19 @@ namespace Business.FidelizacionClientes.Implement
 
         public List<Cliente> GetClientes(int? dapartamentoId, bool? tieneVeaClub, bool? tieneTarjetaOH)
         {
-            return clienteDA.GetClientes(dapartamentoId, tieneVeaClub, tieneTarjetaOH);
+           var clientes = clienteDA.GetClientes();
+            if (clientes.Any() && (tieneVeaClub.HasValue))
+            {
+                var charTiene = tieneVeaClub.Value ? "S" : "N";
+                clientes = clientes.Where(x => x.IndicadorVeaClub == charTiene).ToList();
+            }
+            if (clientes.Any() && (tieneTarjetaOH.HasValue))
+            {
+                var charTiene = tieneTarjetaOH.Value ? "S" : "N";
+                clientes = clientes.Where(x => x.IndicadorTarjeta == charTiene).ToList();
+            }
+
+            return clientes;
         }
     }
 }

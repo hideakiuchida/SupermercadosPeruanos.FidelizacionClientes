@@ -9,6 +9,6 @@ namespace DataAccess.FidelizacionClientes.Interfaces
         void InsertCliente(Cliente cliente);
         void UpdateCliente(Cliente cliente);
         void DeleteCliente(int codigo);
-        List<Cliente> GetClientes(int? dapartamentoId, bool? tieneVeaClub, bool? tieneTarjetaOH);
+        List<Cliente> GetClientes();
     }
 }
