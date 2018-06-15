@@ -434,3 +434,27 @@ CREATE PROCEDURE ELIMINAR_PRODUCTO_CANJE
 BEGIN
 	DELETE FROM producto_canje WHERE ID = PRODUCTO_ID;	
 END && delimiter ;
+
+DROP PROCEDURE IF EXISTS CATALOGO_PERSONALIZADO_Q01;
+delimiter &&
+CREATE PROCEDURE CATALOGO_PERSONALIZADO_Q01(IN CATEGORIAS VARCHAR(500), IN CANTIDAD INTEGER, IN PAGINA INTEGER)
+BEGIN
+
+DECLARE firstRow INT unsigned DEFAULT 0; 
+
+SET firstRow = PAGINA * CANTIDAD;
+
+IF CATEGORIAS IS NULL OR CATEGORIAS = '' THEN
+	set @sql_query=CONCAT('select id, nom_prod_canj, descripcion_producto, dir_ruta ''imagen'', valor, id_categoria_producto
+	from producto_canje where id_categoria_producto in  (',CATEGORIAS,') limit ', CANTIDAD, ' offset ', firstRow);
+ELSE
+	set @sql_query=CONCAT('select id, nom_prod_canj, descripcion_producto, dir_ruta ''imagen'', valor, id_categoria_producto
+	from producto_canje limit ', firstRow, ' offset ', CANTIDAD);
+END IF;
+
+PREPARE stmt FROM @sql_query;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+END &&
+delimiter ;
