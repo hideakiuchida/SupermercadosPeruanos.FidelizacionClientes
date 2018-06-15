@@ -195,6 +195,9 @@
     <Content Include="Views\Cliente\RegistrarModal.cshtml" />
     <Content Include="Views\Cliente\EditarModal.cshtml" />
     <Content Include="Views\Cliente\EliminarModal.cshtml" />
+    <Content Include="Views\ProductoCanje\EditarModal.cshtml" />
+    <Content Include="Views\ProductoCanje\EliminarModal.cshtml" />
+    <Content Include="Views\ProductoCanje\RegistrarModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

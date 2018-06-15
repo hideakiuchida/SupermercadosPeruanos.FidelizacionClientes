@@ -122,21 +122,19 @@ CREATE Procedure Producto_Q01 (IN P_Id_Producto INTEGER)
 -- ===============================================================   
 Begin
 	If (P_Id_Producto = 0) Then
-		Select t2.id 'id_producto', t2.nom_prod_canj, t2.descripcion_producto, t2.dir_ruta 'imagen', 
-		t2.valor, t1.stock, t2.condicion_canje -- t2.id_categoria_producto 'codigo categoria', t3.nombre_categoria 'desc. categoria'
+		Select t2.id, t2.nom_prod_canj, t2.descripcion_producto, t2.dir_ruta 'imagen', 
+		t2.valor, t1.stock, t2.condicion_canje, t2.id_categoria_producto, t2.tipo_canje -- t2.id_categoria_producto 'codigo categoria', t3.nombre_categoria 'desc. categoria'
 		From stock_canje t1 inner join producto_canje t2 on
 		( t2.id = t1.id and t2.id_categoria_producto = t1.id_stock_categoria )
 		inner join categoria_canje t3 on
 		( t3.id = t2.id_categoria_producto )
 		Order by t1.id_stock_categoria;
 	Else
-		Select t2.id 'id_producto', t2.nom_prod_canj, t2.descripcion_producto, t2.dir_ruta 'imagen', 
-		t2.valor, t1.stock, t2.condicion_canje -- t2.id_categoria_producto 'codigo categoria', t3.nombre_categoria 'desc. categoria'
-		From stock_canje t1 inner join producto_canje t2 on
-		( t2.id = t1.id and t2.id_categoria_producto = t1.id_stock_categoria )
-		inner join categoria_canje t3 on
-		( t3.id = t2.id_categoria_producto )
-		Where t1.id = P_Id_Producto
+Select t2.id, t2.nom_prod_canj, t2.descripcion_producto, t2.dir_ruta 'imagen', 
+		t2.valor, t1.stock, t2.condicion_canje, t2.id_categoria_producto, t2.tipo_canje 
+		From producto_canje t2 inner join stock_canje t1 on
+		( t2.id = t1.id_stock_producto and t2.id_categoria_producto = t1.id_stock_categoria )
+		Where t2.id = P_Id_Producto
 		Order By t1.id_stock_categoria;
 	End If;
 End&&
@@ -371,3 +369,68 @@ CREATE PROCEDURE ACTUALIZAR_CLIENTE
 	   c.indicador_tarjeta = COALESCE(indicador_tarjeta, c.indicador_tarjeta), 
        c.tarjeta_vclub = COALESCE(tarjeta_vclub, c.tarjeta_vclub)
  WHERE c.numero_documento = numero_documento;
+ 
+/*Acutalizar Producto Canje*/
+DROP PROCEDURE IF EXISTS LISTAR_PRODUCTOS;
+CREATE PROCEDURE LISTAR_PRODUCTOS()
+SELECT p.ID, p.NOM_PROD_CANJ, p.DESCRIPCION_PRODUCTO, p.VALOR, p.ID_CATEGORIA_PRODUCTO, p.TIPO_CANJE, s.STOCK, c.nombre_categoria 
+FROM producto_canje p 
+INNER JOIN stock_canje s on p.id = s.id_stock_producto
+INNER JOIN categoria_canje c on c.id = p.id_categoria_producto;
+
+DROP PROCEDURE IF EXISTS INSERTAR_PRODUCTO_CANJE;
+delimiter &&
+CREATE PROCEDURE INSERTAR_PRODUCTO_CANJE                
+(in NOM_PROD_CANJ  varchar(500),
+  in DESCRIPCION_PRODUCTO varchar(500),
+  in VALOR decimal(16,4),
+  in ID_CATEGORIA_PRODUCTO int(11),
+  in TIPO_CANJE int(11),
+  in STOCK decimal(16,4),
+  in CONDICION_CANJE varchar(500)
+)  
+BEGIN
+	INSERT INTO producto_canje (NOM_PROD_CANJ, DESCRIPCION_PRODUCTO, VALOR, ID_CATEGORIA_PRODUCTO, 
+    TIPO_CANJE, CONDICION_CANJE, FECHA_GRABACION, USUARIO_GRABACION, VENTANA_GRABACION) 
+    VALUES (NOM_PROD_CANJ, DESCRIPCION_PRODUCTO, VALOR, ID_CATEGORIA_PRODUCTO, 
+    TIPO_CANJE, CONDICION_CANJE, NOW(), 'ADMINISTRADOR', 'P. CANJE');
+    
+    INSERT INTO stock_canje (ID_STOCK_CATEGORIA, ID_STOCK_PRODUCTO, STOCK, FECHA_REGISTRO, FECHA_GRABACION, USUARIO_GRABACION, VENTANA_GRABACION)
+    VALUES (ID_CATEGORIA_PRODUCTO, (SELECT LAST_INSERT_ID()), STOCK, NOW(), NOW(), 'ADMINISTRADOR', 'P. CANJE');
+END && delimiter ;
+
+DROP PROCEDURE IF EXISTS ACTUALIZAR_PRODUCTO_CANJE;
+delimiter &&
+CREATE PROCEDURE ACTUALIZAR_PRODUCTO_CANJE                
+(in ID int(11),
+  in NOM_PROD_CANJ  varchar(500),
+  in DESCRIPCION_PRODUCTO varchar(500),
+  in VALOR decimal(16,4),
+  in ID_CATEGORIA_PRODUCTO int(11),
+  in TIPO_CANJE int(11),
+  in STOCK decimal(16,4),
+  in CONDICION_CANJE varchar(500)
+)  
+BEGIN
+	UPDATE producto_canje p
+    SET NOM_PROD_CANJ = COALESCE(NOM_PROD_CANJ, p.NOM_PROD_CANJ), 
+    DESCRIPCION_PRODUCTO = COALESCE(DESCRIPCION_PRODUCTO, p.DESCRIPCION_PRODUCTO),
+    VALOR = COALESCE(VALOR, p.VALOR), 
+    ID_CATEGORIA_PRODUCTO = COALESCE(ID_CATEGORIA_PRODUCTO, p.ID_CATEGORIA_PRODUCTO), 
+    TIPO_CANJE = COALESCE(TIPO_CANJE, p.TIPO_CANJE),
+    CONDICION_CANJE = COALESCE(CONDICION_CANJE, p.CONDICION_CANJE)
+    WHERE p.ID = ID;
+    
+    UPDATE stock_canje s
+    SET STOCK = COALESCE(STOCK, s.STOCK)
+    WHERE s.ID_STOCK_PRODUCTO = ID;
+END && delimiter ;
+
+DROP PROCEDURE IF EXISTS ELIMINAR_PRODUCTO_CANJE;
+delimiter &&
+CREATE PROCEDURE ELIMINAR_PRODUCTO_CANJE                
+(in PRODUCTO_ID int(11)
+)  
+BEGIN
+	DELETE FROM producto_canje WHERE ID = PRODUCTO_ID;	
+END && delimiter ;

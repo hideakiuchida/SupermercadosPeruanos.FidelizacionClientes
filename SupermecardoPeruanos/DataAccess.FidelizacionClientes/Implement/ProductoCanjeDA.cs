@@ -15,7 +15,7 @@ namespace DataAccess.FidelizacionClientes.Implement
         {
             Producto producto = new Producto();
 
-            MySqlCommand command = new MySqlCommand("[dbo].[PRODUCTO_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("PRODUCTO_Q01", connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add(new MySqlParameter("@P_ID_PRODUCTO", id));
 
@@ -27,7 +27,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 while (dataReader.Read())
                 {
-                    producto.Id = Convert.ToInt32(dataReader["ID_PRODUCTO"]);
+                    producto.Id = Convert.ToInt32(dataReader["ID"]);
                     producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
                     producto.Nombre = dataReader["DESCRIPCION_PRODUCTO"].ToString();
                     producto.Imagen = dataReader["IMAGEN"].ToString();
@@ -35,7 +35,9 @@ namespace DataAccess.FidelizacionClientes.Implement
                     producto.Puntos = Convert.ToInt32(valorCanje);
                     decimal stock = Convert.ToDecimal(dataReader["STOCK"].ToString());
                     producto.Stock = Convert.ToInt32(stock);
-                    producto.Condiciones = "Condiciones condiciones"; // dataReader["CON_PROD_CANJ"].ToString();
+                    producto.CategoriaId = Convert.ToInt32(dataReader["ID_CATEGORIA_PRODUCTO"]);
+                    producto.TipoCanjeId = Convert.ToInt32(dataReader["TIPO_CANJE"]);
+                    producto.Condiciones = dataReader["CONDICION_CANJE"].ToString(); 
                 }
             }
 
@@ -52,7 +54,7 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             int total = 0;
 
-            MySqlCommand command = new MySqlCommand("[dbo].[CATALOGO_PERSONALIZADO_Q01]", connection);
+            MySqlCommand command = new MySqlCommand("CATALOGO_PERSONALIZADO_Q01", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             DataTable dtCategorias = new DataTable();
@@ -97,6 +99,84 @@ namespace DataAccess.FidelizacionClientes.Implement
             connection.Close();
 
             return catalogoProducto;
+        }
+
+        public List<Producto> GetProductosCanje()
+        {
+            List<Producto> productos = new List<Producto>();
+
+            MySqlCommand command = new MySqlCommand("LISTAR_PRODUCTOS", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            connection.Open();
+
+            MySqlDataReader dataReader = command.ExecuteReader();
+
+            if (dataReader.HasRows)
+            {
+                while (dataReader.Read())
+                {
+                    Producto producto = new Producto();
+                    producto.Id = Convert.ToInt32(dataReader["ID"]);
+                    producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
+                    producto.Nombre = dataReader["DESCRIPCION_PRODUCTO"].ToString();
+                    decimal valorCanje = Convert.ToDecimal(dataReader["VALOR"].ToString());
+                    producto.Puntos = Convert.ToInt32(valorCanje);
+                    decimal stock = Convert.ToDecimal(dataReader["STOCK"].ToString());
+                    producto.Stock = Convert.ToInt32(stock);
+                    producto.CategoriaId = Convert.ToInt32(dataReader["ID_CATEGORIA_PRODUCTO"]);
+                    producto.TipoCanjeId = Convert.ToInt32(dataReader["TIPO_CANJE"]);
+                    producto.CategoriaDescripcion = dataReader["NOMBRE_CATEGORIA"].ToString();
+                    productos.Add(producto);
+                }
+            }
+
+            connection.Close();
+
+            return productos;
+        }
+
+        public void Insertar(Producto producto)
+        {
+            connection.Open();
+            MySqlCommand command = new MySqlCommand("INSERTAR_PRODUCTO_CANJE", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@NOM_PROD_CANJ", producto.Nombre);
+            command.Parameters.AddWithValue("@DESCRIPCION_PRODUCTO", producto.Descripcion);
+            command.Parameters.AddWithValue("@VALOR", producto.Puntos);
+            command.Parameters.AddWithValue("@ID_CATEGORIA_PRODUCTO", producto.CategoriaId);
+            command.Parameters.AddWithValue("@TIPO_CANJE", producto.TipoCanjeId);
+            command.Parameters.AddWithValue("@STOCK", producto.Stock);
+            command.Parameters.AddWithValue("@CONDICION_CANJE", producto.Condiciones);
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void Update(Producto producto)
+        {
+            connection.Open();
+            MySqlCommand command = new MySqlCommand("ACTUALIZAR_PRODUCTO_CANJE", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@ID", producto.Id);
+            command.Parameters.AddWithValue("@NOM_PROD_CANJ", producto.Nombre);
+            command.Parameters.AddWithValue("@DESCRIPCION_PRODUCTO", producto.Descripcion);
+            command.Parameters.AddWithValue("@VALOR", producto.Puntos);
+            command.Parameters.AddWithValue("@ID_CATEGORIA_PRODUCTO", producto.CategoriaId);
+            command.Parameters.AddWithValue("@TIPO_CANJE", producto.TipoCanjeId);
+            command.Parameters.AddWithValue("@STOCK", producto.Stock);
+            command.Parameters.AddWithValue("@CONDICION_CANJE", producto.Condiciones);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void Eliminar(int id)
+        {
+            connection.Open();
+            MySqlCommand command = new MySqlCommand("ELIMINAR_PRODUCTO_CANJE", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@PRODUCTO_ID", id);
+            command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

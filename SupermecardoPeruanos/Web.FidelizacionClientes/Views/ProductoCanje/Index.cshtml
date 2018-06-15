@@ -1,28 +1,77 @@
 ﻿@{
-    ViewBag.Title = "Producto Canje";
+    ViewBag.Title = "Productos Canje";
 }
 
 @Styles.Render("http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css")
 @Scripts.Render("http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
 
-<div id="producto-canje" class="container-fluid">
-    <h1>Producto Canje</h1>
+<div id="clientes" class="container-fluid">
+    <section id="seccion-filtros" style="padding-bottom: 30px;">
+        <h5 class="subtitulos">Producto Canje</h5>
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label class="control-label col-md-4" for="select-tipo" style="padding: 10px;">Tipo:</label>
+                <select id="select-tipo" class="form-control col-md-8">
+                    <option value="">- Todos -</option>
+                    <option value="0">Producto</option>
+                    <option value="1">Servicio</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label col-md-4" for="select-categoria" style="padding: 10px;">Categoría:</label>
+                <select id="select-categoria" class="form-control col-md-8">
+                    <option value="">- Todos -</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    <section id="seccion-grilla">
+        <table id="table_productos" class="display">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Valor Canje</th>
+                    <th>Tipo</th>
+                    <th>Categoria</th>
+                    <th>Stock</th>
+                    <th>Editar / Eliminar</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <section>
+        <div class="row content">
+            <button id="btn-agregar-producto" class="btn btn-primary col-md-12" data-toggle="modal" data-target="#modal-registrar" data-remote="false">
+                Registrar Producto
+            </button>
+        </div>
+    </section>
 </div>
 
+@Html.Partial("~/Views/ProductoCanje/EditarModal.cshtml")
+@Html.Partial("~/Views/ProductoCanje/RegistrarModal.cshtml")
+@Html.Partial("~/Views/ProductoCanje/EliminarModal.cshtml")
 
 @Scripts.Render("~/Scripts/ProductoCanje/ProductoCanjeModule.js")
 <script>
-    @*$(document).ready(function () {
+    $(document).ready(function () {
 
-        var afilacionModule = new AfiliacionModule(
+        var productoCanjeModule = new ProductoCanjeModule(
             {
-                urlBuscarAfiliacionCliente: '@Url.Action("BuscarAfiliacionCliente", "Afiliacion")',
-                urlEvaluar: '@Url.Action("Evaluar", "Afiliacion")',
-                urlRegistrar: '@Url.Action("RegistrarAfiliacion", "Afiliacion")'
+                urlObtenerProductosCanje: '@Url.Action("ObtenerProductosCanje", "ProductoCanje")',
+                urlObtenerCategorias: '@Url.Action("ObtenerCategorias", "ProductoCanje")',
+                urlObtenerProductoCanje: '@Url.Action("ObtenerProductoCanje", "ProductoCanje")',
+                urlRegistrar: '@Url.Action("Registrar", "ProductoCanje")',
+                urlEditar: '@Url.Action("Editar", "ProductoCanje")',
+                urlEliminar: '@Url.Action("Eliminar", "ProductoCanje")'
             }
         );
 
-        afilacionModule.initialize();
-    });*@
+        productoCanjeModule.initialize();
+    });
 
 </script>
+
+

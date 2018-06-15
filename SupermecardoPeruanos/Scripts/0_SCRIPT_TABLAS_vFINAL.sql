@@ -1,3 +1,4 @@
+drop database if exists sigesu;
 create database sigesu;
 use sigesu;
 
@@ -46,7 +47,7 @@ create table categoria_canje (
 
 create table producto_canje (
   `id` int(11) not null auto_increment comment 'ID de la Tabla',
-  `nom_prod_canj` varchar(50) default null comment 'Nombre del Producto para Canje',
+  `nom_prod_canj` varchar(500) default null comment 'Nombre del Producto para Canje',
   `id_categoria_producto` int(11) default null  comment 'ID Categoria Producto',
   `valor` decimal(16,4) default null comment 'Valor del canje de producto',
   `tipo_canje` int(11) default null comment ' Tipo de Canje (1: Producto, 0: Servicio)',
@@ -75,7 +76,7 @@ create table catalogo_canje (
   constraint catalogo_canje_pk primary key (id),
   constraint catalogo_canje_uk unique (id_catalogo, id_producto_canje, id_categoria_canje),
   constraint catalogo_canje_fk foreign key (id_producto_canje) 
-        references producto_canje (id),
+        references producto_canje (id) ON DELETE CASCADE,
   constraint catalogo_canje_fk2 foreign key (id_categoria_canje) 
         references categoria_canje (id)	
 ) engine=innodb default charset=utf8 comment='Maestro de Catálogo de Productos para Canje';
@@ -95,7 +96,7 @@ create table historial_compra (
   constraint historial_compra_fk foreign key (id_cliente_historial) 
         references cliente_afiliado (id),
   constraint historial_compra_fk1 foreign key (id_producto_historial) 
-        references producto_canje (id)	,
+        references producto_canje (id)	ON DELETE CASCADE,
   constraint historial_compra_fk2 foreign key (id_categoria_historial) 
         references categoria_canje (id)		
 ) engine=innodb default charset=utf8 comment='Historial de Compras';
@@ -141,7 +142,7 @@ create table stock_canje (
   constraint stock_canje_pk primary key (id),
   constraint stock_canje_uk unique (id_stock_categoria, id_stock_producto),
   CONSTRAINT stock_canje_fk1 FOREIGN KEY (`id_stock_categoria`) REFERENCES categoria_canje (id),
-  CONSTRAINT stock_canje_fk2 FOREIGN KEY (`id_stock_producto`) REFERENCES producto_canje (id)
+  CONSTRAINT stock_canje_fk2 FOREIGN KEY (`id_stock_producto`) REFERENCES producto_canje (id) ON DELETE CASCADE
 ) engine=innodb default charset=utf8 comment='Cantidad de Stock de Productos para Canje';
 
 create table tarjetaoh (

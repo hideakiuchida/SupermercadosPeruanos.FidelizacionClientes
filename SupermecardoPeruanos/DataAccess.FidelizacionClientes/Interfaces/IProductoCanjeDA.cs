@@ -9,5 +9,9 @@ namespace DataAccess.FidelizacionClientes.Interfaces
     {
         CatalogoProducto GetOfertasPersonalizadas(int[] categorias, int cantidad, int pagina);
         Producto Get(int id);
+        List<Producto> GetProductosCanje();
+        void Insertar(Producto producto);
+        void Update(Producto producto);
+        void Eliminar(int id);
     }
 }

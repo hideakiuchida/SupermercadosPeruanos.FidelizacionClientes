@@ -220,6 +220,7 @@
                     '<button id="btn-eliminar-cliente" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-eliminar" data-remote="false"> <span class="glyphicon glyphicon-remove"></span></button> '
                 }
             ],
+            order: [[0, "desc"]],
             data: clientes,
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"

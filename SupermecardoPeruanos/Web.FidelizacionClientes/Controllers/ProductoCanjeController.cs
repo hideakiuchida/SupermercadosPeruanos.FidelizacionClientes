@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Business.FidelizacionClientes.Implement;
+using Business.FidelizacionClientes.Interfaces;
+using Model.FidelizacionClientes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,35 +11,126 @@ namespace Web.FidelizacionClientes.Controllers
 {
     public class ProductoCanjeController : Controller
     {
-        // GET: ProductoCanje
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: ProductoCanje/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public JsonResult ObtenerProductosCanje(int? tipoId, int? categoriaId)
         {
-            return View();
+            IProductoCanjeBL productoCanjeBL = new ProductoCanjeBL();
+
+            var productos = productoCanjeBL.GetProductosCanje(tipoId, categoriaId);
+
+            var data = new
+            {
+                success = productos.Any(),
+                productos = productos
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
 
-        // GET: ProductoCanje/Create
-        public ActionResult Create()
+        [HttpGet]
+        public JsonResult ObtenerProductoCanje(int id)
         {
-            return View();
+            IProductoCanjeBL productoCanjeBL = new ProductoCanjeBL();
+
+            var producto = productoCanjeBL.Get(id);
+
+            var data = new
+            {
+                success = producto != null,
+                producto = producto
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: ProductoCanje/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public JsonResult ObtenerCategorias()
         {
-            return View();
+            ICategoriaBL categoriaBL = new CategoriaBL();
+
+            var categorias = categoriaBL.GetAll();
+
+            var data = new
+            {
+                success = categorias.Any(),
+                categorias = categorias
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
 
-        // GET: ProductoCanje/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public JsonResult Registrar(Producto producto)
         {
-            return View();
+            try
+            {
+                IProductoCanjeBL productoCanjeBL = new ProductoCanjeBL();
+
+                productoCanjeBL.Insertar(producto);
+
+                var data = new
+                {
+                    success = true,
+                    mensaje = "Se registro satisfactoriamente"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
 
+        [HttpPost]
+        public JsonResult Editar(Producto producto)
+        {
+            try
+            {
+                IProductoCanjeBL productoCanjeBL = new ProductoCanjeBL();
+                productoCanjeBL.Update(producto);
+
+                var data = new
+                {
+                    success = true,
+                    mensaje = "Se actualizó satisfactoriamente"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Eliminar(int id)
+        {
+            try
+            {
+                IProductoCanjeBL productoCanjeBL = new ProductoCanjeBL();
+                productoCanjeBL.Delete(id);
+
+                var data = new
+                {
+                    success = true,
+                    mensaje = "Se eliminó satisfactoriamente"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -14,5 +14,18 @@ namespace Model.FidelizacionClientes
         public Categoria Categoria { get; set; }
         public string Nombre { get; set; }
         public string Condiciones { get; set; }
+        public int CategoriaId { get; set; }
+        public int TipoCanjeId { get; set; }
+        public string TipoDescripcion
+        { get
+            {
+                if (TipoCanjeId == 0)
+                    return "Producto";
+                if(TipoCanjeId == 1)
+                    return "Servicio";
+                return String.Empty;
+            }
+        }
+        public string CategoriaDescripcion { get; set; }
     }
 }
