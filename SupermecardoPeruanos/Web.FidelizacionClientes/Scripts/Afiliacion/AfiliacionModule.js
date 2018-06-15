@@ -84,11 +84,15 @@
                 data: { numeroDocumento: _numeroDocumento },
                 success: function (data) {
                     if (data.success) {
+                              
+                        if (data.Afiliacion.NumeroTarjeta==null) {
+                            alertify.alert("Mensaje", "No posee información de Afiliacion.");
+                            return false;
+                        }
                         _setSeccionDatosCliente(data.Cliente);
                         _setSeccionDatosCalificacion(data.Calificacion);
-                        _setSeccionEvaluacion(data.Afiliacion);
                         _setSeccionDeudas(data.Infocorp);
-
+                        _setSeccionEvaluacion(data.Afiliacion);
 
                         if (data.Estado === "DESAPROBADO") {
                             alertify.alert("Estado de Solicitud","La solicitud ya ha sido Desaprobada");
