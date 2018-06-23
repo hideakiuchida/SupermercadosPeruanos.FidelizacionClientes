@@ -29,8 +29,8 @@ namespace DataAccess.FidelizacionClientes.Implement
                 while (dataReader.Read())
                 {
                     producto.Id = Convert.ToInt32(dataReader["ID"]);
-                    producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
-                    producto.Nombre = dataReader["DESCRIPCION_PRODUCTO"].ToString();
+                    producto.Nombre = dataReader["NOM_PROD_CANJ"].ToString();
+                    producto.Descripcion = dataReader["DESCRIPCION_PRODUCTO"].ToString();
                     producto.Imagen = dataReader["IMAGEN"].ToString();
                     decimal valorCanje = Convert.ToDecimal(dataReader["VALOR"].ToString());
                     producto.Puntos = Convert.ToInt32(valorCanje);

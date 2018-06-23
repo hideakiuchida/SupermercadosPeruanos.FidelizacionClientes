@@ -87,7 +87,7 @@ namespace Web.FidelizacionClientes.Controllers
             {
                 foreach (var item in infocorp)
                 {
-                    isCalifica = item.CalificacionSBS.Trim().Equals("A") || item.CalificacionSBS.Trim().Equals("B");
+                    isCalifica = item.CalificacionSBS.Equals("0") || item.CalificacionSBS.Equals("1");
                     if (ingresoTotal >= CalificacionEnum.SueldoIngresoMinimoC)
                     {
                         tipo = "Black";

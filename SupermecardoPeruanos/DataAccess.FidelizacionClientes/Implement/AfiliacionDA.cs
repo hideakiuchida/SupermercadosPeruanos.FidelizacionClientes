@@ -75,9 +75,9 @@ namespace DataAccess.FidelizacionClientes.Implement
             MySqlCommand command = new MySqlCommand("TARJETAOH_SOLICITUD_I02", connection);
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("@P_ID_CLIENTE", codigoCliente);
-            command.Parameters.AddWithValue("@P_TIP_TARJ", tipo);
-            command.Parameters.AddWithValue("@P_NUM_TARJ", Convert.ToInt64(numero));
+            command.Parameters.AddWithValue("@P_Id_Cliente", codigoCliente);
+            command.Parameters.AddWithValue("@P_Tipo_Tarjeta", tipo);
+            command.Parameters.AddWithValue("@P_Num_Tarjeta", Convert.ToInt64(numero));
             
             command.ExecuteNonQuery();
 
