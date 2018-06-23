@@ -437,24 +437,23 @@ END && delimiter ;
 
 DROP PROCEDURE IF EXISTS CATALOGO_PERSONALIZADO_Q01;
 delimiter &&
-CREATE PROCEDURE CATALOGO_PERSONALIZADO_Q01(IN CATEGORIAS VARCHAR(500), IN CANTIDAD INTEGER, IN PAGINA INTEGER)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CATALOGO_PERSONALIZADO_Q01`(IN CATEGORIAS VARCHAR(500), IN CANTIDAD INTEGER, IN PAGINA INTEGER)
 BEGIN
 
 DECLARE firstRow INT unsigned DEFAULT 0; 
 
-SET firstRow = PAGINA * CANTIDAD;
+SET firstRow = (PAGINA - 1) * CANTIDAD + 1;
 
 IF CATEGORIAS IS NULL OR CATEGORIAS = '' THEN
 	set @sql_query=CONCAT('select id, nom_prod_canj, descripcion_producto, dir_ruta ''imagen'', valor, id_categoria_producto
-	from producto_canje where id_categoria_producto in  (',CATEGORIAS,') limit ', CANTIDAD, ' offset ', firstRow);
+	from producto_canje limit ', CANTIDAD, ' offset ', firstRow);
 ELSE
 	set @sql_query=CONCAT('select id, nom_prod_canj, descripcion_producto, dir_ruta ''imagen'', valor, id_categoria_producto
-	from producto_canje limit ', firstRow, ' offset ', CANTIDAD);
+	from producto_canje where id_categoria_producto in  (',CATEGORIAS,') limit ', CANTIDAD, ' offset ', firstRow);
 END IF;
 
 PREPARE stmt FROM @sql_query;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 
-END &&
-delimiter ;
+END && delimiter ;
