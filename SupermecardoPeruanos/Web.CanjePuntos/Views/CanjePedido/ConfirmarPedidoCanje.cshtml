@@ -35,14 +35,16 @@
                                 <tr>
                                     <th class="col-xs-7">Producto</th>
                                     <th class="col-xs-2 text-right">Cantidad</th>
-                                    <th class="col-xs-3 text-right">Total Puntos</th>
+                                    <th class="col-xs-3 text-right">Puntos</th>
+                                    <th class="col-xs-3 text-right">Total</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                             <tfoot>
                                 <tr>
+                                    <th></th>
                                     <th colspan="2" class="text-right">Valor total de canje</th>
-                                    <th class="text-right"><span id="lblSumpunt">--</span></th>
+                                    <th class="text-right"><span id="lblSumpunt">----</span></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -92,15 +94,18 @@
 
         var content = "";
         var sum = 0;
+        var total = 0;
 
         $.each(productos, function (index, value) {
             content += '<tr>';
             content += '<td class="col-xs-7">' + value.Nombre + '</td>';
             content += '<td class="col-xs-2 text-right">' + value.Cantidad + '</td>';
             content += '<td class="col-xs-3 text-right">' + value.Puntos + '</td>';
+            content += '<td class="col-xs-3 text-right">' + value.Puntos * value.Cantidad + '</td>';
             content += '</tr>';
 
-            sum += parseInt(value.Puntos);
+            sum += parseInt(value.Puntos * value.Cantidad);
+            total = sum 
         });
 
         $('#tblDetail>tbody').append(content);

@@ -83,10 +83,10 @@
                 }
             }
         }
-        function gotoNextStep() {
-            var lnkGoTo = document.getElementById('lnkGoTo');
-            lnkGoTo.href = '/canjepedido/confirmarpedido?car=' + JSON.stringify(carritoCanje);
-        }
+        //function gotoNextStep() {
+        //    var lnkGoTo = document.getElementById('lnkGoTo');
+        //    lnkGoTo.href = '/canjepedido/confirmarpedido?car=' + JSON.stringify(carritoCanje);
+        //}
         function updatesum(valt, id) {
             var sum = 0;
 
