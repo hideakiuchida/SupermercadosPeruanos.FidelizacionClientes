@@ -455,5 +455,15 @@ END IF;
 PREPARE stmt FROM @sql_query;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
+END && delimiter ;
 
+DROP PROCEDURE IF EXISTS sp_consulta_producto_codigo;
+delimiter &&
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_consulta_producto_codigo`(IN productos VARCHAR(500))
+BEGIN
+	set @sql_query=CONCAT('select p.id, p.nom_prod_canj, p.dir_ruta ''imagen'', p.valor,s.stock from producto_canje p 
+    inner join stock_canje s on s.id_stock_producto= p.id where p.id in  (',productos,')');
+PREPARE stmt FROM @sql_query;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 END && delimiter ;

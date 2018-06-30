@@ -149,12 +149,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CanjePedidoController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,11 +179,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\CanjePedido\CanjePedidoModule.js" />
     <Content Include="Scripts\Catalogo\CatalogoModule.js" />
     <Content Include="Scripts\Login\main.js" />
     <Content Include="Scripts\notify.min.js" />
     <Content Include="Views\Catalogo\Index.cshtml" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="products.json" />
+    <Content Include="ObtenerProductosCanje.json" />
+    <Content Include="Carrito.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -193,6 +199,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\CanjePedido\Index.cshtml" />
+    <Content Include="Views\CanjePedido\ObtenerProductosCanje.cshtml" />
+    <Content Include="Views\CanjePedido\ConfirmarPedidoCanje.cshtml" />
     <None Include="Views\Login\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -215,7 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -229,6 +237,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business.FidelizacionClientes\Business.FidelizacionClientes.csproj">
+      <Project>{96DB0D9A-FB5B-48A8-A0DF-B0DEAA635852}</Project>
+      <Name>Business.FidelizacionClientes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model.FidelizacionClientes\Model.FidelizacionClientes.csproj">
+      <Project>{e52908c1-31f5-48cb-9c88-09db46421a5b}</Project>
+      <Name>Model.FidelizacionClientes</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

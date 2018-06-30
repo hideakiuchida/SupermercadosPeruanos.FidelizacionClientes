@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Carrito de canje";
+}
+
+@Styles.Render("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
+@Scripts.Render("https://code.jquery.com/ui/1.12.1/jquery-ui.js")
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col text-center">
+            <h4 class="display-4">Carrito de Productos - Pedido Canje</h4>
+            <hr />
+        </div>
+    </div>
+</div>
+<div id="lstCarrito" class="container-fluid">
+    
+</div>
+<div>
+    <table id="listaProducto">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Cantidad</th>
+                <th>Puntos</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+        
+
+    </table>
+</div>
+<div id="footerDiv" class="container-fluid">
+    <!--Footer Table-->
+    <div class="row">
+        <div class="col-md-11 text-right">
+            <label class="col-md-9 col-form-label text-right">Total Puntos:</label>
+            <div class="col-md-3">
+                <input type="text" id="txtTotal" class="form-control text-right" readonly value="3" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <hr />
+    </div>
+</div>
+<div id="gotoConfirmDiv" class="row">
+    <div class="col text-center">
+        <a href="~/CanjePedido/ConfirmarPedidoCanje" class="btn btn-primary" data-badge="">Finalizar Ingreso de Pedido</a>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Catalogo/ProductoModal.cshtml")
+@Scripts.Render("~/Scripts/CanjePedido/CanjePedidoModule.js")
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+<script>
+     $(document).ready(function () {
+
+         var canjePedidoModule = new CanjePedidoModule();
+    });
+</script>

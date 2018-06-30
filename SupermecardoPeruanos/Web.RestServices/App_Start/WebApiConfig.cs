@@ -25,6 +25,8 @@ namespace Web.RestServices
 
             config.Routes.MapHttpRoute("API Default", "api/{controller}/{action}/{id}",
             new { id = RouteParameter.Optional });
+            //config.Routes.MapHttpRoute("API Carrito", "api/{controller}/{action}/{ids}",
+            //new { ids = RouteParameter.Optional });
         }
     }
 }

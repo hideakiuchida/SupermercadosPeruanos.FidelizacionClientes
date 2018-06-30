@@ -1,0 +1,18 @@
+﻿{
+  "Productos": [
+    {
+      "Id": 1,
+      "Nombre": "sample string 2",
+      "Puntos": 4,
+      "Imagen": "sample string 8",
+      "Stock": 9
+    },
+    {
+      "Id": 1,
+      "Nombre": "sample string 2",
+      "Puntos": 4,
+      "Imagen": "sample string 8",
+      "Stock": 9
+    }
+  ]
+}

@@ -5,13 +5,23 @@
         urlProductoBase: config.urlProductoBase,
         urlCarritoCanjeBase: config.urlCarritoCanjeBase,
         urlCategoriaBase: config.urlCategoriaBase,
+        urlIngresarCanjePedido: config.urlIngresarCanjePedido,
         idCliente: 9
     };
 
     var _filtros = {Categoria: 0, Puntos: 0};
     var _orden = { value: 0 };
     var _paginaActual = 1;
-    var _carritoCanje = { productos: [], idCliente: 0 };
+    var _carritoCanje = { idProductos: [], idCliente: _config.idCliente };
+
+    var _irIngresarPedidoCanje = function (carritoCanje) {
+        if (carritoCanje.idProductos.length > 0) {
+            localStorage.setItem("carritoCanje", JSON.stringify(carritoCanje));
+            window.location.href = _config.urlIngresarCanjePedido;
+        }
+        else
+            alert('No tiene ningun producto agregado al carrito.');
+    };
 
     var _consultarCatalogo = function (pagina) {
 
@@ -80,17 +90,17 @@
 
     var _agregarProducto = function (id) {
 
-        _carritoCanje.productos.push(id);
+        _carritoCanje.idProductos.push(id);
         _carritoCanje.idCliente = _config.idCliente;
         $.notify("Se agrego correctamente al carrito.", "success");
         _consultarCarritoCanje(_config.idCliente);
     };
 
     var _consultarCarritoCanje = function (id) {
-        if (_carritoCanje.productos.length > 0) {
+        if (_carritoCanje.idProductos.length > 0) {
             if (!$('#btnCarritoCanje').hasClass('badge1')) 
                 $("#btnCarritoCanje").toggleClass("badge1");
-            $("#btnCarritoCanje").attr("data-badge", _carritoCanje.productos.length);
+            $("#btnCarritoCanje").attr("data-badge", _carritoCanje.idProductos.length);
         }
         else
             $("#btnCarritoCanje").removeClass("badge1");
@@ -250,6 +260,8 @@
             _orden.value = selected;
             _consultarCatalogo(_paginaActual);
         });
+
+        $('#btnCarritoCanje').click(function () { _irIngresarPedidoCanje(_carritoCanje) });
     };
 
     var _initControls = function () {

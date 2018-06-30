@@ -29,8 +29,6 @@ namespace Business.FidelizacionClientes.Implement
         {
            afiliacionDA.InsertCliente(codigoCliente, numero, tipo);
         }
-
-        
         public void UpdateSolicitudDes(int numeroDocumento)
         {
             afiliacionDA.UpdateSolicitudDes(numeroDocumento);
