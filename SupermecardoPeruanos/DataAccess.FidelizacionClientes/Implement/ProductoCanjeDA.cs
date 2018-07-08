@@ -31,7 +31,7 @@ namespace DataAccess.FidelizacionClientes.Implement
                     producto.Id = Convert.ToInt32(dataReader["ID"]);
                     producto.Nombre = dataReader["NOM_PROD_CANJ"].ToString();
                     producto.Descripcion = dataReader["DESCRIPCION_PRODUCTO"].ToString();
-                    producto.Imagen = dataReader["IMAGEN"].ToString();
+                    producto.Imagen = dataReader["imagen"].ToString();
                     decimal valorCanje = Convert.ToDecimal(dataReader["VALOR"].ToString());
                     producto.Puntos = Convert.ToInt32(valorCanje);
                     decimal stock = Convert.ToDecimal(dataReader["STOCK"].ToString());
@@ -80,7 +80,7 @@ namespace DataAccess.FidelizacionClientes.Implement
                     Producto producto = new Producto();
                     producto.Id = Convert.ToInt32(dataReader["ID"].ToString());
                     producto.Nombre = dataReader["NOM_PROD_CANJ"].ToString();
-                    producto.Imagen = "Content//Images//zapatilla.jpg";//dataReader["imagen"].ToString();
+                    producto.Imagen = dataReader["imagen"].ToString();
                     decimal valorCanje = Convert.ToDecimal(dataReader["valor"].ToString());
                     producto.Puntos = Convert.ToInt32(valorCanje);
                     decimal stock = Convert.ToDecimal(dataReader["stock"].ToString());
@@ -139,8 +139,8 @@ namespace DataAccess.FidelizacionClientes.Implement
                     producto.Id = Convert.ToInt32(dataReader["ID"].ToString());
                     producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
                     producto.Nombre = dataReader["descripcion_producto"].ToString();
-                    producto.Imagen = "Content//Images//zapatilla.jpg";//dataReader["imagen"].ToString();
-                    //producto.Imagen = dataReader["dir_ruta"].ToString();
+                    //producto.Imagen = dataReader["imagen"].ToString();
+                    producto.Imagen = dataReader["imagen"].ToString();
                     Categoria categoria = new Categoria();
                     categoria.Id = Convert.ToInt32(dataReader["id_categoria_producto"].ToString());
                     producto.Categoria = categoria;
