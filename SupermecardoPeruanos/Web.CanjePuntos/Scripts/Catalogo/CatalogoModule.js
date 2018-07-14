@@ -6,7 +6,7 @@
         urlCarritoCanjeBase: config.urlCarritoCanjeBase,
         urlCategoriaBase: config.urlCategoriaBase,
         urlIngresarCanjePedido: config.urlIngresarCanjePedido,
-        idCliente: 9
+        idCliente: 10
     };
 
     var _filtros = {Categoria: 0, Puntos: 0};

@@ -22,6 +22,25 @@
         //});
     };
 
+    var removeItem = function (id) {
+        removeItemJS(carritoCanje.idProductos, id);
+        //loadGrid();
+        if (carritoCanje.idProductos.length == 0) {
+            $('#lstCarrito').append('<div class="row text-center"><h1>El carrito de Productos esta vacio</h1></div>');
+            $('#footerDiv').hide();
+            $('#gotoConfirmDiv').hide();
+        }
+    };
+
+    var removeItemJS = function (array, item) {
+        for (var i in array) {
+            if (array[i].Id == item) {
+                array.splice(i, 1);
+                break;
+            }
+        }
+    };
+
     function listItems(items) {
         var content = "";
         var sum = 0;
@@ -31,6 +50,8 @@
         $.each(items, function (index, value) {
             //alert(value.prod);
             //Row
+            var btnEliminar = "btnEliminar-" + value.Id;
+
             content += '<div class="row">';
             //Img
             content += '<div class="col-md-2"><img src="' + value.Imagen + '" class="img-responsive w-25" /></div>'
@@ -52,11 +73,13 @@
             //End Form
             content += '</div>';
             //Button Delete
-            content += '<div class="col-md-1"><button class="btn btn-primary" onclick="removeItem(' + value.Id + ')" >Eliminar</button></div>';
+            content += '<div class="col-md-1"><button id="' + btnEliminar +'" class="btn btn-primary" >Eliminar</button></div>';
             //End Row
             content += '</div>';
             //Separator
             content += '<div class="row"><div class="col"><hr /></div></div>';
+
+            $("#" + btnEliminar).click(function () { console.log("XXX"); removeItem(value.Id); });
 
             sum += parseInt(value.Puntos);
         });
@@ -64,24 +87,7 @@
         $('#lstCarrito').append(content);
 
         $('#txtTotal').val(sum);
-        var removeItem = function (id) {
-            removeItemJS(carritoCanje.idProductos, id);
-            //loadGrid();
-            if (carritoCanje.idProductos.length == 0) {
-                $('#lstCarrito').append('<div class="row text-center"><h1>El carrito de Productos esta vacio</h1></div>');
-                $('#footerDiv').hide();
-                $('#gotoConfirmDiv').hide();
-            }
-        }
-
-        var removeItemJS = function (array, item) {
-            for (var i in array) {
-                if (array[i].Id == item) {
-                    array.splice(i, 1);
-                    break;
-                }
-            }
-        }
+        
         //function gotoNextStep() {
         //    var lnkGoTo = document.getElementById('lnkGoTo');
         //    lnkGoTo.href = '/canjepedido/confirmarpedido?car=' + JSON.stringify(carritoCanje);
