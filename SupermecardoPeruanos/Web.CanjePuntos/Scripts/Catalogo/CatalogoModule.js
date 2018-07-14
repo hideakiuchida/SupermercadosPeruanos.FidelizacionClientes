@@ -169,7 +169,7 @@
                 var btnDetalle = "btnDetalle-" + item.Id;
                 var btnAgregar = "btnAgregar-" + item.Id;
 
-                $(divProducto).append("<img src='" + item.Imagen + "' style='width:100%;height: 100%;padding: 2px; text-align:center'>");
+                $(divProducto).append("<img src='" + item.Imagen + "' style='width:160px;height: 140px;padding: 2px; text-align:center'>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><label>Puntos: " + item.Puntos + "</label></div>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnDetalle + "' style='width: 100%' type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-producto' data-remote='false'>Ver Detalle</button></div>");
                 $(divProducto).append("<div style='padding:2px;text-align:center'><button id='" + btnAgregar + "' style='width: 100%' type='button' class='btn btn-success'>Agregar a Carrito</button></div>");
