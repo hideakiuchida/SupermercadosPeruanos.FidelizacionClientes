@@ -31,7 +31,7 @@ namespace DataAccess.FidelizacionClientes.Implement
                     producto.Id = Convert.ToInt32(dataReader["ID"]);
                     producto.Nombre = dataReader["NOM_PROD_CANJ"].ToString();
                     producto.Descripcion = dataReader["DESCRIPCION_PRODUCTO"].ToString();
-                    producto.Imagen = dataReader["IMAGEN"].ToString();
+                    producto.Imagen = dataReader["imagen"].ToString();
                     decimal valorCanje = Convert.ToDecimal(dataReader["VALOR"].ToString());
                     producto.Puntos = Convert.ToInt32(valorCanje);
                     decimal stock = Convert.ToDecimal(dataReader["STOCK"].ToString());
@@ -46,6 +46,52 @@ namespace DataAccess.FidelizacionClientes.Implement
 
             return producto;
         }
+        public List<Producto> GetProductosCarritoCanje(int[] productos)
+        {
+            List<Producto> lstProductos = new List<Producto>();
+            if (productos == null || productos.Length == 0)
+                return lstProductos;
+            string productosString = String.Empty;
+            if (productos.Length>2)
+            {
+                for (int i = 0; i < productos.Length; i++)
+                {
+                    if (i == (productos.Length - 1))
+                        productosString += productos[i].ToString();
+                    else
+                        productosString += productos[i].ToString()+ ",";
+                }
+                
+            }
+            if (productos.Length == 2)
+                productosString = productos[0].ToString() + "," + productos[1].ToString();
+            if (productos.Length == 1)
+                productosString = productos[0].ToString();
+
+            MySqlCommand command = new MySqlCommand("sp_consulta_producto_codigo", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new MySqlParameter("@productos", productosString));
+            connection.Open();
+            MySqlDataReader dataReader = command.ExecuteReader();
+            if (dataReader.HasRows)
+            {
+                while (dataReader.Read())
+                {
+                    Producto producto = new Producto();
+                    producto.Id = Convert.ToInt32(dataReader["ID"].ToString());
+                    producto.Nombre = dataReader["NOM_PROD_CANJ"].ToString();
+                    producto.Imagen = dataReader["imagen"].ToString();
+                    decimal valorCanje = Convert.ToDecimal(dataReader["valor"].ToString());
+                    producto.Puntos = Convert.ToInt32(valorCanje);
+                    decimal stock = Convert.ToDecimal(dataReader["stock"].ToString());
+                    producto.Stock = Convert.ToInt32(stock);
+                    lstProductos.Add(producto);
+                }
+            }
+            connection.Close();
+
+            return lstProductos;
+        }
 
         public CatalogoProducto GetOfertasPersonalizadas(int[] categorias, int cantidad, int pagina)
         {
@@ -58,7 +104,7 @@ namespace DataAccess.FidelizacionClientes.Implement
             {
                 for (int i = 0; i < categorias.Length; i++)
                 {
-                    if ((i == 0) || i == (categorias.Length - 1))
+                    if (i == (categorias.Length - 1))
                         categoriasString += categorias[i].ToString();
                     else
                         categoriasString += categorias[i].ToString() + ",";
@@ -93,6 +139,7 @@ namespace DataAccess.FidelizacionClientes.Implement
                     producto.Id = Convert.ToInt32(dataReader["ID"].ToString());
                     producto.Descripcion = dataReader["NOM_PROD_CANJ"].ToString();
                     producto.Nombre = dataReader["descripcion_producto"].ToString();
+                    //producto.Imagen = dataReader["imagen"].ToString();
                     producto.Imagen = dataReader["imagen"].ToString();
                     Categoria categoria = new Categoria();
                     categoria.Id = Convert.ToInt32(dataReader["id_categoria_producto"].ToString());

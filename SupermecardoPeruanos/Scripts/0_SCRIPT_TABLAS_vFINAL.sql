@@ -174,3 +174,13 @@ create table calificacion_cliente (
 	constraint calificacion_cliente_fk foreign key (id_cliente) 
         references cliente_afiliado (id)
 ) engine=innodb default charset=utf8  comment='Calificación del Cliente';
+
+create table pedido_canje(
+id int not null auto_increment primary key comment 'id de la tabla pedido',
+id_producto int not null comment 'id de la tabla producto',
+id_cliente int(11) not null comment 'id de la tabla cliente',
+fecha_pedido datetime not null default now() comment 'fecha de registro de pedido',
+total_puntos int not null comment 'Cantidad de puntos al momento del canje',
+constraint pedido_cliente_fk foreign key (id_cliente) references cliente_afiliado(id),
+constraint pedido_producto_fk foreign key (id_producto) references producto_canje(id)
+)engine=innodb default charset=utf8  comment='pedido del Cliente';

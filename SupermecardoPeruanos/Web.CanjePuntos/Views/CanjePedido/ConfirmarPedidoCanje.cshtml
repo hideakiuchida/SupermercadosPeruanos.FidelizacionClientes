@@ -1,0 +1,116 @@
+﻿
+@model Web.CanjePuntos.Models.CarModel
+@{
+    ViewBag.Title = "Confirmar Pedido Canje";
+}
+
+<h2>Confirmar Perdido Canje</h2>
+
+<div class="row">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p><h4>Ingreso de Pedido Realizado Con Exito</h4></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Estimado Cliente @*<b>Cliente Testing</b>*@ su compra se ha realizado de manera exitosa.</p>
+                    <p>Recuerde que despues de confirmar el ingreso de pedido canje <b>NO PODRA REALIZAR CAMBIO DE LA MISMA</b></p>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p><h4>Detalle del Pedido Producto-Canje</h4></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <table id="tblDetail" class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-7">Producto</th>
+                                    <th class="col-xs-2 text-right">Cantidad</th>
+                                    <th class="col-xs-3 text-right">Puntos</th>
+                                    <th class="col-xs-3 text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th colspan="2" class="text-right">Valor total de canje</th>
+                                    <th class="text-right"><span id="lblSumpunt">----</span></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">&nbsp;</div>
+                <div class="col-md-3 text-right">
+                        <button id="btnConfirmarPedido" data-dismiss="alert" class="btn btn-primary btn-block ">Confirmar Pedido Canje</button>
+                        </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+<script>
+    $("#btnConfirmarPedido").click(function () {
+        alert("Canje realizado exitosamente");
+        location.href = "/Catalogo";
+    });
+    
+    var productos = JSON.parse(localStorage.getItem("productos"));
+    
+    loadGrid();
+
+    function loadGrid() {
+        //$.ajax({
+        //    type: "GET",
+        //    url: 'http://localhost:52131/api/CarritoCanje/',
+        //    //ids = parametro del controlador
+        //    data: { ids: carritoCanje.idProductos },
+        //    success: function (data) {
+        //        listItems(data);
+        //    },
+        //    error: function (xhr, ajaxOptions, thrownError) {
+        //        alert("Mensaje", thrownError);
+        //    }
+        //});
+        //return false;
+
+        var content = "";
+        var sum = 0;
+        var total = 0;
+
+        $.each(productos, function (index, value) {
+            content += '<tr>';
+            content += '<td class="col-xs-7">' + value.Nombre + '</td>';
+            content += '<td class="col-xs-2 text-right">' + value.Cantidad + '</td>';
+            content += '<td class="col-xs-3 text-right">' + value.Puntos + '</td>';
+            content += '<td class="col-xs-3 text-right">' + value.Puntos * value.Cantidad + '</td>';
+            content += '</tr>';
+
+            sum += parseInt(value.Puntos * value.Cantidad);
+            total = sum 
+        });
+
+        $('#tblDetail>tbody').append(content);
+        $('#lblSumpunt').html(sum);
+    }
+
+
+</script>

@@ -1,4 +1,6 @@
-﻿using Model.FidelizacionClientes;
+﻿using Business.FidelizacionClientes.Implement;
+using Business.FidelizacionClientes.Interfaces;
+using Model.FidelizacionClientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,25 +14,31 @@ namespace Web.RestServices.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CarritoCanjeController : ApiController
     {
-        private List<CarritoCanje> carritos;
-        private CarritoCanje carritoCanje;
+        private List<CanjePedido> carritos;
+        private CanjePedido carritoCanje;
         private List<Producto> productos;
-
+        private IProductoCanjeBL productoCanjeBL; 
         public CarritoCanjeController()
         {
-            carritos = new List<CarritoCanje>();
-            carritoCanje = new CarritoCanje();
+            carritos = new List<CanjePedido>();
+            carritoCanje = new CanjePedido();
             productos = new List<Producto>();
+            productoCanjeBL = new ProductoCanjeBL();
         }
 
         // GET: api/CarritoCanje
-        public IEnumerable<CarritoCanje> Get()
+        public IEnumerable<Producto> Get([FromUri]int[] ids)
         {
-            return carritos;
+            return productoCanjeBL.GetProductosCarritoCanje(ids);// GetProductosCarritoCanje(ids);
         }
+        //[Route("GetProductosByIds")]
+        //public IEnumerable<Producto> GetProductosByIds([FromUri]int?[] ids)
+        //{
+        //    return productoCanjeBL.GetProductosCarritoCanje(ids);
+        //}
 
-        // GET: api/CarritoCanje/5
-        public CarritoCanje Get(int id)
+        //GET: api/CarritoCanje/5
+        public CanjePedido Get(int id)
         {
             return carritos.Where(x => x.Cliente.Codigo == id).FirstOrDefault();
         }
@@ -38,9 +46,9 @@ namespace Web.RestServices.Controllers
         // POST: api/CarritoCanje
         public IHttpActionResult Post([FromBody] int id)
         {
-            Producto producto = new Producto { Id = id, Descripcion = "Whaever" };                      
+            Producto producto = new Producto { Id = id, Descripcion = "Whaever" };
             productos.Add(producto);
-            carritoCanje.Productos = productos;
+            //carritoCanje.Productos = productos;
             carritoCanje.Cliente = new Cliente { Codigo = id };
             carritos.Add(carritoCanje);
             return StatusCode(HttpStatusCode.Created);

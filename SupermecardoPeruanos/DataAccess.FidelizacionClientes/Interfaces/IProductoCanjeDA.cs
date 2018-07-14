@@ -13,5 +13,6 @@ namespace DataAccess.FidelizacionClientes.Interfaces
         void Insertar(Producto producto);
         void Update(Producto producto);
         void Eliminar(int id);
+        List<Producto> GetProductosCarritoCanje(int[] productos);
     }
 }

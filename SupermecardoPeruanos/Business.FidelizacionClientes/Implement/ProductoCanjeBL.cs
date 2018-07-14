@@ -26,7 +26,19 @@ namespace Business.FidelizacionClientes.Implement
         {
             return productoCanjeDA.Get(id);
         }
-
+        public List<Producto> GetProductosCarritoCanje(int[] productos)
+        {
+            var listaProductos= productoCanjeDA.GetProductosCarritoCanje(productos);
+            if (listaProductos.Any())
+            {
+                var productoAgrupados = productos.GroupBy(x => x).Select(x => new { IdProducto = x.Key, Cantidad = x.Count() });
+                foreach (var producto in listaProductos)
+                {
+                    producto.Cantidad = productoAgrupados.Where(x => x.IdProducto == producto.Id).Select(x => x.Cantidad).FirstOrDefault();
+                }
+            }            
+            return listaProductos;
+        }
         public List<Producto> GetProductosCanje(int? tipoId, int? categoriaId)
         {
             var productos = productoCanjeDA.GetProductosCanje();
@@ -48,5 +60,13 @@ namespace Business.FidelizacionClientes.Implement
         {
             productoCanjeDA.Update(producto);
         }
+        public List<Producto> ListaProducto()
+        {
+            List<Producto> listProducto = new List<Producto>();
+            ProductoCanjeDA productoCanjeDA = new ProductoCanjeDA();
+            listProducto = productoCanjeDA.GetProductosCanje();
+            return listProducto;
+        }
+
     }
 }
