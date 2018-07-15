@@ -94,10 +94,10 @@
                         _setSeccionDeudas(data.Infocorp);
                         _setSeccionEvaluacion(data.Afiliacion);
 
-                        if (data.Estado === "DESAPROBADO") {
+                        if (data.Estado === "DESAPROBADO".toLowerCase()) {
                             alertify.alert("Estado de Solicitud","La solicitud ya ha sido Desaprobada");
                             document.getElementById('btnEvEstado de Solicitudaluar').disabled = true;
-                        } else if (data.Estado === "APROBADO") {
+                        } else if (data.Estado.toLowerCase() === "APROBADO".toLowerCase()) {
                             alertify.alert("Estado de Solicitud", "La solicitud ya ha sido Aprobada");
                             $("#lblNombres").text(data.Cliente.Nombre);
                             $("#lblApellidos").text(data.Cliente.ApellidoPaterno + ' ' + data.Cliente.ApellidoMaterno);
